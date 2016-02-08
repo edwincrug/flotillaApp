@@ -1,0 +1,1 @@
+var mainUrl=global_settings.urlCORS+"/api/mainapi/";registrationModule.factory("mainRepository",function(i){return{get:function(){return i.get(mainUrl)}}});

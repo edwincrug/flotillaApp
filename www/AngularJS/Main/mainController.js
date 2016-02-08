@@ -1,3 +1,11 @@
+// -- =============================================
+// -- Author:      Edwin Cruz García
+// -- Create date: 08/02/2016
+// -- Description: Controlador principal de aplicación Móvil Flotillas
+// -- Modificó: 
+// -- Fecha: 
+// -- =============================================
+
 registrationModule.controller("mainController", function ($scope, $rootScope, mainRepository) {
 
     //Propiedades
