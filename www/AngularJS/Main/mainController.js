@@ -6,7 +6,7 @@
 // -- Fecha: 
 // -- =============================================
 
-registrationModule.controller("mainController", function ($scope, $rootScope, mainRepository) {
+registrationModule.controller("mainController", ['$scope' , function ($scope, $rootScope, mainRepository) {
 
     //Propiedades
     $scope.var = 'Hello App';
@@ -22,4 +22,4 @@ registrationModule.controller("mainController", function ($scope, $rootScope, ma
     };
 
 
-});
+}]);
