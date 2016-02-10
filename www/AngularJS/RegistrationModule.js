@@ -1,12 +1,15 @@
-var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAnimate', 'mobiscroll-datetime'])
-.config(function ($routeProvider, $locationProvider, $provide) {
+var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAnimate','mobiscroll-datetime'])
+.config(function ($routeProvider, $provide) {
 
     $routeProvider.when('/', {
-        templateUrl: '/AngularJS/Templates/Main.html',
+        templateUrl: 'AngularJS/Templates/Main.html',
         controller: 'mainController'
     });
 
-    $locationProvider.html5Mode(true);
+    $routeProvider.when('/pag1', {
+        templateUrl: 'AngularJS/Templates/pag1.html',
+        controller: 'mainController'
+    });
 
     var settings = {
         theme: 'ios',      // Specify theme like: theme: 'ios' or omit setting to use default
@@ -20,13 +23,5 @@ var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAni
             $delegate[settings[i]] = $scope[settings[i]];    
         }
         return $delegate;
-    }]);    
+    }]);
 });
-
-
-registrationModule.run(function ($rootScope) {
-    $rootScope.empleado = "";
-    $rootScope.cliente = "";
-})
-
-

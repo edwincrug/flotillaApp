@@ -8,7 +8,10 @@
     },
     "installed_plugins": {
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "org.FlotillasApp.project"
+            "PACKAGE_NAME": "com.flotillasApp.org"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.flotillasApp.org"
         }
     },
     "dependent_plugins": {}

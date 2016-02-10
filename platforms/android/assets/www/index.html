@@ -1,5 +1,14 @@
+<!-- 
+-- =============================================
+-- Author:      Edwin Cruz García
+-- Create date: 08/02/2016
+-- Description: índice de aplicación móvil
+-- Modificó: 
+-- Fecha: 
+-- =============================================
+ -->
 <!DOCTYPE html>
-<html>
+<html ng-app="registrationModule">
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
@@ -7,17 +16,37 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+        
+        <!-- Incluir scripts del template de Angular y JQuery -->
+        <!-- jQuery Include | MAKE SURE TO INCLUDE BEFORE ANGULAR -->
+        <script src="js/jquery-2.2.0.min.js"></script>
+
+         <!-- Incluir hojas de estilos CSS -->
+        <!-- Mobiscroll JS and CSS Includes -->
+        <link href="css/mobiscroll.custom-2.17.1.min.css" rel="stylesheet" type="text/css" />
+
+        <title>Flotillas application</title>
     </head>
-    <body>
-        <div>
-            <h1>Hello world!</h1>
+    <body >
+        <div ng-view>
+
         </div>
-        <script type="text/javascript" src="js/cordova.js"></script>
-        <script type="text/javascript" src="js/angular.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            //app.initialize();
-        </script>
+        <!--<script src="js/angular.min.js"></script>
+        <script src="js/angular-route.min.js"></script>-->
+        <script src="js/angular-1.5.0/angular.min.js"></script>
+        <script src="js/angular-1.5.0/angular-animate.min.js"></script>
+        <script src="js/angular-1.5.0/angular-route.min.js"></script>
+        <script src="js/index.js"></script>
+        <!--<script src="js/cordova.js"></script>-->
+
+        <!-- Incluir scripts del template de mobiscroll -->
+        <script src="js/mobiscroll.custom-2.17.1.min.js"></script>
+
+        <!--Librerias de aplicación angular-->
+        <script src="AngularJS/RegistrationModule.js"></script>
+
+        <!--Controllers-->
+        <script src="AngularJS/Main/mainRepository.js"></script>
+        <script src="AngularJS/Main/mainController.js"></script>
     </body>
 </html>

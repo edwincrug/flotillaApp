@@ -1,1 +1,0 @@
-registrationModule.controller("mainController",["$scope",function(r,o,n){r["var"]="Hello App";var t=function(r,o,n,t){alertFactory.error("Ocurrio un problema")};r.init=function(){}}]);
