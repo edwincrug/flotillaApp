@@ -11,4 +11,8 @@ registrationModule.controller('mainController', ['$scope' ,function($scope, $rou
     $scope.init = function () {
 
     };
+
+    $scope.irBusqueda = function(){
+    	location.href = '#/busqueda';
+    }
 }]);

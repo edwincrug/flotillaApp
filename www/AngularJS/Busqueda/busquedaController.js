@@ -5,7 +5,7 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-registrationModule.controller("busquedaController", function ($scope, $rootScope, busquedaRepository) {
+registrationModule.controller("busquedaController", function($scope, $route, $rootScope, busquedaRepository) {
 
     //Propiedades
 
@@ -37,5 +37,5 @@ registrationModule.controller("busquedaController", function ($scope, $rootScope
 
     $scope.seleccionar = function(){
         alertFactory.info('La unidad se asignará a su usuario y no se podra deshacer');
-    } 
+    }
 });

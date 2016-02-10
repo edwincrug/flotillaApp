@@ -1,4 +1,4 @@
-var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAnimate','mobiscroll-datetime'])
+var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAnimate','mobiscroll-datetime','mobiscroll-form'])
 .config(function ($routeProvider, $provide) {
 
     $routeProvider.when('/', {
