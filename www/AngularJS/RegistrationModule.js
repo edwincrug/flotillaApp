@@ -11,6 +11,11 @@ var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAni
         controller: 'mainController'
     });
 
+    $routeProvider.when('/busqueda', {
+        templateUrl: 'AngularJS/Templates/Busqueda.html',
+        controller: 'busquedaController'
+    });
+
     var settings = {
         theme: 'ios',      // Specify theme like: theme: 'ios' or omit setting to use default
         lang: 'es',    // Specify language like: lang: 'pl' or omit setting to use default
