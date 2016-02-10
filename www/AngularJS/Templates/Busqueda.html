@@ -1,0 +1,34 @@
+<div ng-init="init()">
+    <div id="form" class="demo-wrapper">
+        <div mobiscroll-form="settings" style="display:none">   
+            <div class="mbsc-divider">Búsqueda de unidad</div>
+            <div>
+                <input ng-model="facturaVin" type="text" placeholder="Número de Factura o VIN" />
+            </div>
+            <button class="mbsc-btn-block" ng-click="busqueda(facturaVin)">Buscar</button>
+        </div>
+    </div>     
+    </div>
+    <div>
+    <div id="form" class="demo-wrapper">
+        <div mobiscroll-form="settings" style="display:none">
+            <div>
+                <label for="vin">VIN</label>
+                <input id="vin" type="text" placeholder="1FBAX2CM0FKA56032" />{{item.VIN}}
+            </div>
+            <div>
+                <label for="factura">Factura</label>
+                <input id="factura" type="text" placeholder="AA000013433"/>{{item.factura}}
+            </div>
+            <div>
+                <label for="desc">Descripción</label>
+                <input id="desc" type="text" placeholder="CAMIONETA FORD TRANSIT 350 WAGON GASOLINA A/A Motor 3.7"/>{{item.title}}
+            </div>
+            <div class="mbsc-btn-group">
+        <button data-icon="checkmark" ng-click="seleccionar()">Seleccionar</button>
+        </div>
+
+    </div>
+    </div>  
+    </div>
+</div>
