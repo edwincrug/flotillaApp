@@ -1,0 +1,32 @@
+<div ng-init="init()">
+	<div id="form" class="demo-wrapper">
+	    <div mobiscroll-form="settings" style="display:none">   
+	        <div class="mbsc-divider">Expediente</div>
+	        	<div id="form" class="demo-wrapper">
+			        <div mobiscroll-form="settings" style="display:none">
+			            <div>
+			                <label for="vin">VIN</label>
+			                <input id="vin" type="text" placeholder="1FBAX2CM0FKA56032" disabled/>{{item.VIN}}
+			            </div>
+			            <div>
+			                <label for="factura">Factura</label>
+			                <input id="factura" type="text" placeholder="AA000013433" disabled/>{{item.factura}}
+			            </div>
+			            <div>
+			                <label for="desc">Descripción</label>
+			                <input id="desc" type="text" placeholder="CAMIONETA FORD TRANSIT 350 WAGON GASOLINA A/A Motor 3.7" disabled/>{{item.title}}
+			            </div>
+			            <div class="mbsc-btn-group">
+			        </div>
+		    	</div>
+	    	</div>
+	    </div>
+	    <div ng-controller="expedienteController">
+			<ul mobiscroll-listview="settings" class="md-movies" mobiscroll-data="data" style="display:none">
+		    	<li ng-click="Alerta()" data-id="{{item.id}}"> <img ng-src="{{item.img}}" />{{item.title}}        
+		    	<div class="md-thumbs">{{item.status}}</div>
+		    	</li>
+			</ul>
+		</div>
+	</div>   
+</div>
