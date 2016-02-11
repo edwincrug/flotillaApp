@@ -2,6 +2,11 @@ var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAni
 .config(function ($routeProvider, $provide) {
 
     $routeProvider.when('/', {
+        templateUrl: 'AngularJS/Templates/Login.html',
+        controller: 'loginController'
+    });
+
+    $routeProvider.when('/main', {
         templateUrl: 'AngularJS/Templates/Main.html',
         controller: 'mainController'
     });

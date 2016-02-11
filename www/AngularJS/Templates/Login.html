@@ -1,0 +1,29 @@
+<div ng-init="init()">
+    <!-- Text Fields START -->
+    <div>
+            <div class="mbsc-divider">Login</div>
+
+            <div>
+                <label>Usuario
+                    <input type="text" placeholder="Usuario" data-icon="user" ng-model="usuario" />
+                </label>
+            </div>
+
+            <label>
+                Password
+                <input type="password" placeholder="password" data-icon="lock2" ng-model="password" />
+            </label>
+
+            <button ng-click="iniciarSesion(usuario, password)">Ingresar</button>
+
+            <div class="mbsc-padding">
+                <a href="#/registro" class="md-link" data-isLogin="true">¿Aún no tiene cuenta?</a>
+            </div>
+
+            <!-- Text Fields END -->
+
+    </div>
+    <!--<div id="demo_cont_formsTextfields" class="demo-wrapper" ng-controller="loginController">
+       
+    </div>-->
+<div>
