@@ -5,7 +5,7 @@
 
             <div>
                 <label>Usuario
-                    <input type="text" placeholder="Usuario" data-icon="user" ng-model="usuario" />
+                    <input type="email" placeholder="Usuario" data-icon="user" ng-model="usuario" />
                 </label>
             </div>
 
@@ -17,7 +17,7 @@
             <button ng-click="iniciarSesion(usuario, password)">Ingresar</button>
 
             <div class="mbsc-padding">
-                <a href="#/registro" class="md-link" data-isLogin="true">¿Aún no tiene cuenta?</a>
+                <a href="" class="md-link" data-isLogin="true" ng-click="irRegistro()">¿Aún no tiene cuenta?</a>
             </div>
 
             <!-- Text Fields END -->

@@ -4,12 +4,23 @@ registrationModule.controller("loginController", function ($scope, $route, $root
         loginRepository.login(usuario, password)
           .then(function successCallback(response) {
                 $rootScope.data = response;
-                alertFactory.success("si funciona");
+                if($rootScope.data.data == null){
+                  $scope.usuario = "";
+                  $scope.password = "";
+                  alert("El nombre de usuario o contraseña son incorrectos, verifique");
+                }
+                else{
+                  location.href = '#/busqueda';
+                }
                 //alertFactory.success('Datos de flotillas cargados.');
           }, function errorCallback(response) {            
-                alert("no funciona");
+                alert("Ocurrio un problema, inténtelo más tarde");
                 //alertFactory.info('No se encuentran datos con los criterios de búsqueda');
           });
     };
+
+    $scope.irRegistro = function(){
+      location.href = '#/registro';
+    }
 
 });
