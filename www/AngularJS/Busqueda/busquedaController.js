@@ -5,7 +5,7 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-registrationModule.controller("busquedaController", function($scope, $route, $rootScope, busquedaRepository) {
+registrationModule.controller("busquedaController", ['$scope', function($scope, $route, $rootScope, busquedaRepository) {
 
     //Propiedades
 
@@ -88,4 +88,4 @@ registrationModule.controller("busquedaController", function($scope, $route, $ro
             listviewInst = $('#contacts').mobiscroll('getInst');
         }
     };
-});
+}]);

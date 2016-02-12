@@ -26,10 +26,10 @@ registrationModule.controller('mainController', ['$scope' ,function($scope, $rou
                 location.href = '#/busqueda';
                 break;
             case 2:
-                location.href = '#/historialSincronizacion';
+                location.href = '#/consulta';
                 break;
             case 3:
-                location.href = '#/consulta';
+                location.href = '#/historialSincronizacion';
                 break;
             case 4:
                 location.href = '#/cuenta';

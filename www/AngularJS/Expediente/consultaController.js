@@ -10,13 +10,13 @@ registrationModule.controller('consultaController', ['$scope', function ($scope)
             estatus: 'Cargado',
             descripcion : 'CAMIONETA FORD TRANSIT 350 WAGON GASOLINA A/A Motor 3.7',
             estatusFrente: 'Cargado',
-            imageFrente: '../images/auto_delantera.jpg',
+            imageFrente: 'images/auto_delantera.png',
             estatusDerecha:'Sin Documento',
-            imageDerecha: '../images/auto_derecha.jpg',
+            imageDerecha: 'images/auto_derecha.jpg',
             estatusTrasera: 'Pendiente',
-            imageTrasera: '../images/auto_trasera.jpg',
+            imageTrasera: 'images/auto_trasera.jpg',
             estatusIzquierda: 'Cargado',
-            imageIzquierda:'../images/auto_izquierda.jpg'
+            imageIzquierda:'images/auto_izquierda.jpg'
 
         },
         {
@@ -28,13 +28,13 @@ registrationModule.controller('consultaController', ['$scope', function ($scope)
             estatus: 'Sin Documento',
             descripcion: 'CAMION FORD F-150 XL SUPERCREW 4X2 3.5L V6 TA Motor V6',
             estatusFrente: 'Sin Documento',
-            imageFrente: '../images/auto_delantera.jpg',
+            imageFrente: 'images/auto_delantera.jpg',
             estatusDerecha:'Pendiente',
-            imageDerecha: '../images/auto_derecha.jpg',
+            imageDerecha: 'images/auto_derecha.jpg',
             estatusTrasera: 'Cargado',
-            imageTrasera: '../images/auto_trasera.jpg',
+            imageTrasera: 'images/auto_trasera.jpg',
             estatusIzquierda: 'Sin Documento',
-            imageIzquierda:'../images/auto_izquierda.jpg'
+            imageIzquierda:'images/auto_izquierda.jpg'
         },
         {
             id: 3,
@@ -45,13 +45,13 @@ registrationModule.controller('consultaController', ['$scope', function ($scope)
             estatus: 'Pendiente',
             descripcion: 'CAMION FORD F-150 XL CREWCAB 4X4 5.0L V8 Motor V8',
             estatusFrente: 'Pendiente',
-            imageFrente: '../images/auto_delantera.jpg',
+            imageFrente: 'images/auto_delantera.jpg',
             estatusDerecha:'Cargado',
-            imageDerecha: '../images/auto_derecha.jpg',
+            imageDerecha: 'images/auto_derecha.jpg',
             estatusTrasera: 'Cargado',
-            imageTrasera: '../images/auto_trasera.jpg',
+            imageTrasera: 'images/auto_trasera.jpg',
             estatusIzquierda: 'Sin Documento',
-            imageIzquierda:'../images/auto_izquierda.jpg'
+            imageIzquierda:'images/auto_izquierda.jpg'
         }
         /*{   type: 'picture', icon: 'image2', name: 'Image1' },
         {   type: 'picture', icon: 'image2', name: 'Image2' },
