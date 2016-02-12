@@ -15,6 +15,10 @@
                         {
                             "xml": "<feature name=\"Geolocation\"><param name=\"android-package\" value=\"org.apache.cordova.geolocation.Geolocation\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SQLitePlugin\"><param name=\"android-package\" value=\"io.sqlc.SQLitePlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -41,6 +45,9 @@
         },
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.flotillasApp.org"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "com.flotillasApp.org"
         }
     },
     "dependent_plugins": {},
@@ -64,10 +71,19 @@
             "id": "cordova-plugin-geolocation.PositionError",
             "pluginId": "cordova-plugin-geolocation",
             "runs": true
+        },
+        {
+            "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+            "id": "cordova-sqlite-storage.SQLitePlugin",
+            "pluginId": "cordova-sqlite-storage",
+            "clobbers": [
+                "SQLitePlugin"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-whitelist": "1.2.1",
-        "cordova-plugin-geolocation": "2.1.0"
+        "cordova-plugin-geolocation": "2.1.0",
+        "cordova-sqlite-storage": "0.8.2"
     }
 }

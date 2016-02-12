@@ -12,6 +12,9 @@
         },
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.flotillasApp.org"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "com.flotillasApp.org"
         }
     },
     "dependent_plugins": {}

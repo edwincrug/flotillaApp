@@ -10,8 +10,13 @@ var mainUrl = global_settings.urlCORS + '/api/mainapi/';
 
 registrationModule.factory('mainRepository', function ($http) {
     return {
-        get: function () {
-            return $http.get(mainUrl);
-        }
+	        login: function (usuario, password) {
+	            // return $http.put(loginUrl + '1|' + usuario + '|' + password);
+	            return $http({
+	                url: loginUrl,
+	                method: "POST",
+	                params: { id: '3|' + usuario + '|' + password }
+	            });
+	        }
     };
 });

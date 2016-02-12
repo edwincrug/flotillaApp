@@ -1,7 +1,26 @@
-var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAnimate','mobiscroll-datetime'])
+var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAnimate','mobiscroll-datetime','mobiscroll-form','mobiscroll-listview',
+    'mobiscroll-calendar',
+    'mobiscroll-select',
+    'mobiscroll-menustrip',
+    'mobiscroll-select'])
 .config(function ($routeProvider, $provide) {
 
     $routeProvider.when('/', {
+        templateUrl: 'AngularJS/Templates/Login.html',
+        controller: 'loginController'
+    });
+
+    $routeProvider.when('/registro', {
+        templateUrl: 'AngularJS/Templates/Registro.html',
+        controller: 'loginController'
+    });
+
+    $routeProvider.when('/consulta', {
+        templateUrl: 'AngularJS/Templates/ConsultaExpediente.html',
+        controller: 'consultaController'
+    });
+
+    $routeProvider.when('/main', {
         templateUrl: 'AngularJS/Templates/Main.html',
         controller: 'mainController'
     });
@@ -9,6 +28,21 @@ var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAni
     $routeProvider.when('/pag1', {
         templateUrl: 'AngularJS/Templates/pag1.html',
         controller: 'mainController'
+    });
+
+    $routeProvider.when('/busqueda', {
+        templateUrl: 'AngularJS/Templates/Busqueda.html',
+        controller: 'busquedaController'
+    });
+
+    $routeProvider.when('/expediente', {
+        templateUrl: 'AngularJS/Templates/Expediente.html',
+        controller: 'expedienteController'
+    });
+
+    $routeProvider.when('/historialSincronizacion', {
+        templateUrl: 'AngularJS/Templates/HistorialSincronizacion.html',
+        controller: 'busquedaController'
     });
 
     var settings = {
@@ -24,9 +58,4 @@ var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAni
         }
         return $delegate;
     }]);
-
-    /*$locationProvider.html5Mode({
-	  enabled: true,
-	  requireBase: false
-	});*/
 });
