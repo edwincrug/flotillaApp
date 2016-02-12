@@ -1,7 +1,8 @@
 var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAnimate','mobiscroll-datetime','mobiscroll-form','mobiscroll-listview',
     'mobiscroll-calendar',
     'mobiscroll-select',
-    'mobiscroll-menustrip'])
+    'mobiscroll-menustrip',
+    'mobiscroll-select'])
 .config(function ($routeProvider, $provide) {
 
     $routeProvider.when('/', {

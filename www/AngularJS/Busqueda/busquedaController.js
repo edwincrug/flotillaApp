@@ -11,6 +11,7 @@ registrationModule.controller("busquedaController", function($scope, $route, $ro
 
     //Grupo de funciones de inicio
     $scope.init = function () {
+        //localStorageService.set('location', window.location);
     };
 
     $scope.settings = {
@@ -29,13 +30,62 @@ registrationModule.controller("busquedaController", function($scope, $route, $ro
           });
     };
 
-    var ids = 1;
-
-    $scope.data = [
-        { id: 1, title: 'CAMIONETA FORD TRANSIT 350 WAGON GASOLINA A/A Motor 3.7', VIN: '1FBAX2CM0FKA56032' , factura: 'AA000013433'}
-    ];  
-
     $scope.seleccionar = function(){
-        alertFactory.info('La unidad se asignará a su usuario y no se podra deshacer');
+        alert('La unidad se asignará a su usuario y no se podra deshacer');
+        location.href = '#/expediente';
     }
+
+    var hasStorage = typeof (Storage) !== 'undefined',
+        message = $('#message'),
+        messageTimer,
+        listviewInst,
+        contacts;
+
+    contacts = [
+        {
+            id: 1,
+            factura: 'AA000013433',
+            vin: '1FBAX2CM0FKA56032',
+            descripcion: 'CAMIONETA FORD TRANSIT 350 WAGON GASOLINA A/A Motor 3.7'
+        }
+    ];
+
+    contacts = localStorage.contacts ? JSON.parse(localStorage.contacts) : contacts;
+
+    $scope.contacts = contacts;
+
+    $scope.contactSettings = {
+        theme: $scope.theme,
+        swipe: false,
+        iconSlide: true,
+        onThemeLoad: $scope.addFilter,
+        context: $scope.context2,
+        enhance: true,
+        itemGroups: {
+            contact: {
+                swipe: true,
+                stages: [
+                    { percent: -30, color: '#e64d4f', icon: 'foundation-mail', text: 'EMAIL', action: $scope.mail },
+                    { percent: 30, color: '#4ca94e', icon: 'phone', text: 'CALL', action: $scope.call }
+                ]
+            },
+            phone: {
+                tap: $scope.call
+            },
+            email: {
+                tap: $scope.mail
+            },
+            address: {
+                tap: $scope.navigate
+            },
+            filter: {
+                tap: $scope.showCategoryFilter
+            },
+            newAppointment: {}
+        },
+        onInit: function () {
+            $('.contact-hdr').removeClass('mbsc-lv-parent');
+            listviewInst = $('#contacts').mobiscroll('getInst');
+        }
+    };
 });

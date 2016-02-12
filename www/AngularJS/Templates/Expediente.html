@@ -1,25 +1,16 @@
 <div ng-init="init()">
-	<div id="form" class="demo-wrapper">
+<div class="md-tab-acc md-tab md-tab-sel">
+    <div id="form" class="demo-wrapper">
 	    <div mobiscroll-form="settings" style="display:none">   
 	        <div class="mbsc-divider">Expediente</div>
-	        	<div id="form" class="demo-wrapper">
-			        <div mobiscroll-form="settings" style="display:none">
-			            <div>
-			                <label for="vin">VIN</label>
-			                <input id="vin" type="text" placeholder="1FBAX2CM0FKA56032" disabled/>{{item.VIN}}
-			            </div>
-			            <div>
-			                <label for="factura">Factura</label>
-			                <input id="factura" type="text" placeholder="AA000013433" disabled/>{{item.factura}}
-			            </div>
-			            <div>
-			                <label for="desc">Descripción</label>
-			                <input id="desc" type="text" placeholder="CAMIONETA FORD TRANSIT 350 WAGON GASOLINA A/A Motor 3.7" disabled/>{{item.title}}
-			            </div>
-			            <div class="mbsc-btn-group">
-			        </div>
-		    	</div>
-	    	</div>
+		        <ul id="contacts" style="display:none;" mobiscroll-listview="contactSettings" mobiscroll-data="contacts">
+		            <li data-role="list-divider">Factura</li>
+		            <li>{{item.factura}}</li>
+		            <li data-role="list-divider">VIN</li>
+		            <li>{{item.vin}}</li>
+		            <li data-role="list-divider">Descripción</li>
+		            <li>{{item.descripcion}}</li>
+		        </ul>
 	    </div>
 	    <div ng-controller="expedienteController">
 			<ul mobiscroll-listview="settings" class="md-movies" mobiscroll-data="data" style="display:none">
@@ -28,5 +19,8 @@
 		    	</li>
 			</ul>
 		</div>
-	</div>   
+	</div>
+</div>
+</div>
+	   
 </div>

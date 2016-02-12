@@ -6,29 +6,21 @@
                 <input ng-model="facturaVin" type="text" placeholder="Número de Factura o VIN" />
             </div>
             <button class="mbsc-btn-block" ng-click="busqueda(facturaVin)">Buscar</button>
-        </div>
-    </div>     
-    </div>
-    <div>
-    <div id="form" class="demo-wrapper">
-        <div mobiscroll-form="settings" style="display:none">
-            <div>
-                <label for="vin">VIN</label>
-                <input id="vin" type="text" placeholder="1FBAX2CM0FKA56032" disabled/>{{item.VIN}}
+            <div mbsc-enhance>
+                <ul id="contacts" style="display:none;" mobiscroll-listview="contactSettings" mobiscroll-data="contacts">
+                    <li data-role="list-divider">Factura</li>
+                    <li>{{item.factura}}</li>
+                    <li data-role="list-divider">VIN</li>
+                    <li>{{item.vin}}</li>
+                    <li data-role="list-divider">Descripción</li>
+                    <li>{{item.descripcion}}</li>
+                </ul>
             </div>
-            <div>
-                <label for="factura">Factura</label>
-                <input id="factura" type="text" placeholder="AA000013433" disabled/>{{item.factura}}
-            </div>
-            <div>
-                <label for="desc">Descripción</label>
-                <input id="desc" type="text" placeholder="CAMIONETA FORD TRANSIT 350 WAGON GASOLINA A/A Motor 3.7" disabled/>{{item.title}}
-            </div>
-            <div class="mbsc-btn-group">
+    <div class="mbsc-btn-group">
         <button data-icon="checkmark" ng-click="seleccionar()">Seleccionar</button>
+    </div>
         </div>
 
-    </div>
-    </div>  
-    </div>
+    </div>     
+    </div> 
 </div>
