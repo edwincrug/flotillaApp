@@ -13,9 +13,6 @@
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.flotillasApp.org"
         },
-        "cordova-sqlite-storage": {
-            "PACKAGE_NAME": "com.flotillasApp.org"
-        },
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.flotillasApp.org"
         },
@@ -23,6 +20,9 @@
             "PACKAGE_NAME": "com.flotillasApp.org"
         },
         "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.flotillasApp.org"
+        },
+        "cordova-sqlite-storage": {
             "PACKAGE_NAME": "com.flotillasApp.org"
         },
         "cordova-plugin-network-information": {
