@@ -20,16 +20,6 @@ var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAni
         controller: 'consultaController'
     });
 
-    $routeProvider.when('/main', {
-        templateUrl: 'AngularJS/Templates/Main.html',
-        controller: 'mainController'
-    });
-
-    $routeProvider.when('/pag1', {
-        templateUrl: 'AngularJS/Templates/pag1.html',
-        controller: 'mainController'
-    });
-
     $routeProvider.when('/busqueda', {
         templateUrl: 'AngularJS/Templates/Busqueda.html',
         controller: 'busquedaController'

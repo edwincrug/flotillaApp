@@ -1,4 +1,9 @@
 registrationModule.controller("loginController", function ($scope, $route, $rootScope, loginRepository, alertFactory) {
+ 
+    //Grupo de funciones de inicio
+    $scope.init = function () {
+      $rootScope.logged = false;
+    };
 
     $scope.iniciarSesion = function(usuario, password){
         loginRepository.login(usuario, password)
@@ -22,5 +27,4 @@ registrationModule.controller("loginController", function ($scope, $route, $root
     $scope.irRegistro = function(){
       location.href = '#/registro';
     }
-
 });

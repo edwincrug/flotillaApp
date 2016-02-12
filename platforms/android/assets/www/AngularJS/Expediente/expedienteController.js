@@ -11,6 +11,7 @@ registrationModule.controller("expedienteController", function($scope, $route, $
 
     //Grupo de funciones de inicio
     $scope.init = function () {
+        $rootScope.logged = true;
     };
 
     $scope.data = [

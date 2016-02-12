@@ -18,14 +18,19 @@ registrationModule.controller("busquedaController", function($scope, $route, $ro
 
     //Botón obtener la flotilla dependiendo de la factura o vin
     $scope.busqueda = function(facturaVin){
-         $scope.valor = true;
-        busquedaRepository.getFlotilla(facturaVin)
+        /*busquedaRepository.getFlotilla(facturaVin)
           .then(function successCallback(response) {
                 $rootScope.data = response;
                 alertFactory.success('Datos de flotillas cargados.');
           }, function errorCallback(response) {            
                 alertFactory.info('No se encuentran datos con los criterios de búsqueda');
-          });
+          });*/
+          if(facturaVin == 'AA000013433' || facturaVin == '1FBAX2CM0FKA56032'){
+            $scope.valor = true;
+          } else{
+            $scope.valor = false;
+            alert('Registro no encontrado');
+          }
     };
 
     $scope.seleccionar = function(){
@@ -86,4 +91,5 @@ registrationModule.controller("busquedaController", function($scope, $route, $ro
             listviewInst = $('#contacts').mobiscroll('getInst');
         }
     };
+
 });

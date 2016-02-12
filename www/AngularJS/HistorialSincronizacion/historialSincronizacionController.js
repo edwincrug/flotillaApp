@@ -5,7 +5,7 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-registrationModule.controller('historialSincronizacionController', function($scope, $route, $rootScope, historialSincronizacionFactory){
+registrationModule.controller('historialSincronizacionController', function($scope, $route, $rootScope){
 
 	//Grupo de funciones de inicio
     $scope.init = function () {
