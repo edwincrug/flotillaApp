@@ -7,9 +7,9 @@
 // -- =============================================
 //var historialSincronizacionUrl = global_settings.urlCORS + '/api/usuarioapi/';
 
-registrationModule.factory('historialSincronizacionFactory', function($http){
+/*registrationModule.factory('historialSincronizacionFactory', function($http){
 
-	/*return{
+	return{
 		getHistorialSincronizacion: function(){
 			return $http({
 				url: historialSincronizacionUrl,
@@ -17,5 +17,5 @@ registrationModule.factory('historialSincronizacionFactory', function($http){
 				params: {id: '1|'}			
 			});
 		};
-	};*/
-});
+	};
+});*/
