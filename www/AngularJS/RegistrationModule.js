@@ -1,4 +1,7 @@
-var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAnimate','mobiscroll-datetime','mobiscroll-form','mobiscroll-listview'])
+var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAnimate','mobiscroll-datetime','mobiscroll-form','mobiscroll-listview',
+    'mobiscroll-calendar',
+    'mobiscroll-select',
+    'mobiscroll-menustrip'])
 .config(function ($routeProvider, $provide) {
 
     $routeProvider.when('/', {
@@ -9,6 +12,11 @@ var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAni
     $routeProvider.when('/registro', {
         templateUrl: 'AngularJS/Templates/Registro.html',
         controller: 'loginController'
+    });
+
+    $routeProvider.when('/consulta', {
+        templateUrl: 'AngularJS/Templates/ConsultaExpediente.html',
+        controller: 'consultaController'
     });
 
     $routeProvider.when('/main', {

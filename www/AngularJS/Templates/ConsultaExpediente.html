@@ -1,0 +1,37 @@
+<div ng-init="init()">
+    <div id="demo_cont_listviewUpdate" class="demo-wrapper" ng-controller="consultaController">
+        <div mobiscroll-form="settings">
+            <div class="mbsc-divider">Consulta Mis Expedientes</div>
+            <ul mobiscroll-listview="settings" mobiscroll-data="data">
+                <li data-type="{{item.type}}" data-icon="{{item.icon}}">{{item.name}}
+
+                    <ul class="contact-detail">
+
+                        <li data-role="list-divider">Vin</li>
+                        <li>{{item.name}}</li>
+                        <li data-role="list-divider">Factura</li>
+                        <li>{{item.factura}}</li>
+                        <li data-role="list-divider">Descripción</li>
+                        <li>{{item.descripcion}}</li>
+                        <li data-role="list-divider">Propiedades</li>
+                        </br>
+                        <li>Foto Delantera: {{item.estatusFrente}}
+                            <img ng-src="{{item.imageFrente}}" class="contact-icon" />
+                        <li>
+                        <li>Foto Trasera: {{item.estatusTrasera}}
+                            <img ng-src="{{item.imageTrasera}}" class="contact-icon" />
+                        <li>
+                        <li>Foto Derecha: {{item.estatusDerecha}}
+                            <img ng-src="{{item.imageDerecha}}" class="contact-icon" />
+                        <li>
+                        <li>Foto Izquierda: {{item.estatusIzquierda}}
+                            <img ng-src="{{item.imageIzquierda}}" class="contact-icon" />
+                        <li>
+                    </ul>
+
+                    </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
