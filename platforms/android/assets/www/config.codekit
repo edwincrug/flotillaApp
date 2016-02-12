@@ -35,6 +35,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/AngularJS\/Expediente\/consultaController.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Expediente\/consultaController.js",
+		"outputAbbreviatedPath": "\/AngularJS\/Expediente\/min\/consultaController-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/AngularJS\/Expediente\/expedienteController.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -52,6 +63,28 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/AngularJS\/Expediente\/expedienteRepository.js",
 		"outputAbbreviatedPath": "\/AngularJS\/Expediente\/min\/expedienteRepository-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/AngularJS\/HistorialSincronizacion\/historialSincronizacionController.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/HistorialSincronizacion\/historialSincronizacionController.js",
+		"outputAbbreviatedPath": "\/AngularJS\/HistorialSincronizacion\/min\/historialSincronizacionController-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/AngularJS\/HistorialSincronizacion\/historialSincronizacionRepository.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/HistorialSincronizacion\/historialSincronizacionRepository.js",
+		"outputAbbreviatedPath": "\/AngularJS\/HistorialSincronizacion\/min\/historialSincronizacionRepository-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -121,11 +154,29 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/AngularJS\/Templates\/ConsultaExpediente.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Templates\/ConsultaExpediente.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/AngularJS\/Templates\/Expediente.html": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/AngularJS\/Templates\/Expediente.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/AngularJS\/Templates\/HistorialSincronizacion.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Templates\/HistorialSincronizacion.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -195,6 +246,61 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/images\/auto_delantera.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 9576,
+		"inputAbbreviatedPath": "\/images\/auto_delantera.jpg",
+		"outputAbbreviatedPath": "\/images\/auto_delantera.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/images\/auto_delantera.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 5351,
+		"inputAbbreviatedPath": "\/images\/auto_delantera.png",
+		"outputAbbreviatedPath": "\/images\/auto_delantera.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/images\/auto_derecha.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 10191,
+		"inputAbbreviatedPath": "\/images\/auto_derecha.jpg",
+		"outputAbbreviatedPath": "\/images\/auto_derecha.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/images\/auto_izquierda.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 10213,
+		"inputAbbreviatedPath": "\/images\/auto_izquierda.jpg",
+		"outputAbbreviatedPath": "\/images\/auto_izquierda.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/images\/auto_trasera.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 9282,
+		"inputAbbreviatedPath": "\/images\/auto_trasera.jpg",
+		"outputAbbreviatedPath": "\/images\/auto_trasera.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/images\/BMW_logo.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -202,6 +308,17 @@
 		"initialSize": 5730,
 		"inputAbbreviatedPath": "\/images\/BMW_logo.png",
 		"outputAbbreviatedPath": "\/images\/BMW_logo.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/images\/clould-upload.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2506,
+		"inputAbbreviatedPath": "\/images\/clould-upload.png",
+		"outputAbbreviatedPath": "\/images\/clould-upload.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0

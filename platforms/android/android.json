@@ -35,6 +35,10 @@
                         {
                             "xml": "<feature name=\"NetworkStatus\"><param name=\"android-package\" value=\"org.apache.cordova.networkinformation.NetworkManager\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -83,6 +87,9 @@
             "PACKAGE_NAME": "com.flotillasApp.org"
         },
         "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.flotillasApp.org"
+        },
+        "cordova-plugin-device": {
             "PACKAGE_NAME": "com.flotillasApp.org"
         }
     },
@@ -353,6 +360,14 @@
             "clobbers": [
                 "Connection"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "id": "cordova-plugin-device.device",
+            "pluginId": "cordova-plugin-device",
+            "clobbers": [
+                "device"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -362,6 +377,7 @@
         "cordova-plugin-camera": "2.1.0",
         "cordova-plugin-file": "4.1.1",
         "cordova-plugin-file-transfer": "1.5.0",
-        "cordova-plugin-network-information": "1.2.0"
+        "cordova-plugin-network-information": "1.2.0",
+        "cordova-plugin-device": "1.1.1"
     }
 }

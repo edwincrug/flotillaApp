@@ -5,13 +5,11 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-registrationModule.controller("busquedaController", ['$scope', function($scope, $route, $rootScope, busquedaRepository) {
-
-    //Propiedades
-
+registrationModule.controller("busquedaController", function($scope, $route, $rootScope, busquedaRepository) {
     //Grupo de funciones de inicio
     $scope.init = function () {
         //localStorageService.set('location', window.location);
+        $rootScope.logged = true;
     };
 
     $scope.settings = {
@@ -88,4 +86,4 @@ registrationModule.controller("busquedaController", ['$scope', function($scope, 
             listviewInst = $('#contacts').mobiscroll('getInst');
         }
     };
-}]);
+});
