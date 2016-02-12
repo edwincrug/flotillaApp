@@ -1,6 +1,7 @@
+
 <div ng-init="init()">
     <!-- Text Fields START -->
-    <div>
+<!--     <div>
             <div class="mbsc-divider">Login</div>
 
             <div>
@@ -22,7 +23,35 @@
 
             <!-- Text Fields END -->
 
-    </div>
+
+
+    <div class="container">
+            <header>    
+                <h1>Registro de <strong>Unidades</strong></h1>
+                
+            </header>
+            <section id="imagen">
+                <center>
+                <img id="logo" src="images/logo/integra.png"></img>
+                </center>
+            </section>
+            <section class="main">
+                <form class="form-1">
+                    <p class="field">
+                        <input type="text" name="login" placeholder="Usuario del sistema" ng-model="usuario">
+                        <i class="icon-user icon-large"></i>
+                    </p>
+                        <p class="field">
+                            <input type="password" name="password" placeholder="Contraseña" ng-model="password">
+                            <i class="icon-lock icon-large"></i>
+                    </p>
+                    <p class="submit">
+                        <button type="button" ng-click="iniciarSesion(usuario, password)"><i class="icon-arrow-right icon-large"></i></button>
+                    </p>
+                </form>
+            </section>
+        </div>
+
     <!--<div id="demo_cont_formsTextfields" class="demo-wrapper" ng-controller="loginController">
        
     </div>-->
