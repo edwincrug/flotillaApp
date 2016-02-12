@@ -33,7 +33,7 @@ registrationModule.controller('mainController', function($scope, $route, $rootSc
 
     $scope.settings = {
         theme: 'ios',
-        display: 'inline',
+        display: 'top',
         type: 'options',
         select: 'single',
         onItemTap: function (item, inst) {
