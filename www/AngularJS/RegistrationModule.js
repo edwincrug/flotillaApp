@@ -35,6 +35,11 @@ var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAni
         controller: 'busquedaController'
     });
 
+    $routeProvider.when('/perfil', {
+        templateUrl: 'AngularJS/Templates/Perfil.html',
+        controller: 'perfilController'
+    });
+
     var settings = {
         theme: 'ios',      // Specify theme like: theme: 'ios' or omit setting to use default
         lang: 'es',    // Specify language like: lang: 'pl' or omit setting to use default
