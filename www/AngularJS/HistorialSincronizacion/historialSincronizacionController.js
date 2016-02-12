@@ -24,14 +24,14 @@ registrationModule.controller('historialSincronizacionController', function($sco
 
     //script para el funcionamiento del control GroupHeaders
     $scope.data = [
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 01/11/2015',numDoc:'#Documentos: 5'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 02/11/2015',numDoc:'#Documentos: 3'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 03/11/2015',numDoc:'#Documentos: 2'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 04/11/2015',numDoc:'#Documentos: 7'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 05/11/2015',numDoc:'#Documentos: 6'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 06/11/2015',numDoc:'#Documentos: 25'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 07/11/2015',numDoc:'#Documentos: 55'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 08/11/2015',numDoc:'#Documentos: 15'}
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 01/11/2015',numDoc:'#Unidades sincronizadas: 5'},
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 02/11/2015',numDoc:'#Unidades sincronizadas: 3'},
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 03/11/2015',numDoc:'#Unidades sincronizadas: 2'},
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 04/11/2015',numDoc:'#Unidades sincronizadas: 7'}
+        /*{ imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 05/11/2015',numDoc:'#Unidades sincronizadas: 6'},
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 06/11/2015',numDoc:'#Unidades sincronizadas: 25'},
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 07/11/2015',numDoc:'#Unidades sincronizadas: 55'},
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 08/11/2015',numDoc:'#Unidades sincronizadas: 15'}*/
     ];
 
     $scope.settings = {
