@@ -24,7 +24,7 @@ registrationModule.controller('mainController', function($scope, $route, $rootSc
                 location.href = '#/historialSincronizacion';
                 break;
             case 4:
-                location.href = '#/cuenta';
+                location.href = '#/perfil';
                 break;
             default:
                 break;
