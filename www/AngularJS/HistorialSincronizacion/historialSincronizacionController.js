@@ -24,14 +24,14 @@ registrationModule.controller('historialSincronizacionController', function($sco
 
     //script para el funcionamiento del control GroupHeaders
     $scope.data = [
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha Sincronización: 01/11/2015',vin:'Vin: 1FBAX2CM0FKA56032',numDoc:'#Documentos: 5'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha Sincronización: 02/11/2015',vin:'Vin: 1FBAX2CM0FKA61277',numDoc:'#Documentos: 3'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha Sincronización: 03/11/2015',vin:'Vin: 1FBAX2CM0FKA61280',numDoc:'#Documentos: 2'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha Sincronización: 04/11/2015',vin:'Vin: 1FBAX2CM0FKA63899',numDoc:'#Documentos: 7'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha Sincronización: 05/11/2015',vin:'Vin: 1FBAX2CM0FKA63904',numDoc:'#Documentos: 6'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha Sincronización: 06/11/2015',vin:'Vin: 1FBAX2CM0FKA63918',numDoc:'#Documentos: 25'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha Sincronización: 07/11/2015',vin:'Vin: 1FBAX2CM0FKA63921',numDoc:'#Documentos: 55'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha Sincronización: 08/11/2015',vin:'Vin: 1FBAX2CM0FKB14933',numDoc:'#Documentos: 15'}
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 01/11/2015',numDoc:'#Documentos: 5'},
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 02/11/2015',numDoc:'#Documentos: 3'},
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 03/11/2015',numDoc:'#Documentos: 2'},
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 04/11/2015',numDoc:'#Documentos: 7'},
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 05/11/2015',numDoc:'#Documentos: 6'},
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 06/11/2015',numDoc:'#Documentos: 25'},
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 07/11/2015',numDoc:'#Documentos: 55'},
+        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 08/11/2015',numDoc:'#Documentos: 15'}
     ];
 
     $scope.settings = {
