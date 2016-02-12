@@ -15,6 +15,18 @@
         },
         "cordova-sqlite-storage": {
             "PACKAGE_NAME": "com.flotillasApp.org"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.flotillasApp.org"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.flotillasApp.org"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.flotillasApp.org"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.flotillasApp.org"
         }
     },
     "dependent_plugins": {}
