@@ -5,11 +5,12 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-registrationModule.controller('historialSincronizacionController',['$scope', function($scope, $route, $rootScope, historialSincronizacionFactory){
+registrationModule.controller('historialSincronizacionController', function($scope, $route, $rootScope, historialSincronizacionFactory){
 
 	//Grupo de funciones de inicio
     $scope.init = function () {
     	//$scope.getHistorialSincronizacion();
+        $rootScope.logged = true;
     };
 
     //Obtiene la lista de sincronizaciones efectuadas por unidad
@@ -44,4 +45,4 @@ registrationModule.controller('historialSincronizacionController',['$scope', fun
         theme: 'mobiscroll'
     };  
 
-}]);
+});

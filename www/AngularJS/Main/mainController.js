@@ -1,15 +1,7 @@
-registrationModule.controller('mainController', ['$scope' ,function($scope, $route, $rootScope, mainRepository) {
-    //Propiedades
-    $scope.helloWorld = 'Hello App';
-
+registrationModule.controller('mainController', function($scope, $route, $rootScope, mainRepository) {
     //Mensajes en caso de error
     var errorCallBack = function (data, status, headers, config) {
         alertFactory.error('Ocurrio un problema');
-    };
-
-    //Grupo de funciones de inicio
-    $scope.init = function () {
-        $scope.location = window.location;
     };
 
     $scope.irBusqueda = function(){
@@ -49,4 +41,4 @@ registrationModule.controller('mainController', ['$scope' ,function($scope, $rou
             $('.' + item.data('tab')).addClass('md-tab-sel');
         }
     };
-}]);
+});

@@ -1,4 +1,4 @@
-registrationModule.controller('consultaController', ['$scope', function ($scope) {
+registrationModule.controller('consultaController', function ($scope) {
 
                $scope.data = [
         {
@@ -254,4 +254,4 @@ registrationModule.controller('consultaController', ['$scope', function ($scope)
         }, 2000);
     }
 
-        }]);
+});
