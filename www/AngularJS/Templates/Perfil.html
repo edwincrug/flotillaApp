@@ -1,0 +1,43 @@
+<div ng-init="init()">
+    <!-- Text Fields START -->
+    <div id="demo_cont_formsTextfields" class="demo-wrapper" ng-controller="loginController">
+        <div mobiscroll-form="settings">
+
+            <div ng-hide="mostrarRegistro">
+                <div class="mbsc-divider">Cuenta</div>
+
+                <div>
+                    <label>Nombre Completo
+                        <input id="formsTextfields-name" type="text" placeholder="Vladimir Juarez Juarez" data-icon="user" readonly />
+                    </label>
+                </div>
+
+                <label>
+                    Rol
+                    <select class="md-select">
+                        <option>Seleccione</option>
+                        <option value="Gestor">Gestor</option>
+                        <option value="Apoyo">Apoyo</option>
+                        <option value="Transladista">Transladista</option>
+                        <option value="Ejecutivo" selected="true">Ejecutivo</option>
+                        <option value="Ejecutivo">Administrador</option>
+                    </select>
+                </label>
+
+                <div>
+                    <label>Correo electrónico
+                        <input id="formsTextfields-name" type="text" placeholder="1234@1234.com" data-icon="mail" />
+                    </label>
+                </div>
+
+                <label>
+                    Contraseña
+                    <input type="password" placeholder="******" data-icon="lock2" />
+                </label>
+            </div>
+
+            <!-- Text Fields END -->
+
+        </div>
+    </div>
+</div>
