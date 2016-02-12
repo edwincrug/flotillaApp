@@ -39,6 +39,11 @@ var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAni
         controller: 'expedienteController'
     });
 
+    $routeProvider.when('/historialSincronizacion', {
+        templateUrl: 'AngularJS/Templates/HistorialSincronizacion.html',
+        controller: 'busquedaController'
+    });
+
     var settings = {
         theme: 'ios',      // Specify theme like: theme: 'ios' or omit setting to use default
         lang: 'es',    // Specify language like: lang: 'pl' or omit setting to use default
