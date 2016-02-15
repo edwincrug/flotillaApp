@@ -1,4 +1,24 @@
-<div ng-init="init()">
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript">
+        function getPhoto() {
+            navigator.camera.getPicture(onSuccess, onFail, {
+                quality: 50,
+                destinationType: Camera.DestinationType.FILE_URI,
+                saveToPhotoAlbum: true
+            });
+
+            function onSuccess(imageURI) {
+                document.getElementById('image').src = imageURI;
+
+                //movePic(imageURI);
+            }
+        }
+
+        function onFail(message) {
+            alert('An error Occured: ' + message);
+        }
+        </script>
+<!-- <div ng-init="init()"> -->
 <div id="menu" ng-controller="mainController" ng-hide="!logged">
             <ul ng-model="mymenustrip" mobiscroll-menustrip="settings" mobiscroll-instance="demo" class="mbsc-ms-icons" style="display:none;">
                 <li data-tab="md-tab-acc" ng-click="redireccion(1)">
@@ -30,8 +50,9 @@
                         <li>{{item.descripcion}}</li>
                         <li data-role="list-divider">Propiedades</li>
                         </br>
-                        <li>Foto Delantera: {{item.estatusFrente}}
-                            <img ng-src="{{item.imageFrente}}" class="contact-icon" />
+                        <li onclick="getPhoto()">Foto Delantera: {{item.estatusFrente}}
+                            <img src="" id="image" width="80" height="80" class="contact-icon"/>
+                            <!-- <img id="foto" ng-src="{{item.imageFrente}}" class="contact-icon" /> -->
                         <li>
                         <li>Foto Trasera: {{item.estatusTrasera}}
                             <img ng-src="{{item.imageTrasera}}" class="contact-icon" />
@@ -47,6 +68,7 @@
                     </li>
 
             </ul>
+           <!--  <button ng-click="TomaFoto()">Toma Foto</button> -->
         </div>
     </div>
-</div>
+<!-- </div> -->

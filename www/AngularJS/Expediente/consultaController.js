@@ -1,4 +1,12 @@
-registrationModule.controller('consultaController', function ($scope) {
+registrationModule.controller('consultaController', function ($scope, Camera) {
+
+
+$scope.myPictures = [];
+$scope.$watch('myPicture', function(value) {
+   if(value) {
+      myPictures.push(value);
+   }
+}, true);
 
                $scope.data = [
         {
@@ -62,9 +70,18 @@ registrationModule.controller('consultaController', function ($scope) {
         {   type: 'picture', icon: 'file4', name: 'File 2' }*/
     ];
 
+    $scope.TomaFoto = function(){
+       Camera.getPicture().then(function(imageURI) {
+            console.log(imageURI);
+            }, function(err) {
+            console.err(err);
+        })
+    };
+
     $scope.settings = {
         theme: 'mobiscroll',
         enhance: true,
+        tap: function () { alert('Tap on type 2'); },
         actions: [
             {
                 icon: 'camera',
@@ -255,3 +272,4 @@ registrationModule.controller('consultaController', function ($scope) {
     }
 
 });
+

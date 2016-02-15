@@ -1,3 +1,5 @@
+'use strict';
+
 var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAnimate','mobiscroll-datetime','mobiscroll-form','mobiscroll-listview',
     'mobiscroll-calendar',
     'mobiscroll-select',
@@ -5,7 +7,11 @@ var registrationModule = angular.module('registrationModule', ['ngRoute', 'ngAni
     'mobiscroll-select'])
 .config(function ($routeProvider, $provide) {
 
-    $routeProvider.when('/', {
+/*$routeProvider.when('/consulta', {
+        templateUrl: 'camara.html'
+    });*/
+
+   $routeProvider.when('/', {
         templateUrl: 'AngularJS/Templates/Login.html',
         controller: 'loginController'
     });
