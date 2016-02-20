@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html ng-app="registrationModule">
+ <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>FlotillasApp</title>
+
+        <!-- Incluir hojas de estilos CSS -->
+        <!-- Mobiscroll JS and CSS Includes -->
+        <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/login.css" />
+        <link href="css/mobiscroll.custom-2.17.1.min.css" rel="stylesheet" type="text/css" />
+
+        <!-- Incluir scripts del template de Angular y JQuery -->
+        <!-- jQuery Include | MAKE SURE TO INCLUDE BEFORE ANGULAR -->
+        <script src="js/jquery-2.2.0.min.js"></script>
+        <script src="lib/ionic/js/ionic.bundle.js"></script>
+        <script src="lib/ng-cordova/dist/ng-cordova.min.js"></script>
+        <script src="cordova.js"></script>
+        <script src="confront.js"></script>
+        <script src="js/mobiscroll.custom-2.17.1.min.js"></script>
+  </head>
+  <body ng-controller="backgroundController" ng-init="init()">
+    <ion-nav-bar class="bar-positive" ng-show="showTabs == true">
+        <!--<ion-nav-back-button>
+        </ion-nav-back-button>-->
+      </ion-nav-bar>
+    <ion-nav-view class="slide-left-right"></ion-nav-view>
+
+    <script id="templates/tabs.html" type="text/ng-template" >
+      <ion-tabs class="tabs-icon-top tabs-positive">
+
+        <ion-tab title="Busqueda" icon="ion-search" ui-sref="tabs.busqueda">
+          <ion-nav-view name="busqueda-tab"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="Expediente" icon="ion-ios-folder" ui-sref="tabs.expediente">
+          <ion-nav-view name="expediente-tab"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="Sincronización" icon="icon ion-load-a" ui-sref="tabs.sincronizacion">
+          <ion-nav-view name="sincronizacion-tab"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="Perfil" icon="icon ion-person" ui-sref="tabs.perfil">
+          <ion-nav-view name="perfil-tab"></ion-nav-view>
+        </ion-tab>
+
+      </ion-tabs>
+    </script>
+
+    <!--Template de Login.html-->
+    <script id="templates/Login.html" type="text/ng-template">
+      <ion-view title="Login">
+        <ion-content class="padding">
+          <div ng-init="init()">
+              <div class="container">
+                  <header>    
+                      <h1>Registro de <strong>Unidades</strong></h1>
+                  </header>
+                  <section id="imagen">
+                      <center>
+                      <img id="logo" src="images/logo/integra.png"></img>
+                      </center>
+                  </section>
+                  <section class="main">
+                      <form class="form-1">
+                          <p class="field">
+                              <input type="text" name="login" placeholder="Usuario del sistema" ng-model="usuario">
+                              <i class="icon-user icon-large"></i>
+                          </p>
+                              <p class="field">
+                                  <input type="password" name="password" placeholder="Contraseña" ng-model="password">
+                                  <i class="icon-lock icon-large"></i>
+                          </p>
+                          <p class="submit">
+                              <button type="button" ng-click="iniciarSesion(usuario, password)"><i class="icon-arrow-right icon-large"></i></button>
+                          </p>
+                      </form>
+                  </section>
+              </div>
+          <div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <!--Template Busqueda.html -->
+    <script id="templates/Busqueda.html" type="text/ng-template">
+      <ion-view title="Búsqueda">
+        <ion-content class="padding">
+          <div ng-init="init()">
+            <div id="form" class="demo-wrapper">
+                <div mobiscroll-form="settings" style="display:none">   
+                    <div class="mbsc-divider">Búsqueda de unidad</div>
+                    <div>
+                        <input ng-model="facturaVin" type="text" placeholder="Número de Factura o VIN" />
+                    </div>
+                    <button class="mbsc-btn-block" ng-click="busqueda(facturaVin)">Buscar</button>
+                    <div mbsc-enhance ng-show="valor">
+                        <ul id="contacts" style="display:none;" mobiscroll-listview="contactSettings" mobiscroll-data="contacts">
+                            <li data-role="list-divider">Factura</li>
+                            <li>{{item.factura}}</li>
+                            <li data-role="list-divider">VIN</li>
+                            <li>{{item.vin}}</li>
+                            <li data-role="list-divider">Descripción</li>
+                            <li>{{item.descripcion}}</li>
+                        </ul>
+                    </div>
+                    <div class="mbsc-btn-group" ng-show="valor">
+                        <button data-icon="checkmark" ng-click="seleccionar()">Seleccionar</button>
+                    </div>
+                </div>
+            </div>   
+        </div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+        <!-- Template Expediente.html -->
+    <script id="templates/Expediente.html" type="text/ng-template">
+      <ion-view title="Expediente">
+        <ion-content class="padding">
+              <div id="demo_cont_listviewUpdate" class="demo-wrapper" >
+                <div mobiscroll-form="settings">
+                <ul mobiscroll-listview="settings" mobiscroll-data="data">
+                    <li data-type="{{item.type}}" data-icon="{{item.icon}}">{{item.name}}
+                        <ul>
+                            <li data-role="list-divider">Vin</li>
+                            <li>{{item.name}}</li>
+                            <li data-role="list-divider">Factura</li>
+                            <li>{{item.factura}}</li>
+                            <li data-role="list-divider">Descripción</li>
+                            <li>{{item.descripcion}}</li>
+                            <li data-role="list-divider">Propiedades</li>
+                            <div>
+                                <li onclick="imageTextInit()">
+                                    <img src="images/auto_delantera.jpg" id="image" class="contact-icon" width="60px" height="60px" onclick="imageTextInit()"/></li><p style="vertical-align: middle" onclick="getPhoto()">Foto Delantera: {{item.estatusFrente}}</p>        
+                            </div>
+                            <div>
+                                <li onclick="">
+                                    <img id="" src="images/auto_trasera.jpg" style="vertical-align: middle" class="contact-icon" width="60px" height="60px" /> Foto Trasera: {{item.estatusTrasera}}</li>
+                            </div>
+                            <div>
+                                <li onclick="">
+                                    <img src="images/auto_derecha.jpg" class="contact-icon" style="vertical-align: middle" class="contact-icon" width="60px" height="60px" />Foto Derecha: {{item.estatusDerecha}}</li>
+                            </div>
+                            <div>
+                                <li onclick="">
+                                    <img src="images/auto_izquierda.jpg" class="contact-icon" style="vertical-align: middle" class="contact-icon" width="60px" height="60px" />Foto Izquierda: {{item.estatusIzquierda}}
+                                </li>
+                            </div>
+                            <div>
+                                <li onclick="">
+                                    <img src="images/placa.jpg" class="contact-icon" style="vertical-align: middle" class="contact-icon" width="60px" height="60px" />Foto Placa: Pendiente
+                                </li>
+                            </div>
+                            <div>
+                                <li onclick="">
+                                    <img src="images/tarjeta.jpg" class="contact-icon" style="vertical-align: middle" class="contact-icon" width="60px" height="60px" />Tarjeta Circulación: Pendiente
+                                </li>
+                            </div>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+          <div class="demo-wrapper demo-wrapper-imageText">
+              <ul id="imageText-demo" style="display:none">
+                  <li>
+                    <img src="" id="visualiza" class="contact-icon" width="220px" height="350px" style="vertical-align: middle" />
+                  </li>
+              </ul>        
+          </div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <!-- Template Consulta Expediente.html -->
+    <script id="templates/ConsultaExpediente.html" type="text/ng-template">
+      <ion-view title="Consulta Expediente">
+        <ion-content class="padding">
+          <div ng-init="init()">
+              <div class="md-navigation">
+                <ul ng-model="mymenustrip" mobiscroll-menustrip="settingsMenu" mobiscroll-instance="demo" class="mbsc-ms-icons" style="display:none;">
+                    <li data-tab="md-tab-acc" data-selected="true">
+                    <span class="micons mbsc-ic mbsc-ic-home mbsc-ms-ic"><a href="#/busqueda" class="md-link" data-isLogin="true">Búsqueda</a></span></li>
+                    <li data-tab="md-tab-icloud">
+                    <span class="micons mbsc-ic mbsc-ic-file4 mbsc-ms-ic"> <a href="#/consultaExpediente" class="md-link">Expedientes</a></span></li>
+                    <li data-tab="md-tab-comp">
+                    <span class="micons mbsc-ic mbsc-ic-loop2 mbsc-ms-ic"><a href="#/historialSincronizacion" class="md-link">Sincronización</a></span></li>
+                    <li data-tab="md-tab-comp">
+                    <span class="micons mbsc-ic mbsc-ic-user4 mbsc-ms-ic"><a href="#/perfil" class="md-link">Cuenta</a></span></li>                 
+                </ul>
+            </div>
+            </br></br></br></br>
+            <div id="demo_cont_listviewUpdate" class="demo-wrapper">
+              <div mobiscroll-form="settings">
+                  <div class="mbsc-divider">Consulta Mis Expedientes</div>
+                    <ul mobiscroll-listview="settings" mobiscroll-data="data">
+                      <li data-type="{{item.type}}" data-icon="{{item.icon}}">{{item.name}}
+                          <ul class="contact-detail">
+                              <li data-role="list-divider">Vin</li>
+                              <li>{{item.name}}</li>
+                              <li data-role="list-divider">Factura</li>
+                              <li>{{item.factura}}</li>
+                              <li data-role="list-divider">Descripción</li>
+                              <li>{{item.descripcion}}</li>
+                              <li data-role="list-divider">Propiedades</li>
+                              </br>
+                              <li>Foto Delantera: {{item.estatusFrente}}
+                                  <img ng-src="{{item.imageFrente}}" class="contact-icon" />
+                              <li>
+                              <li>Foto Trasera: {{item.estatusTrasera}}
+                                  <img ng-src="{{item.imageTrasera}}" class="contact-icon" />
+                              <li>
+                              <li>Foto Derecha: {{item.estatusDerecha}}
+                                  <img ng-src="{{item.imageDerecha}}" class="contact-icon" />
+                              <li>
+                              <li>Foto Izquierda: {{item.estatusIzquierda}}
+                                  <img ng-src="{{item.imageIzquierda}}" class="contact-icon" />
+                              <li>
+                          </ul>
+                        </li>
+                    </ul>
+                </div>
+             </div>
+          </div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <!-- Template Historial Sincronizacion.html -->
+    <script id="templates/HistorialSincronizacion.html" type="text/ng-template">
+      <ion-view title="Historial Sincronizacion">
+        <ion-content class="padding">
+            <div ng-init="init()">
+              <div>
+                <ul mobiscroll-listview="settings" mobiscroll-data="data" style="display:none">
+                    <li><img ng-src="images/{{item.imgsrc}}" /><h3>{{item.sincronizacion}}</h3><h3>{{item.fecha}}</h3><h3>{{item.numDoc}}</h3></li>
+                </ul>
+              </div>
+              <div mobiscroll-form="settings2" style="display:none">
+                <div class="mbsc-padding">
+                      <button class="mbsc-btn-block">Sincronizar</button>
+                </div>
+              </div>
+            </div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <!-- Template Registro.html -->
+    <script id="templates/Registro.html" type="text/ng-template">
+      <ion-view title="Registro">
+        <ion-content class="padding">
+          <div ng-init="init()">
+             <div class="md-navigation">
+                <ul ng-model="mymenustrip" mobiscroll-menustrip="settingsMenu" mobiscroll-instance="demo" class="mbsc-ms-icons" style="display:none;">
+                    <li data-tab="md-tab-acc" data-selected="true">
+                    <span class="micons mbsc-ic mbsc-ic-home mbsc-ms-ic"><a href="#/busqueda" class="md-link" data-isLogin="true">Búsqueda</a></span></li>
+                    <li data-tab="md-tab-icloud">
+                    <span class="micons mbsc-ic mbsc-ic-file4 mbsc-ms-ic"> <a href="#/consultaExpediente" class="md-link">Expedientes</a></span></li>
+                    <li data-tab="md-tab-comp">
+                    <span class="micons mbsc-ic mbsc-ic-loop2 mbsc-ms-ic"><a href="#/historialSincronizacion" class="md-link">Sincronización</a></span></li>
+                    <li data-tab="md-tab-comp">
+                    <span class="micons mbsc-ic mbsc-ic-user4 mbsc-ms-ic"><a href="#/perfil" class="md-link">Cuenta</a></span></li>                 
+                </ul>
+            </div>
+            </br></br></br></br>
+            <div id="demo_cont_formsTextfields" class="demo-wrapper">
+                <div mobiscroll-form="settings">
+                    <div ng-hide="mostrarRegistro">
+                        <div class="mbsc-divider">Registro</div>
+                        <div>
+                            <label>Nombre Completo
+                                <input id="formsTextfields-name" type="text" placeholder="Nombre(s) y Apellidos" data-icon="user" />
+                            </label>
+                        </div>
+                        <label>
+                            Rol
+                            <select class="md-select">
+                                <option>Seleccione</option>
+                                <option value="Gestor">Gestor</option>
+                                <option value="Apoyo">Apoyo</option>
+                                <option value="Transladista">Transladista</option>
+                                <option value="Ejecutivo">Ejecutivo</option>
+                                <option value="Ejecutivo">Administrador</option>
+                            </select>
+                        </label>
+                        <div>
+                            <label>Correo electrónico
+                                <input id="formsTextfields-name" type="text" placeholder="mysupermail@mail.com" data-icon="mail" />
+                            </label>
+                        </div>
+                        <label>
+                            Contraseña
+                            <input type="password" placeholder="password" data-icon="lock2" />
+                        </label>
+                        <label>
+                            Confirme contraseña
+                            <input type="password" placeholder="password" data-icon="lock2" />
+                        </label>
+                        <button>Registrarse</button><div class="mbsc-padding">
+                        <a href="#/" class="md-link" data-isLogin="true">Ir a Iniciar Sesión</a>
+                    </div>
+                </div>
+            </div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <!-- Template Perfil.html -->
+    <script id="templates/Perfil.html" type="text/ng-template">
+      <ion-view title="Perfil">
+        <ion-content class="padding">
+          <div ng-init="init()">
+              <!-- Text Fields START -->
+              <div id="demo_cont_formsTextfields" class="demo-wrapper">
+                  <div mobiscroll-form="settings">
+
+                      <div ng-hide="mostrarRegistro">
+                          <div class="mbsc-divider">Cuenta</div>
+
+                          <div>
+                              <label>Nombre Completo
+                                  <input id="formsTextfields-name" type="text" placeholder="Vladimir Juarez Juarez" data-icon="user" readonly />
+                              </label>
+                          </div>
+
+                          <label>
+                              Rol
+                              <select class="md-select">
+                                  <option>Seleccione</option>
+                                  <option value="Gestor">Gestor</option>
+                                  <option value="Apoyo">Apoyo</option>
+                                  <option value="Transladista">Transladista</option>
+                                  <option value="Ejecutivo" selected="true">Ejecutivo</option>
+                                  <option value="Ejecutivo">Administrador</option>
+                              </select>
+                          </label>
+
+                          <div>
+                              <label>Correo electrónico
+                                  <input id="formsTextfields-name" type="text" placeholder="1234@1234.com" data-icon="mail" />
+                              </label>
+                          </div>
+
+                          <label>
+                              Contraseña
+                              <input type="password" placeholder="******" data-icon="lock2" />
+                          </label>
+                      </div>
+
+                      <!-- Text Fields END -->
+
+                  </div>
+              </div>
+          </div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <!--Librerias de aplicación angular-->
+    <script src="AngularJS/RegistrationModule.js"></script>
+
+    <!--Controllers-->
+    <script src="AngularJS/Camera/cameraController.js"></script>
+    <script src="AngularJS/Camera/cameraController.js"></script>  
+    <script src="AngularJS/Main/mainRepository.js"></script>
+    <script src="AngularJS/Main/mainController.js"></script>
+    <script src="AngularJS/Busqueda/busquedaRepository.js"></script>
+    <script src="AngularJS/Busqueda/busquedaController.js"></script>
+    <script src="AngularJS/Login/loginRepository.js"></script>
+    <script src="AngularJS/Login/loginController.js"></script>
+    <script src="AngularJS/Expediente/expedienteRepository.js"></script>
+    <script src="AngularJS/Expediente/expedienteController.js"></script>
+    <script src="AngularJS/Expediente/consultaController.js"></script>
+    <script src="AngularJS/HistorialSincronizacion/historialSincronizacionController.js"></script>
+    <script src="AngularJS/Perfil/perfilController.js"></script>
+  </body>
+</html>
