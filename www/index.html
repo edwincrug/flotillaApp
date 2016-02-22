@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="registrationModule">
+<html ng-app="registrationModule" ng-controller="backgroundController" ng-init="init()">
  <head>
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
@@ -21,7 +21,7 @@
         <script src="confront.js"></script>
         <script src="js/mobiscroll.custom-2.17.1.min.js"></script>
   </head>
-  <body ng-controller="backgroundController" ng-init="init()">
+  <body>
     <ion-nav-bar class="bar-positive" ng-show="showTabs == true">
         <!--<ion-nav-back-button>
         </ion-nav-back-button>-->
@@ -236,8 +236,8 @@
         <ion-content class="padding">
             <div ng-init="init()">
               <div>
-                <ul mobiscroll-listview="settings" mobiscroll-data="data" style="display:none">
-                    <li><img ng-src="images/{{item.imgsrc}}" /><h3>{{item.sincronizacion}}</h3><h3>{{item.fecha}}</h3><h3>{{item.numDoc}}</h3></li>
+                <ul mobiscroll-listview="settings" mobiscroll-data="historialSincronizacion" style="display:none">
+                    <li><img ng-src="images/clould-upload.png" /><h3>{{historialSincronizacion[0].fecha}}</h3><h3>{{historialSincronizacion[1].numDocumentos}}</h3></li>
                 </ul>
               </div>
               <div mobiscroll-form="settings2" style="display:none">
@@ -363,6 +363,7 @@
 
     <!--Librerias de aplicación angular-->
     <script src="AngularJS/RegistrationModule.js"></script>
+    <script src="AngularJS/BackgroundMode/backgroundController.js"></script>
 
     <!--Controllers-->
     <script src="AngularJS/Camera/cameraController.js"></script>

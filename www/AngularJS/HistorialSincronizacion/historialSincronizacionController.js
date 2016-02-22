@@ -5,34 +5,12 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-registrationModule.controller('historialSincronizacionController', function($scope, $rootScope){
+registrationModule.controller('historialSincronizacionController', function($scope, $rootScope, historialSincronizacionFactory){
 
-	//Grupo de funciones de inicio
+    //Grupo de funciones de inicio
     $scope.init = function () {
-    	//$scope.getHistorialSincronizacion();
-        $rootScope.logged = true;
+        $scope.historialSincronizacion = historialSincronizacionFactory.getHistorialSincronizacion();
     };
-
-    //Obtiene la lista de sincronizaciones efectuadas por unidad
-    $scope.getHistorialSincronizacion = function(){
-    	historialSincronizacionFactory.getHistorialSincronizacion().then(function successCallback(response){
-    		$scope.listaHistorialSincronizacion = response.data; 
-    	},function errorCallback(response){
-    		alert('Error al cargar el historial de sincronización');
-    	});
-    };
-
-    //script para el funcionamiento del control GroupHeaders
-    $scope.data = [
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 01/11/2015',numDoc:'#Unidades sincronizadas: 5'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 02/11/2015',numDoc:'#Unidades sincronizadas: 3'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 03/11/2015',numDoc:'#Unidades sincronizadas: 2'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 04/11/2015',numDoc:'#Unidades sincronizadas: 7'}
-        /*{ imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 05/11/2015',numDoc:'#Unidades sincronizadas: 6'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 06/11/2015',numDoc:'#Unidades sincronizadas: 25'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 07/11/2015',numDoc:'#Unidades sincronizadas: 55'},
-        { imgsrc: 'clould-upload.png', fecha: 'Fecha de sincronización: 08/11/2015',numDoc:'#Unidades sincronizadas: 15'}*/
-    ];
 
     $scope.settings = {
         theme: 'mobiscroll',

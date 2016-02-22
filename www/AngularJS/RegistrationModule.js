@@ -1,11 +1,17 @@
-var db = null;
+// -- =============================================
+// -- Author:      V. Vladimir Juárez Juárez
+// -- Create date: 11/02/2016
+// -- Description: Módulo de la aplicación
+// -- Modificó: 
+// -- Fecha: 
+// -- =============================================
 var registrationModule = angular.module('registrationModule', ['ionic','ngCordova','mobiscroll-datetime','mobiscroll-form','mobiscroll-listview',
     'mobiscroll-calendar',
     'mobiscroll-select',
     'mobiscroll-menustrip',
     'ui.router']);
 
-registrationModule.run(function($ionicPlatform, $rootScope,$cordovaSQLite){
+registrationModule.run(function($ionicPlatform,$cordovaSQLite, $rootScope){
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -16,93 +22,41 @@ registrationModule.run(function($ionicPlatform, $rootScope,$cordovaSQLite){
       StatusBar.styleDefault();
     }
 
-    //if($cordovaSQLite && window.sqlitePlugin !== undefined){
-        //var FlotillasDB = $cordovaSQLite.openDB({name:"FlotillasApp.db"});
-        db = $cordovaSQLite.openDB({name:"myDataBase.db"});
-    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people(id integer primary key, firstName text, lastName text)");
+    if($cordovaSQLite && window.sqlitePlugin !== undefined){
+      $rootScope.FlotillasDB = window.sqlitePlugin.openDatabase({name: "FlotillasDB.db", createFromLocation: 1});
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS Bitacora (idBitacora INTEGER NOT NULL PRIMARY KEY,'
+                                                                                          +'idUsuario INTEGER,'
+                                                                                          +'idDocumento INTEGER,'
+                                                                                          +'vin TEXT,'
+                                                                                          +'fecha TEXT,'
+                                                                                          +'accion  TEXT)');
 
-        /*$cordovaSQLite.execute(FlotillasDB,'CREATE TABLE IF NOT EXISTS Bitacora (' 
-          +'idBitacora  NUMERIC NOT NULL AUTOINCREMENT,'
-          +'idUsuario NUMERIC,'
-          +'idDocumento NUMERIC,'
-          +'vin TEXT,'
-          +'fecha TEXT,'
-          +'accion  TEXT,'
-          +'PRIMARY KEY(idBitacora))');
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS HistorialSincronizacion (idSincronizacion  INTEGER NOT NULL PRIMARY KEY,'
+                                                                                                        +'fecha TEXT NOT NULL,'
+                                                                                                        +'numDocumentos INTEGER NOT NULL)');
 
-        if(FlotillasDB != null){
-          var query = "INSERT INTO Bitacora (idUsuario, idDocumento, vin, fecha, accion) VALUES (?,?,?,?,?)";
-              $cordovaSQLite.execute(FlotillasDB, query, [23, 7,'VJJ2432534','18/02/2016 11:29 p.m.', 'Insertó']).then(function(res) {
-                alert("insertId: " + res.insertId);
-              }, function (err) {
-                alert(err);
-              });
-          }
-        else{
-          alert(FlotillasDB);
-        }*/
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS LicitacionUnidad (vin  TEXT NOT NULL PRIMARY KEY,'
+                                                                                                 +'factura  TEXT,'
+                                                                                                 +'idLicitacion INTEGER,'
+                                                                                                 +'tipo TEXT,'
+                                                                                                 +'marca  TEXT,'
+                                                                                                 +'modelo TEXT,'
+                                                                                                 +'numeroMotor  TEXT,'
+                                                                                                 +'color  TEXT,'
+                                                                                                 +'estatus  TEXT)');
+
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS UnidadCatalogo (idCatalogo INTEGER NOT NULL PRIMARY KEY,'
+                                                                                                +'idDocumento INTEGER NOT NULL,'
+                                                                                                +'nombreDocumento TEXT NOT NULL)');
+
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS UnidadPropiedad (idUnidad  INTEGER NOT NULL PRIMARY KEY,'
+                                                                                                 +'vin  TEXT NOT NULL,'
+                                                                                                 +'idDocumento  INTEGER NOT NULL,'
+                                                                                                 +'valor  TEXT,'
+                                                                                                 +'estatus  TEXT)');
+    }
+
   });
-});
-
-registrationModule.controller('backgroundController', function($scope, $cordovaSQLite){
-  $scope.init = function(){
-     document.addEventListener('deviceready', function() {
-      alert('background');
-      cordova.plugins.backgroundMode.setDefaults({ 
-          title:  'FlotillasApp',
-          text:   'FlotillasApp ejecutándose.',
-          ticker: 'FlotillasApp ejecutándose.'
-      });
-      cordova.plugins.backgroundMode.enable();
-
-      // Called when background mode has been activated
-      cordova.plugins.backgroundMode.onactivate = function() {
-        //alert('hello');
-        $scope.insert('vlad','juarez');
-        $scope.selectPer('juarez');
-      }
-    });
-  }
-
-  $scope.idPeople = 0;
-  $scope.validaDB = function(){
-    if(db != null){
-      alert('the database was created!');
-    }
-    else{
-      alert(db);
-    }
-
-  }
-  
-  $scope.insert = function(firstName, lastName){
-   var query = "INSERT INTO people (firstName, lastName) VALUES(?, ?)";
-    $cordovaSQLite.execute(db, query, [firstName, lastName]).then(function(result){
-      $scope.idPeople = result.insertedId;
-      alert("this record was inserted:"+ result.insertId); 
-      //console.log("INSERT ID ->" + result.insertId);
-    }, function(error){
-      //console.log(error);
-      alert(error);
-    });
-  }
-
-  $scope.selectPer = function(lastName){
-    var query = "SELECT id, firstName, lastName FROM people WHERE lastName = ?";
-    $cordovaSQLite.execute(db, query, [lastName]).then(function(result){
-      if(result.rows.length > 0){
-        alert("SELECTED ->"+ result.rows.item(0).id+ " " + result.rows.item(0).firstName + " "+ result.rows.item(0).lastName);
-        //console.log("SELECTED ->" + result.rows.item(0).firstName + " "+ res.rows.item(0).lastName);
-      } 
-      else{
-        alert("NO ROWS EXISTS");
-        //console.log("NO ROWS EXISTS");
-      }       
-    }, function(error){
-      console.log(error);
-    });
-  }
-
 });
 
 registrationModule.config(function($stateProvider, $urlRouterProvider) {
