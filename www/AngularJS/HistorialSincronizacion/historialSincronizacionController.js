@@ -9,7 +9,7 @@ registrationModule.controller('historialSincronizacionController', function($sco
 
     //Grupo de funciones de inicio
     $scope.init = function () {
-        $scope.historialSincronizacion = historialSincronizacionFactory.getHistorialSincronizacion();
+        //$scope.historialSincronizacion = historialSincronizacionFactory.getHistorialSincronizacion();
     };
 
     $scope.settings = {

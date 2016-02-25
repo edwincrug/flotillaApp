@@ -1,57 +1,65 @@
-registrationModule.controller('consultaController', function ($scope) {
+registrationModule.controller('consultaController', function ($scope, consultaRepository, $rootScope) {
+    $scope.expedientes = consultaRepository.getExpedientes($rootScope.data.idUsuario);
 
-               $scope.data = [
+    $scope.Detalle = function (expediente) {
+        //alert(expediente.vin);
+        $rootScope.facturaVin = expediente.vin;
+        location.href = '#/expediente';
+    };
+
+
+    $scope.data = [
         {
             id: 1,
-            type: 'folder', 
-            icon: 'folder', 
+            type: 'folder',
+            icon: 'folder',
             name: 'Vin: 1FBAX2CM0FKA56032',
             factura: 'AA000013433',
             estatus: 'Cargado',
-            descripcion : 'CAMIONETA FORD TRANSIT 350 WAGON GASOLINA A/A Motor 3.7',
+            descripcion: 'CAMIONETA FORD TRANSIT 350 WAGON GASOLINA A/A Motor 3.7',
             estatusFrente: 'Cargado',
             imageFrente: 'images/auto_delantera.png',
-            estatusDerecha:'Sin Documento',
+            estatusDerecha: 'Sin Documento',
             imageDerecha: 'images/auto_derecha.jpg',
             estatusTrasera: 'Pendiente',
             imageTrasera: 'images/auto_trasera.jpg',
             estatusIzquierda: 'Cargado',
-            imageIzquierda:'images/auto_izquierda.jpg'
+            imageIzquierda: 'images/auto_izquierda.jpg'
 
         },
         {
             id: 2,
             type: 'folder',
-            icon: 'folder', 
+            icon: 'folder',
             name: 'VIN: 2GCBY3DN1GLB67143',
             factura: 'BB111124544',
             estatus: 'Sin Documento',
             descripcion: 'CAMION FORD F-150 XL SUPERCREW 4X2 3.5L V6 TA Motor V6',
             estatusFrente: 'Sin Documento',
             imageFrente: 'images/auto_delantera.jpg',
-            estatusDerecha:'Pendiente',
+            estatusDerecha: 'Pendiente',
             imageDerecha: 'images/auto_derecha.jpg',
             estatusTrasera: 'Cargado',
             imageTrasera: 'images/auto_trasera.jpg',
             estatusIzquierda: 'Sin Documento',
-            imageIzquierda:'images/auto_izquierda.jpg'
+            imageIzquierda: 'images/auto_izquierda.jpg'
         },
         {
             id: 3,
-            type: 'folder', 
-            icon: 'folder', 
+            type: 'folder',
+            icon: 'folder',
             name: 'VIN: 3HDCZ4EM2HMC78254',
             factura: 'CC222235655',
             estatus: 'Pendiente',
             descripcion: 'CAMION FORD F-150 XL CREWCAB 4X4 5.0L V8 Motor V8',
             estatusFrente: 'Pendiente',
             imageFrente: 'images/auto_delantera.jpg',
-            estatusDerecha:'Cargado',
+            estatusDerecha: 'Cargado',
             imageDerecha: 'images/auto_derecha.jpg',
             estatusTrasera: 'Cargado',
             imageTrasera: 'images/auto_trasera.jpg',
             estatusIzquierda: 'Sin Documento',
-            imageIzquierda:'images/auto_izquierda.jpg'
+            imageIzquierda: 'images/auto_izquierda.jpg'
         }
         /*{   type: 'picture', icon: 'image2', name: 'Image1' },
         {   type: 'picture', icon: 'image2', name: 'Image2' },
@@ -188,8 +196,7 @@ registrationModule.controller('consultaController', function ($scope) {
                     }
                 ]
             },
-            picture:
-            {
+            picture: {
                 actions: [
                     {
                         icon: 'link',
@@ -234,7 +241,7 @@ registrationModule.controller('consultaController', function ($scope) {
     function notify(text) {
 
         clearTimeout(notificationTimer);
-        
+
         notification.show().find('.demo-notification-i').html(text);
 
         if (notification.hasClass('demo-notification-v')) {
@@ -245,11 +252,11 @@ registrationModule.controller('consultaController', function ($scope) {
         } else {
             notification.addClass('demo-notification-v');
         }
- 
-        notificationTimer = setTimeout(function () { 
-            notification.removeClass('demo-notification-v'); 
+
+        notificationTimer = setTimeout(function () {
+            notification.removeClass('demo-notification-v');
             notificationTimer = setTimeout(function () {
-               notification.hide();
+                notification.hide();
             }, 200);
         }, 2000);
     }

@@ -28,10 +28,10 @@ var historialSincronizacion = [];
 		    });
 		    return historialSincronizacion;
 		},
-		insertSincronizacion: function(fecha, numDoc){
+		insert: function(fecha, numDoc){
 		    var query = "INSERT INTO HistorialSincronizacion (fecha, numDocumentos) VALUES(?,?)";
 		    $cordovaSQLite.execute($rootScope.FlotillasDB, query, [fecha, numDoc]).then(function(result){
-		     	 //alert("this record was inserted:"+ result.insertId); 
+		     	 alert("this record was inserted:"+ result.insertId); 
 		    }, function(error){
 		      	alert(error);
 		    });

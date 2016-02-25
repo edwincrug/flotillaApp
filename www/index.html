@@ -23,9 +23,7 @@
   </head>
   <body>
     <ion-nav-bar class="bar-positive" ng-show="showTabs == true">
-        <!--<ion-nav-back-button>
-        </ion-nav-back-button>-->
-      </ion-nav-bar>
+    </ion-nav-bar>
     <ion-nav-view class="slide-left-right"></ion-nav-view>
 
     <script id="templates/tabs.html" type="text/ng-template" >
@@ -35,8 +33,8 @@
           <ion-nav-view name="busqueda-tab"></ion-nav-view>
         </ion-tab>
 
-        <ion-tab title="Expediente" icon="ion-ios-folder" ui-sref="tabs.expediente">
-          <ion-nav-view name="expediente-tab"></ion-nav-view>
+        <ion-tab title="Consulta" icon="ion-ios-folder" ui-sref="tabs.consultaExpediente">
+          <ion-nav-view name="consultaExpediente-tab"></ion-nav-view>
         </ion-tab>
 
         <ion-tab title="Sincronización" icon="icon ion-load-a" ui-sref="tabs.sincronizacion">
@@ -52,37 +50,37 @@
 
     <!--Template de Login.html-->
     <script id="templates/Login.html" type="text/ng-template">
-      <ion-view title="Login">
-        <ion-content class="padding">
-          <div ng-init="init()">
-              <div class="container">
-                  <header>    
-                      <h1>Registro de <strong>Unidades</strong></h1>
-                  </header>
-                  <section id="imagen">
-                      <center>
-                      <img id="logo" src="images/logo/integra.png"></img>
-                      </center>
-                  </section>
-                  <section class="main">
-                      <form class="form-1">
-                          <p class="field">
-                              <input type="text" name="login" placeholder="Usuario del sistema" ng-model="usuario">
-                              <i class="icon-user icon-large"></i>
-                          </p>
-                              <p class="field">
-                                  <input type="password" name="password" placeholder="Contraseña" ng-model="password">
-                                  <i class="icon-lock icon-large"></i>
-                          </p>
-                          <p class="submit">
-                              <button type="button" ng-click="iniciarSesion(usuario, password)"><i class="icon-arrow-right icon-large"></i></button>
-                          </p>
-                      </form>
-                  </section>
-              </div>
-          <div>
-        </ion-content>
-      </ion-view>
+        <ion-view title="Login">
+            <ion-content class="padding">
+                <div ng-init="init()">
+                    <div class="container">
+                        <header>
+                            <h1>Registro de <strong>Unidades</strong></h1>
+                        </header>
+                        <section id="imagen">
+                            <center>
+                                <img id="logo" src="images/logo/integra.png"></img>
+                            </center>
+                        </section>
+                        <section class="main">
+                            <form class="form-1">
+                                <p class="field">
+                                    <input type="text" name="login" placeholder="Usuario del sistema" ng-model="usuario">
+                                    <i class="icon-user icon-large"></i>
+                                </p>
+                                <p class="field">
+                                    <input type="password" name="password" placeholder="Contraseña" ng-model="password">
+                                    <i class="icon-lock icon-large"></i>
+                                </p>
+                                <p class="submit">
+                                    <button type="button" ng-click="validaCredencialesLocales(usuario, password)"><i class="icon-arrow-right icon-large"></i></button>
+                                </p>
+                            </form>
+                        </section>
+                    </div>
+                    <div>
+            </ion-content>
+        </ion-view>
     </script>
 
     <!--Template Busqueda.html -->
@@ -90,144 +88,96 @@
       <ion-view title="Búsqueda">
         <ion-content class="padding">
           <div ng-init="init()">
-            <div id="form" class="demo-wrapper">
-                <div mobiscroll-form="settings" style="display:none">   
-                    <div class="mbsc-divider">Búsqueda de unidad</div>
-                    <div>
-                        <input ng-model="facturaVin" type="text" placeholder="Número de Factura o VIN" />
-                    </div>
-                    <button class="mbsc-btn-block" ng-click="busqueda(facturaVin)">Buscar</button>
-                    <div mbsc-enhance ng-show="valor">
-                        <ul id="contacts" style="display:none;" mobiscroll-listview="contactSettings" mobiscroll-data="contacts">
-                            <li data-role="list-divider">Factura</li>
-                            <li>{{item.factura}}</li>
-                            <li data-role="list-divider">VIN</li>
-                            <li>{{item.vin}}</li>
-                            <li data-role="list-divider">Descripción</li>
-                            <li>{{item.descripcion}}</li>
-                        </ul>
-                    </div>
-                    <div class="mbsc-btn-group" ng-show="valor">
-                        <button data-icon="checkmark" ng-click="seleccionar()">Seleccionar</button>
-                    </div>
+            <div id="form">  
+                <div class="bar bar-header">
+                   <h1 class="title">Búsqueda de unidad</h1>
                 </div>
+                </br>
+                </br>
+                <div>
+                    <input id="facturavin" ng-model="factura" type="text" placeholder="Número de Factura o VIN" />
+                </div>
+                <button class="button button-block button-positive" ng-click="busqueda(factura)">
+                       Buscar
+                </button>
+                <ion-list ng-show="mostrarList" ng-controller="busquedaController">
+                   <ion-item>
+                      VIN: {{vin}}
+                   </ion-item>
+                  
+                   <ion-item>
+                      Factura: {{numFactura}} 
+                   </ion-item>
+                  
+                   <ion-item>
+                      Descripción: {{tipo}} {{marca}} {{modelo}} 
+                   </ion-item>
+                </ion-list>
+                <button ng-show="mostrar" class="button button-block button-balanced icon ion-checkmark-circled" ng-click="seleccionar(vin)">
+                   Seleccionar
+                </button>
             </div>   
         </div>
+        <button ng-click="inserta()">Inserta</button>
         </ion-content>
       </ion-view>
     </script>
 
-        <!-- Template Expediente.html -->
+    <!-- Template Expediente.html -->
     <script id="templates/Expediente.html" type="text/ng-template">
-      <ion-view title="Expediente">
+      <ion-view title="Expediente" ng-init="init()">
         <ion-content class="padding">
-              <div id="demo_cont_listviewUpdate" class="demo-wrapper" >
-                <div mobiscroll-form="settings">
-                <ul mobiscroll-listview="settings" mobiscroll-data="data">
-                    <li data-type="{{item.type}}" data-icon="{{item.icon}}">{{item.name}}
-                        <ul>
-                            <li data-role="list-divider">Vin</li>
-                            <li>{{item.name}}</li>
-                            <li data-role="list-divider">Factura</li>
-                            <li>{{item.factura}}</li>
-                            <li data-role="list-divider">Descripción</li>
-                            <li>{{item.descripcion}}</li>
-                            <li data-role="list-divider">Propiedades</li>
-                            <div>
-                                <li onclick="imageTextInit()">
-                                    <img src="images/auto_delantera.jpg" id="image" class="contact-icon" width="60px" height="60px" onclick="imageTextInit()"/></li><p style="vertical-align: middle" onclick="getPhoto()">Foto Delantera: {{item.estatusFrente}}</p>        
-                            </div>
-                            <div>
-                                <li onclick="">
-                                    <img id="" src="images/auto_trasera.jpg" style="vertical-align: middle" class="contact-icon" width="60px" height="60px" /> Foto Trasera: {{item.estatusTrasera}}</li>
-                            </div>
-                            <div>
-                                <li onclick="">
-                                    <img src="images/auto_derecha.jpg" class="contact-icon" style="vertical-align: middle" class="contact-icon" width="60px" height="60px" />Foto Derecha: {{item.estatusDerecha}}</li>
-                            </div>
-                            <div>
-                                <li onclick="">
-                                    <img src="images/auto_izquierda.jpg" class="contact-icon" style="vertical-align: middle" class="contact-icon" width="60px" height="60px" />Foto Izquierda: {{item.estatusIzquierda}}
-                                </li>
-                            </div>
-                            <div>
-                                <li onclick="">
-                                    <img src="images/placa.jpg" class="contact-icon" style="vertical-align: middle" class="contact-icon" width="60px" height="60px" />Foto Placa: Pendiente
-                                </li>
-                            </div>
-                            <div>
-                                <li onclick="">
-                                    <img src="images/tarjeta.jpg" class="contact-icon" style="vertical-align: middle" class="contact-icon" width="60px" height="60px" />Tarjeta Circulación: Pendiente
-                                </li>
-                            </div>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-          <div class="demo-wrapper demo-wrapper-imageText">
-              <ul id="imageText-demo" style="display:none">
-                  <li>
-                    <img src="" id="visualiza" class="contact-icon" width="220px" height="350px" style="vertical-align: middle" />
-                  </li>
-              </ul>        
-          </div>
+              <ion-list>
+                <ion-item>
+                  <img ng-src="{{imgURI}}" ng-click="obtenerFoto(27)">
+                  <p>Foto delatera: Pendiente</p>
+                  <div class="list">
+                     <label class="item item-input">
+                     <input type="text" placeholder="Número de placa">
+                     </label>
+                     <label class="item item-input">
+                     <input type="text" placeholder="Número de póliza">
+                     </label>
+                  </div>
+                </ion-item>
+                <ion-item>
+                  <img ng-src="images/auto_trasera.jpg">
+                  <p>Foto trasera: Pendiente</p>
+                </ion-item>
+                <ion-item>
+                  <img ng-src="images/auto_derecha.jpg">
+                  <p>Foto lado derecho: Pendiente</p>
+                </ion-item>
+                <ion-item>
+                  <img ng-src="images/auto_izquierda.jpg">
+                  <p>Foto lado izquierdo: Pendiente</p>
+                </ion-item>
+                <ion-item>
+                  <img ng-src="images/placa.jpg">
+                  <p>Foto trasera: Pendiente</p>
+                </ion-item>
+                <ion-item>
+                  <img ng-src="images/placa.jpg">
+                  <p>Foto trasera: Pendiente</p>
+                </ion-item>
+              </ion-list>
         </ion-content>
       </ion-view>
     </script>
 
     <!-- Template Consulta Expediente.html -->
     <script id="templates/ConsultaExpediente.html" type="text/ng-template">
-      <ion-view title="Consulta Expediente">
-        <ion-content class="padding">
-          <div ng-init="init()">
-              <div class="md-navigation">
-                <ul ng-model="mymenustrip" mobiscroll-menustrip="settingsMenu" mobiscroll-instance="demo" class="mbsc-ms-icons" style="display:none;">
-                    <li data-tab="md-tab-acc" data-selected="true">
-                    <span class="micons mbsc-ic mbsc-ic-home mbsc-ms-ic"><a href="#/busqueda" class="md-link" data-isLogin="true">Búsqueda</a></span></li>
-                    <li data-tab="md-tab-icloud">
-                    <span class="micons mbsc-ic mbsc-ic-file4 mbsc-ms-ic"> <a href="#/consultaExpediente" class="md-link">Expedientes</a></span></li>
-                    <li data-tab="md-tab-comp">
-                    <span class="micons mbsc-ic mbsc-ic-loop2 mbsc-ms-ic"><a href="#/historialSincronizacion" class="md-link">Sincronización</a></span></li>
-                    <li data-tab="md-tab-comp">
-                    <span class="micons mbsc-ic mbsc-ic-user4 mbsc-ms-ic"><a href="#/perfil" class="md-link">Cuenta</a></span></li>                 
-                </ul>
-            </div>
-            </br></br></br></br>
-            <div id="demo_cont_listviewUpdate" class="demo-wrapper">
-              <div mobiscroll-form="settings">
-                  <div class="mbsc-divider">Consulta Mis Expedientes</div>
-                    <ul mobiscroll-listview="settings" mobiscroll-data="data">
-                      <li data-type="{{item.type}}" data-icon="{{item.icon}}">{{item.name}}
-                          <ul class="contact-detail">
-                              <li data-role="list-divider">Vin</li>
-                              <li>{{item.name}}</li>
-                              <li data-role="list-divider">Factura</li>
-                              <li>{{item.factura}}</li>
-                              <li data-role="list-divider">Descripción</li>
-                              <li>{{item.descripcion}}</li>
-                              <li data-role="list-divider">Propiedades</li>
-                              </br>
-                              <li>Foto Delantera: {{item.estatusFrente}}
-                                  <img ng-src="{{item.imageFrente}}" class="contact-icon" />
-                              <li>
-                              <li>Foto Trasera: {{item.estatusTrasera}}
-                                  <img ng-src="{{item.imageTrasera}}" class="contact-icon" />
-                              <li>
-                              <li>Foto Derecha: {{item.estatusDerecha}}
-                                  <img ng-src="{{item.imageDerecha}}" class="contact-icon" />
-                              <li>
-                              <li>Foto Izquierda: {{item.estatusIzquierda}}
-                                  <img ng-src="{{item.imageIzquierda}}" class="contact-icon" />
-                              <li>
-                          </ul>
-                        </li>
-                    </ul>
-                </div>
-             </div>
-          </div>
+        <ion-view title="Consulta Expediente">
+           <ion-content class="padding">
+              <ion-list>
+                <ion-item class="item item-icon-left" ng-repeat="expediente in expedientes" ng-click="Detalle(expediente)">
+                 <i class="icon ion-model-s"></i>
+                    <span>VIN: {{expediente.vin}}</span></br>
+                  <span>FACTURA: {{expediente.factura}}</span>
+                </ion-item>
+              </ion-list>
         </ion-content>
-      </ion-view>
+        </ion-view>
     </script>
 
     <!-- Template Historial Sincronizacion.html -->
@@ -310,55 +260,86 @@
       </ion-view>
     </script>
 
-    <!-- Template Perfil.html -->
+        <!-- Template Perfil.html -->
     <script id="templates/Perfil.html" type="text/ng-template">
-      <ion-view title="Perfil">
-        <ion-content class="padding">
-          <div ng-init="init()">
-              <!-- Text Fields START -->
-              <div id="demo_cont_formsTextfields" class="demo-wrapper">
-                  <div mobiscroll-form="settings">
+        <ion-view view-title="Perfil">
+            <ion-content class="padding">
+                <div ng-init="init()">
+                    <div id="demo_cont_listviewUpdate" class="demo-wrapper">
+                        <div mobiscroll-form="settings">
+                            <div class="mbsc-divider">Cuenta</div>
+                            <ul mobiscroll-listview="settings" mobiscroll-data="perfil">
+                                <li class="item item-input item-stacked-label">
+                                    <span class="input-label">Nombre Completo</span>
+                                    <input type="text" placeholder="{{item.nombre}}" ng-model="nombre" readonly>
+                                    <ul>
+                                        <li data-role="list-divider">Nombre Completo</li>
+                                        <li class="item">
+                                            <input ng-model="nombre" type="text" placeholder="{{item.nombre}}" class="item-input item-stacked-label" />
+                                            <button class="button button-block button-positive" ng-click="insertaNombre(nombre)">Guardar</button>
+                                        </li>
 
-                      <div ng-hide="mostrarRegistro">
-                          <div class="mbsc-divider">Cuenta</div>
-
-                          <div>
-                              <label>Nombre Completo
-                                  <input id="formsTextfields-name" type="text" placeholder="Vladimir Juarez Juarez" data-icon="user" readonly />
-                              </label>
-                          </div>
-
-                          <label>
-                              Rol
-                              <select class="md-select">
-                                  <option>Seleccione</option>
-                                  <option value="Gestor">Gestor</option>
-                                  <option value="Apoyo">Apoyo</option>
-                                  <option value="Transladista">Transladista</option>
-                                  <option value="Ejecutivo" selected="true">Ejecutivo</option>
-                                  <option value="Ejecutivo">Administrador</option>
-                              </select>
-                          </label>
-
-                          <div>
-                              <label>Correo electrónico
-                                  <input id="formsTextfields-name" type="text" placeholder="1234@1234.com" data-icon="mail" />
-                              </label>
-                          </div>
-
-                          <label>
-                              Contraseña
-                              <input type="password" placeholder="******" data-icon="lock2" />
-                          </label>
-                      </div>
-
-                      <!-- Text Fields END -->
-
-                  </div>
-              </div>
-          </div>
-        </ion-content>
-      </ion-view>
+                                    </ul>
+                                </li>
+                                <li class="item item-input item-stacked-label">
+                                    <span class="input-label">Usuario</span>
+                                    <input type="text" placeholder="{{item.usuario}}" ng-model="usuario" readonly>
+                                    <ul class="contact-detail">
+                                        <li data-role="list-divider">Usuario</li>
+                                        <li>
+                                            <input type="text" placeholder="{{item.usuario}}" ng-model="usuario">
+                                            <button class="button button-block button-positive" ng-click="insertaUsuario(usuario)">Guardar</button>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="item item-input item-stacked-label">
+                                    <span class="input-label">Rol</span>
+                                    <input type="text" placeholder="{{item.rol}}" ng-model="perfil.rol" readonly>
+                                    <ul class="contact-detail">
+                                        <li data-role="list-divider">Rol</li>
+                                        <li>
+                                            <div class="list">
+                                                <label class="item item-select">
+                                                    <div class="input-label">
+                                                    </div>
+                                                    <select id="sRol">
+                                                        <option ng-repeat="x in tablaRoles" value="{{x.id}}">{{x.descripcion}}</option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                            <button class="button button-block button-positive" ng-click="insertaRol()">Guardar</button>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="item item-input item-stacked-label">
+                                    <span class="input-label">Contraseña</span>
+                                    <input type="password" placeholder="*****" readonly ng-model="pass">
+                                    <ul class="contact-detail">
+                                        <li data-role="list-divider">Contraseña</li>
+                                        <li>
+                                            <label class="item item-input item-stacked-label">
+                                                <span class="input-label">Contraseña Actual</span>
+                                                <input type="password" ng-model="oldPass">
+                                            </label>
+                                            <label class="item item-input item-stacked-label">
+                                                <span class="input-label">Nueva Contraseña</span>
+                                                <input type="password" ng-model="newPass">
+                                            </label>
+                                            <label class="item item-input item-stacked-label">
+                                                <span class="input-label">Confirma Contraseña</span>
+                                                <input type="password" ng-model="confirmPass">
+                                            </label>
+                                            <button class="button button-block button-positive" ng-click="insertaPass(oldPass, newPass, confirmPass)">Guardar</button>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+            </ion-content>
+        </ion-view>
     </script>
 
     <!--Librerias de aplicación angular-->
@@ -376,8 +357,10 @@
     <script src="AngularJS/Login/loginController.js"></script>
     <script src="AngularJS/Expediente/expedienteRepository.js"></script>
     <script src="AngularJS/Expediente/expedienteController.js"></script>
+    <script src="AngularJS/Expediente/consultaRepository.js"></script>
     <script src="AngularJS/Expediente/consultaController.js"></script>
-    <script src="AngularJS/HistorialSincronizacion/historialSincronizacionController.js"></script>
+    <script src="AngularJS/HistorialSincronizacion/historialSincronizacionController.js"></script>    
+    <script src="AngularJS/HistorialSincronizacion/historialSincronizacionRepository.js"></script>
     <script src="AngularJS/Perfil/perfilController.js"></script>
   </body>
 </html>

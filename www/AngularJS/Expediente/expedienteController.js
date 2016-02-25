@@ -4,23 +4,48 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-registrationModule.controller("expedienteController", function($scope, $rootScope, expedienteRepository) {
+registrationModule.controller("expedienteController", function($scope, $ionicPopup, $ionicModal, $rootScope,$cordovaCamera,expedienteRepository){
 
     //Propiedades
-
+    $scope.imgURI= null;
     //Grupo de funciones de inicio
     $scope.init = function () {
-        $rootScope.logged = true;
-    };
+        $scope.cargaImagen();
+        
+    }
 
-   /* $scope.data = [
-        { id: 1, title: 'Foto Delantera', img: "images/auto_delantera.jpg", status: "Pendiente"},
-        { id: 2, title: 'Foto Trasera', img: "images/auto_trasera.jpg" , status: "Pendiente"},
-        { id: 3, title: 'Foto Izquierda', img: "images/auto_izquierda.jpg", status: "Pendiente"},
-        { id: 4, title: 'Foto Derecha',  img: "images/auto_derecha.jpg", status: "Pendiente"},
-        { id: 5, title: 'Foto Placa',  img: "images/placa.jpg" , status: "Pendiente"} ,
-        { id: 6, title: 'Tarjeta Circulación', img: "images/tarjeta.jpg", status: "Pendiente"}        
-    ];*/
+    $scope.cargaImagen = function(){
+        //for(var i = 0; )
+        if($rootScope.countDocs > 0){
+            $scope.imgURI = $rootScope.expediente[0].valor;
+        }
+        else{
+            $scope.imgURI = 'images/auto_delantera.jpg';
+        }
+    }
+
+    $scope.tomarFoto = function(idDocumento){
+        var options = { 
+            //quality : 75, 
+            destinationType : Camera.DestinationType.FILE_URI, 
+            sourceType : Camera.PictureSourceType.CAMERA, 
+            //allowEdit : true,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 120,
+            targetHeight: 120,
+            //popoverOptions: CameraPopoverOptions,
+            correctOrientation: true,
+            saveToPhotoAlbum: false
+        };
+ 
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+            $scope.imgURI = imageData;
+            $rootScope.facturaVin
+            expedienteRepository.insertDocumento('AA000013433','324234', idDocumento, $scope.imgURI, 'Pendiente');
+        }, function(err) {
+            console.log('Ocurrió un problema al tomar la foto.')
+        });
+    }
 
     $scope.data2 = [
         { id: 1, title: 'CAMIONETA FORD TRANSIT 350 WAGON GASOLINA A/A Motor 3.7', VIN: '1FBAX2CM0FKA56032' , factura: 'AA000013433'}
@@ -33,71 +58,6 @@ registrationModule.controller("expedienteController", function($scope, $rootScop
     $scope.Alerta = function (){
         alert("Entra");
     }
-
-    /*$scope.settings = {
-        theme: 'mobiscroll',
-        display: 'inline',
-        type: 'options',
-        select: 'single',
-        onItemTap: function (item, inst) {
-            $('.md-tab').removeClass('md-tab-sel');
-            $('.' + item.data('tab')).addClass('md-tab-sel');
-        }
-    };
-
-    var hasStorage = typeof (Storage) !== 'undefined',
-        message = $('#message'),
-        messageTimer,
-        listviewInst,
-        contacts;
-
-    contacts = [
-        {
-            id: 1,
-            factura: 'AA000013433',
-            vin: '1FBAX2CM0FKA56032',
-            descripcion: 'CAMIONETA FORD TRANSIT 350 WAGON GASOLINA A/A Motor 3.7'
-        }
-    ];
-
-    contacts = localStorage.contacts ? JSON.parse(localStorage.contacts) : contacts;
-
-    $scope.contacts = contacts;
-
-    $scope.contactSettings = {
-        theme: $scope.theme,
-        swipe: false,
-        iconSlide: true,
-        onThemeLoad: $scope.addFilter,
-        context: $scope.context2,
-        enhance: true,
-        itemGroups: {
-            contact: {
-                swipe: true,
-                stages: [
-                    { percent: -30, color: '#e64d4f', icon: 'foundation-mail', text: 'EMAIL', action: $scope.mail },
-                    { percent: 30, color: '#4ca94e', icon: 'phone', text: 'CALL', action: $scope.call }
-                ]
-            },
-            phone: {
-                tap: $scope.call
-            },
-            email: {
-                tap: $scope.mail
-            },
-            address: {
-                tap: $scope.navigate
-            },
-            filter: {
-                tap: $scope.showCategoryFilter
-            },
-            newAppointment: {}
-        },
-        onInit: function () {
-            $('.contact-hdr').removeClass('mbsc-lv-parent');
-            listviewInst = $('#contacts').mobiscroll('getInst');
-        }
-    };*/
 
           $scope.data = [
         {
@@ -132,4 +92,93 @@ registrationModule.controller("expedienteController", function($scope, $rootScop
             $('.' + item.data('tab')).addClass('md-tab-sel');
         }
     };
+
+    // pop up para ver o tomar foto
+    $scope.obtenerFoto = function(idDocumento) {
+      $scope.data = {};
+      if($scope.imgURI == 'images/auto_delantera.jpg'){
+        $scope.tomarFoto(idDocumento);
+      }
+      else{
+        // An elaborate, custom popup
+          var myPopup = $ionicPopup.show({
+            //template: '<input type="password" ng-model="data.wifi">',
+            title: 'Foto',
+            subTitle: 'Elige una acción',
+            scope: $scope,
+            buttons: [
+              {
+                text: '<b>Tomar foto</b>',
+                type: 'button-positive',
+                onTap: function(e) {
+                   $scope.tomarFoto(idDocumento);
+                }
+              },
+              {
+                text: '<b>Ver foto</b>',
+                type: 'button-positive',
+                onTap: function(e) {
+                  $scope.showImage(2);
+                }
+              }
+            ]
+          });
+
+          myPopup.then(function(res) {
+            console.log('Tapped!', res);
+          });
+
+      }
+      /*$timeout(function() {
+         myPopup.close(); //close the popup after 3 seconds for some reason
+      }, 3000);*/
+
+     };
+
+     //visualiza la imagen seleccionada
+    $ionicModal.fromTemplateUrl('image-modal.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+
+    $scope.openModal = function() {
+      $scope.modal.show();
+    };
+
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hide', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+      // Execute action
+    });
+    $scope.$on('modal.shown', function() {
+      console.log('Modal is shown!');
+    });
+
+    $scope.showImage = function(index) {
+      switch(index) {
+        case 1:
+          $scope.imageSrc = 'http://ionicframework.com/img/ionic-logo-blog.png';
+          break;
+        case 2:
+          $scope.imageSrc  = $scope.imgURI;
+          break;
+        case 3:
+          $scope.imageSrc  = 'images/auto_trasera.jpg';
+          break;
+      }
+      $scope.openModal();
+    }
 });
