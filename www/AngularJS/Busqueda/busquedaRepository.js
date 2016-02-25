@@ -46,6 +46,14 @@ registrationModule.factory('busquedaRepository', function ($rootScope, $cordovaS
             }, function(error){
 		      	alert('error en el insert');
 		    });
-		}
+		},
+        updateLicitacionUnidad: function(usuarioAsignado, vin){
+            var update = "UPDATE LicitacionUnidad SET usuarioAsignado = ? WHERE vin = ?";
+            $cordovaSQLite.execute($rootScope.FlotillasDB,update,[usuarioAsignado, vin]).then(function (result) {
+                alert('update');                
+            }, function (error) {
+               alert('error en el update');
+            });
+        }
     };
 });

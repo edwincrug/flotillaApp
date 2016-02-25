@@ -22,22 +22,43 @@ registrationModule.run(function($ionicPlatform,$cordovaSQLite, $rootScope){
       StatusBar.styleDefault();
     }
 
-   if ($cordovaSQLite && window.sqlitePlugin !== undefined) {
-            $rootScope.FlotillasDB = window.sqlitePlugin.openDatabase({
-                name: "FlotillasDB.db",
-                createFromLocation: 1
-            });
-            $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS Bitacora (idBitacora INTEGER NOT NULL PRIMARY KEY,' + 'idUsuario INTEGER,' + 'idDocumento INTEGER,' + 'vin TEXT,' + 'fecha TEXT,' + 'accion  TEXT)');
+  if($cordovaSQLite && window.sqlitePlugin !== undefined){
+      $rootScope.FlotillasDB = window.sqlitePlugin.openDatabase({name: "FlotillasDB.db", createFromLocation: 1});
+      //$rootScope.FlotillasDB = $cordovaSQLite.openDB("FlotillasDB.db");
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS Bitacora (idBitacora INTEGER NOT NULL PRIMARY KEY,'
+                                                                                          +'idUsuario INTEGER,'
+                                                                                          +'idDocumento INTEGER,'
+                                                                                          +'vin TEXT,'
+                                                                                          +'fecha TEXT,'
+                                                                                          +'accion  TEXT)');
 
-            $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS HistorialSincronizacion (idSincronizacion  INTEGER NOT NULL PRIMARY KEY,' + 'fecha TEXT NOT NULL,' + 'numDocumentos INTEGER NOT NULL)');
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS HistorialSincronizacion (idSincronizacion  INTEGER NOT NULL PRIMARY KEY,'
+                                                                                                        +'fecha TEXT NOT NULL,'
+                                                                                                        +'numDocumentos INTEGER NOT NULL)');
 
-            $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS LicitacionUnidad (vin  TEXT,' + 'factura  TEXT,' + 'idLicitacion INTEGER,' + 'tipo TEXT,' + 'marca  TEXT,' + 'modelo TEXT,' + 'numeroMotor  TEXT,' + 'color  TEXT,' + 'estatus  TEXT,' + 'usuarioAsignado INTEGER)');
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS LicitacionUnidad (vin  TEXT NOT NULL PRIMARY KEY,'
+                                                                                                 +'factura  TEXT,'
+                                                                                                 +'idLicitacion INTEGER,'
+                                                                                                 +'tipo TEXT,'
+                                                                                                 +'marca  TEXT,'
+                                                                                                 +'modelo TEXT,'
+                                                                                                 +'numeroMotor  TEXT,'
+                                                                                                 +'color  TEXT,'
+                                                                                                 +'estatus  TEXT,'
+                                                                                                 +'usuarioAsignado INTEGER)');
 
-            $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS UnidadCatalogo (idCatalogo INTEGER NOT NULL PRIMARY KEY,' + 'idDocumento INTEGER NOT NULL,' + 'nombreDocumento TEXT NOT NULL)');
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS UnidadCatalogo (idCatalogo INTEGER NOT NULL PRIMARY KEY,'
+                                                                                                +'idDocumento INTEGER NOT NULL,'
+                                                                                                +'nombreDocumento TEXT NOT NULL)');
 
-            $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS UnidadPropiedad (idUnidad  INTEGER NOT NULL PRIMARY KEY,' + 'vin  TEXT NOT NULL,' + 'idDocumento  INTEGER NOT NULL,' + 'valor  TEXT,' + 'estatus  TEXT)');
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS UnidadPropiedad (idUnidad  INTEGER NOT NULL PRIMARY KEY,'
+                                                                                                 +'vin  TEXT NOT NULL,'
+                                                                                                 +'factura  TEXT NOT NULL,'
+                                                                                                 +'idDocumento  INTEGER NOT NULL,'
+                                                                                                 +'valor  TEXT,'
+                                                                                                 +'estatus  TEXT)'); 
 
-            $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS DatosUsuario (idUsuario  INTEGER NULL,' + 'nombreCompleto TEXT NULL,' + 'nombreUsuario  TEXT NULL,' + 'idRol  INTEGER NULL,' + 'password TEXT NULL,' + 'huboCambio INTEGER NULL)');
+            $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS DatosUsuario (idUsuario  INTEGER NULL,' + 'nombreCompleto TEXT NULL,' + 'nombreUsuario  TEXT NULL,' + 'idRol  INTEGER NULL,' + 'password TEXT NULL,' + 'huboCambio INTEGER NULL' + 'descripcionRol TEXT NULL)');
 
             $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS Rol (idRol  INTEGER NOT NULL PRIMARY KEY,' + 'descripcion  TEXT NOT NULL)');
 

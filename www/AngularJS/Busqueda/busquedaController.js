@@ -39,9 +39,12 @@ registrationModule.controller("busquedaController", function($scope, $rootScope,
         }        
     };
 
-    $scope.seleccionar = function(){
+    $scope.seleccionar = function(vin){
         alert('La unidad se asignará a su usuario y no se podrá deshacer');        
-        $rootScope.facturaVin = $scope.vin;
+        $rootScope.facturaVin = vin;
+        alert(vin);
+        alert($rootScope.data.idUsuario);
+        busquedaRepository.updateLicitacionUnidad($rootScope.data.idUsuario, vin);
         location.href = '#/tab/expediente';
     };
 
