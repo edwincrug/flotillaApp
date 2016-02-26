@@ -129,38 +129,45 @@
         <ion-content class="padding">
               <ion-list>
                 <ion-item>
-                  <img ng-src="{{imgURI}}" ng-click="obtenerFoto(27)">
+                  <img ng-src="{{imgFotoFrente}}" ng-click="altaDocumento(27, imgFotoFrente)">
                   <p>Foto delatera: Pendiente</p>
+                </ion-item>
+                <ion-item>
+                  <img ng-src="{{imgFotoTrasera}}" ng-click="altaDocumento(28, imgFotoTrasera)">
+                  <p>Foto trasera: Pendiente</p>
+                </ion-item>
+                <ion-item>
+                  <img ng-src="{{imgFotoIzquierda}}" ng-click="altaDocumento(29, imgFotoIzquierda)">
+                  <p>Foto lado izquierdo: Pendiente</p>
+                </ion-item>
+                <ion-item>
+                  <img ng-src="{{imgFotoDerecha}}" ng-click="altaDocumento(30, imgFotoDerecha)">
+                  <p>Foto lado derecho: Pendiente</p>
+                </ion-item>
+                <ion-item>
+                  <img ng-src="{{imgFotoPlaca}}" ng-click="altaDocumento(13, imgFotoPlaca)">
+                  <p>Foto de la placa: Pendiente</p>
                   <div class="list">
                      <label class="item item-input">
-                     <input type="text" placeholder="Número de placa">
-                     </label>
-                     <label class="item item-input">
-                     <input type="text" placeholder="Número de póliza">
+                     <input type="text" ng-model="txtNumPlaca" ng-blur="altaDocumento(39, txtNumPlaca)" placeholder="Número de placa">
                      </label>
                   </div>
                 </ion-item>
                 <ion-item>
-                  <img ng-src="images/auto_trasera.jpg">
-                  <p>Foto trasera: Pendiente</p>
-                </ion-item>
-                <ion-item>
-                  <img ng-src="images/auto_derecha.jpg">
-                  <p>Foto lado derecho: Pendiente</p>
-                </ion-item>
-                <ion-item>
-                  <img ng-src="images/auto_izquierda.jpg">
-                  <p>Foto lado izquierdo: Pendiente</p>
-                </ion-item>
-                <ion-item>
-                  <img ng-src="images/placa.jpg">
-                  <p>Foto trasera: Pendiente</p>
-                </ion-item>
-                <ion-item>
-                  <img ng-src="images/placa.jpg">
-                  <p>Foto trasera: Pendiente</p>
+                  <img ng-src="{{imgFotoAcuseRec}}" ng-click="altaDocumento(17, imgFotoAcuseRec)">
+                  <p>Acuse de recibo: Pendiente</p>
                 </ion-item>
               </ion-list>
+              <ion-item>
+                  <img ng-src="{{imgFotoAcuseEnt}}" ng-click="altaDocumento(18, imgFotoAcuseEnt)">
+                  <p>Acuse de entrega: Pendiente</p>
+                  <div class="list">
+                     <label class="item item-input">
+                     <input type="text" ng-model="txtRecibidoPor" ng-blur="altaDocumento(26, txtRecibidoPor)" placeholder="Recibido por:">
+                     </label>
+                  </div>
+              </ion-item>
+            </ion-list>
         </ion-content>
       </ion-view>
     </script>

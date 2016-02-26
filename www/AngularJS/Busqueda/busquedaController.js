@@ -10,7 +10,6 @@ registrationModule.controller("busquedaController", function($scope, $rootScope,
     //Grupo de funciones de inicio
     $scope.init = function () {
         $rootScope.showTabs = true;
-        expedienteRepository.getExpediente();
         ocultarView();
     };
 

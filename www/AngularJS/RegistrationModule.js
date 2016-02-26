@@ -60,11 +60,11 @@ registrationModule.run(function($ionicPlatform,$cordovaSQLite, $rootScope){
 
             $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS DatosUsuario (idUsuario  INTEGER NULL,' + 'nombreCompleto TEXT NULL,' + 'nombreUsuario  TEXT NULL,' + 'idRol  INTEGER NULL,' + 'password TEXT NULL,' + 'huboCambio INTEGER NULL' + 'descripcionRol TEXT NULL)');
 
-            $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS Rol (idRol  INTEGER NOT NULL PRIMARY KEY,' + 'descripcion  TEXT NOT NULL)');
+            $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS Rol (idRol  INTEGER NOT NULL,' + 'descripcion  TEXT NOT NULL)');
 
-            var query = "INSERT INTO Rol (descripcion) VALUES('Gestor'), ('Apoyo'), ('Transladista'), ('Ejecutivo de Cuenta'), ('Administrador'); "
+            var query = "INSERT INTO Rol (idRol, descripcion) VALUES(1, 'Gestor'), (2, 'Apoyo'), (4, 'Transladista'), (5, 'Ejecutivo de Cuenta'), (6, 'Administrador'); "
             $cordovaSQLite.execute($rootScope.FlotillasDB, query, []).then(function (result) {
-                //alert("Se poblo la tabla de roles");
+                alert("Se poblo la tabla de roles");
             }, function (error) {
                 alert(error);
             });
@@ -81,13 +81,6 @@ registrationModule.run(function($ionicPlatform,$cordovaSQLite, $rootScope){
             }, function (error) {
                 alert('Problemas para consultar la BD');
                 $rootScope.totalRegistros = 0;
-            });
-
-            query = "INSERT INTO LicitacionUnidad (vin, factura, idLicitacion, tipo, marca, modelo, numeroMotor, color, estatus, usuarioAsignado) VALUES('1FBAX2CM0FKA56032', 'AA000013433', 0, 'TIPO1', 'FORD', '2010', 'NUMMOTOR1', 'GRIS', '', 42), ('2GCBY3DN1GLB67143', 'BB111124544', 0, 'TIPO2', 'VW', '2013', 'NUMMOTOR2', 'ROJO', '', 42),  ('3HDCZ4EM2HMC78254', 'CC222235655', 0, 'TIPO3', 'SEAT', '2015', 'NUMMOTOR3', 'AZUL', '', 42), ('1FBAX2CM0FKA56032', 'AA000013433', 0, 'TIPO4', 'NISSAN', '2011', 'NUMMOTOR4', 'BLANCO', '', 41), ('1FBAX2CM0FKA56032', 'AA000013433', 0, 'TIPO5', 'MAZDA', '2016', 'NUMMOTOR5', 'NEGRO', '', 41);"
-            $cordovaSQLite.execute($rootScope.FlotillasDB, query, []).then(function (result) {
-                //alert("Se poblo la tabla LicitacionUnidad");
-            }, function (error) {
-                alert(error);
             });
         }
 

@@ -5,7 +5,7 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-registrationModule.factory('busquedaRepository', function ($rootScope, $cordovaSQLite) {
+registrationModule.factory('busquedaRepository', function ($http,$rootScope, $cordovaSQLite) {
 	var busqueda = [];
     $rootScope.resultado = [];
     return {
@@ -54,6 +54,22 @@ registrationModule.factory('busquedaRepository', function ($rootScope, $cordovaS
             }, function (error) {
                alert('error en el update');
             });
-        }
+        },
+        getLicitacion: function () {
+            return $http({
+                url: searchUrl,
+                method: "GET",
+                params: {
+                    id: '2|'
+                }
+            });
+        },
+        insertaLicitacion: function (licitacion) {   
+            $cordovaSQLite.execute($rootScope.FlotillasDB, licitacion, []).then(function (result) {
+                alert("Se poblo la tabla LicitacionUnidad");
+            }, function (error) {
+                alert('error en el insert LicitacionUnidad');
+            });
+        },
     };
 });

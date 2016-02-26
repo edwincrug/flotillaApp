@@ -1,4 +1,5 @@
 var loginUrl = global_settings.urlCORS + '/api/usuarioapi/';
+var searchUrl = global_settings.urlCORS + '/api/flotillaApi/';
 
 registrationModule.factory('loginRepository', function ($http, $rootScope, $cordovaSQLite) {
     return {
