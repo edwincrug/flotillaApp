@@ -91,14 +91,9 @@ registrationModule.controller("expedienteController", function($scope, $ionicPop
     
     $scope.tomarFoto = function(idDocumentoo){
         var options = { 
-            //quality : 75, 
             destinationType : Camera.DestinationType.FILE_URI, 
             sourceType : Camera.PictureSourceType.CAMERA, 
-            //allowEdit : true,
             encodingType: Camera.EncodingType.JPEG,
-            targetWidth: 120,
-            targetHeight: 120,
-            //popoverOptions: CameraPopoverOptions,
             correctOrientation: true,
             saveToPhotoAlbum: false
         };
@@ -135,7 +130,7 @@ registrationModule.controller("expedienteController", function($scope, $ionicPop
                     text: '<b>Ver foto</b>',
                     type: 'button-positive',
                     onTap: function(e) {
-                      $scope.showImage(2, valDocumento);
+                      $scope.showImage(valDocumento);
                     }
                   }
                 ]
@@ -190,17 +185,8 @@ registrationModule.controller("expedienteController", function($scope, $ionicPop
       console.log('Modal is shown!');
     });
 
-    $scope.showImage = function(index, valDocumento) {
-      switch(index) {
-        case 1:
-          //$scope.imageSrc = 'http://ionicframework.com/img/ionic-logo-blog.png';
-          break;
-        case 2:
+    $scope.showImage = function(valDocumento) {
           $scope.imageSrc  = valDocumento;
-        case 3:
-          //$scope.imageSrc  = 'images/auto_trasera.jpg';
-          break;
-      }
       $scope.openModal();
     }
 });
