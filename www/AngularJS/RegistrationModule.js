@@ -51,8 +51,7 @@ registrationModule.run(function($ionicPlatform,$cordovaSQLite, $rootScope){
                                                                                                 +'idDocumento INTEGER NOT NULL,'
                                                                                                 +'nombreDocumento TEXT NOT NULL)');
 
-      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS UnidadPropiedad (idUnidad  INTEGER NOT NULL PRIMARY KEY,'
-                                                                                                 +'vin  TEXT NOT NULL,'
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS UnidadPropiedad (vin  TEXT NOT NULL,'
                                                                                                  +'factura  TEXT NOT NULL,'
                                                                                                  +'idDocumento  INTEGER NOT NULL,'
                                                                                                  +'valor  TEXT,'
