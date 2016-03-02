@@ -1,48 +1,41 @@
 registrationModule.controller("perfilController", function ($scope, $rootScope, perfilRepository, $ionicHistory) {
 
-    $scope.init = function () {
-        $rootScope.data.rol = perfilRepository.getRol($rootScope.data.idRol);
-        $scope.perfil = [
-            {
+    $scope.Inicializar = function () {
 
-                id: 1,
-                nombre: $rootScope.data.nombreCompleto,
-                rol: $rootScope.data.rol,
-                usuario: $rootScope.data.usuario,
-                contrasena: $rootScope.data.password,
-        }
-    ];
+    }
+
+
+    $scope.init = function () {
+        alert('Setea Valores');
+        $scope.nombreCompleto = $rootScope.data.nombreCompleto;
+        $scope.nombreUsuario = $rootScope.data.usuario;
+        $scope.rol = $rootScope.data.rol;
+        $scope.contrasena = $rootScope.data.password;
+
+        $scope.nuevoNombre = $rootScope.data.nombreCompleto;
+        $scope.nuevoUsuario = $rootScope.data.usuario;
+        $scope.oldPass = $rootScope.data.password;
+
         $scope.tablaRoles = perfilRepository.getTablaRoles();
-        //$scope.tablaRoles = $rootScope.tablaRoles;
-        //$scope.SimpleSelectedData = $rootScope.data.rol;
-    };
+
+    }
+
+    $scope.descriptionRol = function (idRol) {
+        perfilRepository.getDescriptionRol(idRol).then(function (description) {
+            $scope.rol = description;
+        });
+    }
 
     $scope.GetSelectedRol = function () {
         var e = document.getElementById('sRol');
         $scope.selectedIdRol = e.options[e.selectedIndex].value;
         $scope.selectedRol = e.options[e.selectedIndex].text;
-    };
-
-    $scope.settingsMenu = {
-        theme: 'mobiscroll',
-        display: 'top',
-        type: 'options',
-        select: 'single',
-        onItemTap: function (item, inst) {
-            $('.md-tab').removeClass('md-tab-sel');
-            $('.' + item.data('tab')).addClass('md-tab-sel');
-        }
-    }
-
-    $scope.settings = {
-        lang: 'es',
-        enhance: false,
     }
 
     $scope.insertaNombre = function (nombre) {
         perfilRepository.insertNombreCompleto(nombre);
         location.href = '#/tab/perfil';
-    };
+    }
 
     $scope.insertaUsuario = function (usuario) {
         perfilRepository.insertUsuario(usuario);
@@ -56,7 +49,7 @@ registrationModule.controller("perfilController", function ($scope, $rootScope, 
         perfilRepository.insertRol($scope.selectedIdRol);
         $scope.perfil.rol = e.options[e.selectedIndex].text;
         location.href = '#/tab/perfil';
-    };
+    }
 
     $scope.insertaPass = function (oldPass, newPass, confirmPass) {
         if (oldPass == null || newPass == null || confirmPass == null) {
@@ -73,5 +66,46 @@ registrationModule.controller("perfilController", function ($scope, $rootScope, 
                 }
             }
         }
-    };
+    }
+
+    $scope.logout = function () {
+        $rootScope.showTabs = false;
+        location.href = '#/login';
+    }
+
+    $scope.Modificar = function (nuevoNombre, nuevoUsuario, oldPass, nuevoPass, confirmNuevoPass) {
+        var e = document.getElementById('sRol');
+        var rol = e.options[e.selectedIndex].value;
+        var nombreRol = e.options[e.selectedIndex].text;
+
+        if (nuevoNombre == null || nuevoNombre == '') {
+            alert("El nombre es un campo obligatorio, verifique");
+        } else if (nuevoUsuario == null || nuevoUsuario == '') {
+            alert("El nombre de usuario es un campo obligatorio, verifique");
+        } else if (oldPass == null || oldPass == '') {
+            alert("El campo contraseña actual es un campo obligatorio, verifique");
+        } else if (oldPass != $rootScope.data.password) {
+            alert("La contraseña actual no corresponde a la registrada dentro del sistema, verifique");
+        } else if (nuevoPass == null || nuevoPass == '') {
+            alert("La contraseña es un campo obligatorio, verifique");
+        } else if (confirmNuevoPass == null || confirmNuevoPass == '') {
+            alert("La confirmación de contraseña es un campo obligatorio, verifique");
+        } else if (nuevoPass != confirmNuevoPass) {
+            alert('Las contraseñas no coinciden, verifique');
+        } else {
+            perfilRepository.updateDatosUsuario($rootScope.data.idUsuario, nuevoNombre, nuevoUsuario, rol, nuevoPass, nombreRol)
+                .then(function successCallback(response) {
+
+                    /*$rootScope.data.nombreCompleto = nuevoNombre;
+                    $rootScope.data.usuario = nuevoUsuario;
+                    $rootScope.data.rol = nombreRol;
+                    $rootScope.data.password = nuevoPass;*/
+
+
+                    alert('Datos actualizados correctamente');
+                }, function errorCallback(response) {
+                    alert("Ocurrio un problema, inténtelo más tarde");
+                });
+        }
+    }
 });

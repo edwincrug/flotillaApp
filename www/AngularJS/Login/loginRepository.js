@@ -13,7 +13,16 @@ registrationModule.factory('loginRepository', function ($http, $rootScope, $cord
                 }
             });
         },
-
+        activate: function (usuario) {
+            // return $http.post(loginUrl + '1|' + rol + '|' + nombre + '|' + email + '|' + password);
+            return $http({
+                url: loginUrl,
+                method: "POST",
+                params: {
+                    id: '2|' + usuario
+                }
+            });
+        },
         login: function (usuario, password) {
             // return $http.put(loginUrl + '1|' + usuario + '|' + password);
             return $http({
@@ -38,13 +47,12 @@ registrationModule.factory('loginRepository', function ($http, $rootScope, $cord
             });
             return credencialesOK;
         },
-        getTotalRegistros: function () {            
+        getTotalRegistros: function () {
             var query = "SELECT Count(nombreUsuario) AS count FROM DatosUsuario ";
             $cordovaSQLite.execute($rootScope.FlotillasDB, query).then(function (result) {
                 if (result.rows.item(0).count > 0) {
                     $rootScope.totalRegistros = result.rows.item(0).count;
-                }
-                else{
+                } else {
                     $rootScope.totalRegistros = 0;
                 }
             }, function (error) {

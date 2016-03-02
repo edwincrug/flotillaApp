@@ -1,6 +1,17 @@
-registrationModule.factory('perfilRepository', function ($rootScope, $cordovaSQLite) {
+registrationModule.factory('perfilRepository', function ($rootScope, $cordovaSQLite, DBA) {
+    var self = this;
     var tablaRoles = [];
     var descripcionRol = '';
+
+    self.getDescriptionRol = function (idRol) {
+            var parameters = [idRol];
+            return DBA.query("SELECT * FROM Rol WHERE idRol = (?)", parameters)
+                .then(function (result) {
+                    return DBA.getById(result);
+                });
+        }
+        //return self;
+
     return {
         getTablaRoles: function () {
             var query = "SELECT idRol, descripcion FROM Rol";
@@ -50,12 +61,20 @@ registrationModule.factory('perfilRepository', function ($rootScope, $cordovaSQL
                 alert('NO se inserto el nombre completo');
             });
         },
-        insertDatosUsuario: function (idUsuario, nombreCompleto, nombreUsuario, idRol, password) {
-            var query = "INSERT INTO DatosUsuario (idUsuario, nombreCompleto, nombreUsuario, idRol, password, huboCambio) VALUES(?,?,?,?,?,?)";
-            $cordovaSQLite.execute($rootScope.FlotillasDB, query, [idUsuario, nombreCompleto, nombreUsuario, idRol, password, 0]).then(function (result) {
+        insertDatosUsuario: function (idUsuario, nombreCompleto, nombreUsuario, idRol, password, descripcionRol) {
+            var query = "INSERT INTO DatosUsuario (idUsuario, nombreCompleto, nombreUsuario, idRol, password, huboCambio, descripcionRol) VALUES(?,?,?,?,?,?,?)";
+            $cordovaSQLite.execute($rootScope.FlotillasDB, query, [idUsuario, nombreCompleto, nombreUsuario, idRol, password, 0, descripcionRol]).then(function (result) {
                 alert('Datos usuario almacenados: ' + result.insertId);
             }, function (error) {
                 alert('NO se insertaron datos del usuario');
+            });
+        },
+        updateDatosUsuario: function (idUsuario, nombreCompleto, nombreUsuario, idRol, password, descripcionRol) {
+            var query = "UPDATE DatosUsuario SET nombreCompleto = ?, nombreUsuario = ?, idRol = ?, password = ?, huboCambio=1, descripcionRol = ? WHERE idUsuario = ?";
+            $cordovaSQLite.execute($rootScope.FlotillasDB, query, [nombreCompleto, nombreUsuario, idRol, password, descripcionRol, idUsuario]).then(function (result) {
+                alert('Datos actualizados correctamente');
+            }, function (error) {
+                alert('NO se actualizaron los datos');
             });
         },
         getRol: function (idRol) {

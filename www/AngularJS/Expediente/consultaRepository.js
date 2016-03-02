@@ -10,7 +10,7 @@ registrationModule.factory('consultaRepository', function ($rootScope, $cordovaS
                         expedientes.push(result.rows.item(i));
                     }
                 } else {
-                    alert("NO ROWS EXISTS");
+                    //alert("NO ROWS EXISTS");
                 }
             }, function (error) {
                 console.log(error);

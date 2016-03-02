@@ -4,83 +4,49 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-registrationModule.controller("expedienteController", function($scope, $ionicPopup, $ionicModal, $rootScope,$cordovaCamera, expedienteRepository){
+registrationModule.controller("expedienteController",function($scope,$ionicPopup, $ionicModal,$cordovaCamera,expedienteRepository){
 
     //Propiedades
     $scope.document = [];
     $scope.document = null;
+    $scope.images = {};
 
     //Grupo de funciones de inicio
-    $scope.init = function () {
-        $scope.imgFotoFrente = 'images/auto_delantera.jpg';
-        $scope.imgFotoTrasera = 'images/auto_trasera.jpg';
-        $scope.imgFotoDerecha = 'images/auto_derecha.jpg';
-        $scope.imgFotoIzquierda = 'images/auto_izquierda.jpg';
-        $scope.imgFotoPlaca = 'images/placa.jpg';
-        $scope.imgFotoAcuseRec = 'images/acuse_recibo.jpg';
-        $scope.imgFotoAcuseEnt = 'images/acuse_entrega.jpg';
-        $scope.txtNumPlaca = '';
-        $scope.txtRecibidoPor = '';
-        $scope.refreshDocuments("AA000013433");
+    $scope.init = function (){
+        $scope.getLocalRolDocuments();
     }
 
-    $scope.cargaImagen = function(document){
-        for(var i = 0; i < document.length; i++){
-            if(document[i].idDocumento == 27){
-                $scope.imgFotoFrente= document[i].valor;
-            }
-            else if(document[i].idDocumento == 28){
-                $scope.imgFotoTrasera= document[i].valor;
-            }
-            else if(document[i].idDocumento == 29){
-                $scope.imgFotoIzquierda= document[i].valor;
-            }
-            else if(document[i].idDocumento == 30){
-                $scope.imgFotoDerecha= document[i].valor;
-            }
-            else if(document[i].idDocumento == 13){
-                $scope.imgFotoPlaca= document[i].valor;
-            }
-            else if(document[i].idDocumento == 17){
-                $scope.imgFotoAcuseRec= document[i].valor;
-            }
-            else if(document[i].idDocumento == 18){
-                $scope.imgFotoAcuseEnt= document[i].valor;
-            }
-            else if(document[i].idDocumento == 39){
-                $scope.txtNumPlaca= document[i].valor;
-            }
-            else if(document[i].idDocumento == 26){
-                $scope.txtRecibidoPor= document[i].valor;
-            }
-        }
+    $scope.clickExp = function(){
+        alert('tab expediente');
     }
 
-    $scope.refreshDocuments = function(vin) {
-        expedienteRepository.getDocuments(vin).then(function(document){
-          $scope.document = document;
-          if($scope.document.length > 0){
-            alert('Num. documents: '+$scope.document.length+' '+$scope.document[0].vin+' '+$scope.document[0].valor);
-            $scope.cargaImagen($scope.document);
-          }
+    $scope.getLocalRolDocuments = function(){
+        expedienteRepository.getLocalRolDocuments("AA000013433",1).then(function(response){
+            $scope.localDocuments = response;
+            if($scope.localDocuments.length > 0 ){
+                alert("yea! I brought data"+"  "+$scope.localDocuments.length);
+            }
+            else{
+                alert("I couldn't bring data");
+            }
+        },function(error){
+           alert(error);     
         });
-    }
+     };
 
     $scope.addDocument = function(document){
         expedienteRepository.addDocument(document);
-        $scope.refreshDocuments(document.vin);
-        
+        $scope.getLocalRolDocuments();
     }
 
     $scope.updateDocument = function(document){
       expedienteRepository.updateDocument(document);
-      $scope.refreshDocuments(document.vin);
+      $scope.getLocalRolDocuments();
     }
 
     $scope.getOneDocument = function(document){
-      expedienteRepository.getDocument(document.vin, document.idDocumento).then(function(documentRes){
-          var existsDocument = documentRes;
-          if(existsDocument > 0){
+      expedienteRepository.existsDocument(document.vin, document.idDocumento).then(function(documentRes){
+          if(documentRes[0].NumRows > 0){
               $scope.updateDocument(document);
           }
           else{
@@ -88,7 +54,7 @@ registrationModule.controller("expedienteController", function($scope, $ionicPop
           }
       });
     }
-    
+
     $scope.tomarFoto = function(idDocumentoo){
         var options = { 
             destinationType : Camera.DestinationType.FILE_URI, 
@@ -106,14 +72,14 @@ registrationModule.controller("expedienteController", function($scope, $ionicPop
     }
 
     // pop up para ver o tomar foto
-    $scope.altaDocumento = function(idDocumento, valDocumento) {
-        if(idDocumento !== 39 && idDocumento !== 26){
+    $scope.altaDocumento = function(idDocumento, valDocumento, tipo) {
+        if(tipo === 'img'){
           var image = valDocumento.substring(0, 6);
           if(image == 'images'){
             $scope.tomarFoto(idDocumento);
           }
           else{
-            // An elaborate, custom popup
+             // An elaborate, custom popup
               var myPopup = $ionicPopup.show({
                 title: 'Foto',
                 subTitle: 'Elige una acción',
@@ -139,18 +105,12 @@ registrationModule.controller("expedienteController", function($scope, $ionicPop
               myPopup.then(function(res) {
                 console.log('Tapped!', res);
               });
-
           }
         }
         else if(valDocumento !== ''){
             var documentObj = {vin:"AA000013433", factura:"324234", idDocumento:idDocumento, valor:valDocumento, estatus:"Pendiente"};
             $scope.getOneDocument(documentObj);
         }
-      
-      /*$timeout(function() {
-         myPopup.close(); //close the popup after 3 seconds for some reason
-      }, 3000);*/
-
      };
 
      //visualiza la imagen seleccionada
@@ -169,24 +129,30 @@ registrationModule.controller("expedienteController", function($scope, $ionicPop
       $scope.modal.hide();
     };
 
-    //Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function() {
-      $scope.modal.remove();
-    });
-    // Execute action on hide modal
-    $scope.$on('modal.hide', function() {
-      // Execute action
-    });
-    // Execute action on remove modal
-    $scope.$on('modal.removed', function() {
-      // Execute action
-    });
-    $scope.$on('modal.shown', function() {
-      console.log('Modal is shown!');
-    });
-
     $scope.showImage = function(valDocumento) {
-          $scope.imageSrc  = valDocumento;
+      $scope.imageSrc  = valDocumento;
       $scope.openModal();
     }
-});
+
+    //Elimina un archivo con ruta específica
+    $scope.deleteFile = function(){
+        //alert($scope.document[0].valor);
+         window.resolveLocalFileSystemURL($scope.document[0].valor, function(fileEntry){
+            alert(fileEntry.name);
+            fileEntry.remove();
+         }, function(error){
+            alert(error);
+         });
+    };
+
+    var minDate = new Date();
+    var maxDate = new Date(minDate.getFullYear() + 1, minDate.getMonth(), minDate.getDate());
+    $scope.depOptions = {
+      format: 'dd/mm/yyyy',
+      min: minDate,
+      max: maxDate,
+      onClose: function(e){
+        console.log($scope.document.valor);
+      }
+    }
+})

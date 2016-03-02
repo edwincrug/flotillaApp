@@ -10,13 +10,13 @@ registrationModule.factory('busquedaRepository', function ($http,$rootScope, $co
     $rootScope.resultado = [];
     return {
         getUnidadFactura: function (facturaVin) {
-            var query = "SELECT vin, factura, tipo, modelo, marca FROM LicitacionUnidad where factura = ?";
+            var query = "SELECT * FROM LicitacionUnidad where factura = ?";
             $cordovaSQLite.execute($rootScope.FlotillasDB, query, [facturaVin]).then(function(result){
             	if(result.rows.length > 0){
                     $rootScope.resultado = result.rows.item(0);
             	} 
                 else if(result.rows.length == 0){
-                    var query = "SELECT vin, factura, tipo, modelo, marca FROM LicitacionUnidad where vin = ?";
+                    var query = "SELECT * FROM LicitacionUnidad where vin = ?";
                     $cordovaSQLite.execute($rootScope.FlotillasDB, query, [facturaVin]).then(function(result){
                         if(result.rows.length > 0){
                             $rootScope.resultado = result.rows.item(0);

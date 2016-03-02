@@ -5,36 +5,81 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-//var historialSincronizacionUrl = global_settings.urlCORS + '/api/usuarioapi/';
+var documentoUrl = global_settings.urlCORS + '/api/documentoApi/';
+var unidadUrl = global_settings.urlCORS + '/api/unidadApi/';
+var ruta = global_settings.uploadPath;
 
-registrationModule.factory('historialSincronizacionFactory', function($cordovaSQLite, $rootScope){
+registrationModule.factory('historialSincronizacionRepository', function($cordovaSQLite,DBA,$http){
+	var self = this;
 
-var historialSincronizacion = [];
-	return{
-		getHistorialSincronizacion: function(){
-			var query = "SELECT fecha, numDocumentos FROM HistorialSincronizacion";
-			$cordovaSQLite.execute($rootScope.FlotillasDB, query, []).then(function(result){
-			    if(result.rows.length > 0){
-			        //alert("SELECTED ->"+ result.rows.item(0).id+ " " + result.rows.item(0).firstName + " "+ result.rows.item(0).lastName);
-			        for (var i = 0; i < result.rows.length; i++) {
-			          historialSincronizacion.push(result.rows.item(i));
-			        }  
-			    } 
-			    else{
-			        alert("NO ROWS EXISTS");
-			    }       
-		    }, function(error){
-		      console.log(error);
-		    });
-		    return historialSincronizacion;
-		},
-		insert: function(fecha, numDoc){
-		    var query = "INSERT INTO HistorialSincronizacion (fecha, numDocumentos) VALUES(?,?)";
-		    $cordovaSQLite.execute($rootScope.FlotillasDB, query, [fecha, numDoc]).then(function(result){
-		     	 alert("this record was inserted:"+ result.insertId); 
-		    }, function(error){
-		      	alert(error);
-		    });
-		}
+	self.getHistorialSincronizacion = function(){
+		 return DBA.query("SELECT fecha, numDocumentos FROM HistorialSincronizacion")
+		 .then(function(result){
+		 return DBA.getAll(result);
+		 });
 	}
-});
+
+	self.insertHistorial = function(document){
+	    var parameters = [document.numDocumentos];
+	    return DBA.query("INSERT INTO HistorialSincronizacion(fecha,numDocumentos) VALUES(?,?)",parameters)
+	    alert('entra');
+  	}
+
+	self.getDistinctDocuments = function(){
+    return DBA.query("SELECT * FROM UnidadPropiedad")
+      .then(function(result){
+        return DBA.getAll(result);
+      });
+  	}
+
+	self.getTotalPerfil = function(){
+	    return DBA.query("SELECT * FROM UnidadPropiedad")
+	    .then(function(result){
+	      return DBA.getAll(result);
+	    });
+	}
+
+	self.getTotalLocal = function(vin){
+	    var parameters = [vin];
+	    return DBA.query("SELECT count(*) FROM UnidadPropiedad WHERE vin = (?)", parameters)
+	    .then(function(result){
+	      return DBA.getAll(result);
+	  });
+	}
+
+	self.deleteUPLocal = function(unidad){
+	    var parameters = [unidad.vin];
+	    return DBA.query("DELETE FROM UnidadPropiedad WHERE vin = (?)", parameters)
+	}
+
+	self.updateEstatus = function(unidad){
+	    var parameters = [unidad.vin];
+	    return DBA.query("UPDATE LicitacionUnidad SET estatus = 'Sincronizado' WHERE vin = (?)", parameters)
+	}
+
+	self.updateEstatusServer = function(unidad){
+		var estatus = 'Sincronizado';
+	    return $http({
+	      url: unidadUrl,
+	      method: "POST",
+	      params: { id: '2|' + unidad.vin + '|' + unidad.idLicitacion + '|' + estatus }
+		});
+	}
+
+	self.saveFile = function(unidad){
+	    return $http({
+          url: documentoUrl,
+          method: "POST",
+          params: { id: '1|' + unidad.vin + '|' + unidad.idDocumento + '|' + ruta + unidad.valor }
+	    });
+    }
+
+    self.updateUnidad = function(unidad){
+	    return $http({
+	      url: unidadUrl,
+	      method: "POST",
+	      params: { id: '1|' + unidad.vin + '|' + unidad.idDocumento + '|' + unidad.valor + '|' + unidad.idUsuario}
+		});
+	}
+ 	return self;
+})

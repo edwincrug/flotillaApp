@@ -5,11 +5,7 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-var registrationModule = angular.module('registrationModule', ['ionic','ngCordova','mobiscroll-datetime','mobiscroll-form','mobiscroll-listview',
-    'mobiscroll-calendar',
-    'mobiscroll-select',
-    'mobiscroll-menustrip',
-    'ui.router']);
+var registrationModule = angular.module('registrationModule', ['ionic','ngCordova','ui.router', 'angular-datepicker']);
 
 registrationModule.run(function($ionicPlatform,$cordovaSQLite, $rootScope){
   $ionicPlatform.ready(function() {
@@ -57,9 +53,13 @@ registrationModule.run(function($ionicPlatform,$cordovaSQLite, $rootScope){
                                                                                                  +'valor  TEXT,'
                                                                                                  +'estatus  TEXT)'); 
 
-            $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS DatosUsuario (idUsuario  INTEGER NULL,' + 'nombreCompleto TEXT NULL,' + 'nombreUsuario  TEXT NULL,' + 'idRol  INTEGER NULL,' + 'password TEXT NULL,' + 'huboCambio INTEGER NULL' + 'descripcionRol TEXT NULL)');
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS DatosUsuario (idUsuario  INTEGER NULL,' + 'nombreCompleto TEXT NULL,' + 'nombreUsuario  TEXT NULL,' + 'idRol  INTEGER NULL,' + 'password TEXT NULL,' + 'huboCambio INTEGER NULL' + 'descripcionRol TEXT NULL)');
 
-            $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS Rol (idRol  INTEGER NOT NULL,' + 'descripcion  TEXT NOT NULL)');
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS Rol (idRol  INTEGER NOT NULL,' + 'descripcion  TEXT NOT NULL)');
+
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS RolDocumento (idRol INTEGER NOT NULL,'
+                                                                                       +'idDocumento INTEGER NOT NULL,'
+                                                                                       +'documento TEXT NOT NULL)');
 
             var query = "INSERT INTO Rol (idRol, descripcion) VALUES(1, 'Gestor'), (2, 'Apoyo'), (4, 'Transladista'), (5, 'Ejecutivo de Cuenta'), (6, 'Administrador'); "
             $cordovaSQLite.execute($rootScope.FlotillasDB, query, []).then(function (result) {
