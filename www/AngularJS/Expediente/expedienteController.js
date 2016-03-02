@@ -23,12 +23,12 @@ registrationModule.controller("expedienteController",function($scope,$ionicPopup
     $scope.getLocalRolDocuments = function(){
         expedienteRepository.getLocalRolDocuments("AA000013433",1).then(function(response){
             $scope.localDocuments = response;
-            if($scope.localDocuments.length > 0 ){
+            /*if($scope.localDocuments.length > 0 ){
                 alert("yea! I brought data"+"  "+$scope.localDocuments.length);
             }
             else{
                 alert("I couldn't bring data");
-            }
+            }*/
         },function(error){
            alert(error);     
         });
@@ -152,7 +152,7 @@ registrationModule.controller("expedienteController",function($scope,$ionicPopup
       min: minDate,
       max: maxDate,
       onClose: function(e){
-        console.log($scope.document.valor);
+        console.log($scope.valor);
       }
     }
 })

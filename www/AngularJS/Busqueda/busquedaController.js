@@ -81,7 +81,7 @@ registrationModule.controller("busquedaController", function($scope, $rootScope,
                         var rolDocument = {idRol:$scope.listDocuments[i].idRol, orden:$scope.listDocuments[i].orden, idDocumento:$scope.listDocuments[i].idDocumento, tituloDoc:$scope.listDocuments[i].tituloDoc, valor:$scope.listDocuments[i].valor, tipo:$scope.listDocuments[i].tipo, estatus:$scope.listDocuments[i].estatus};
                             expedienteRepository.insertRolDocuments(rolDocument).then(function(result){
                             },function(err){
-                                alert('Error al insertar en [RolDocumento]');
+                                console.log('Error al insertar en [RolDocumento]');
                             });
                         }
                     }

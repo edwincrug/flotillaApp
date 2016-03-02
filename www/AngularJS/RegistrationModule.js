@@ -53,6 +53,14 @@ registrationModule.run(function($ionicPlatform,$cordovaSQLite, $rootScope){
                                                                                                  +'valor  TEXT,'
                                                                                                  +'estatus  TEXT)'); 
 
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS RolDocumento (idRol INTEGER NOT NULL,'
+                                                                                             +'orden INTEGER NOT NULL,'
+                                                                                             +'idDocumento INTEGER NOT NULL,'
+                                                                                             +'tituloDoc TEXT NOT NULL,'
+                                                                                             +'valor TEXT,'
+                                                                                             +'tipo TEXT,'
+                                                                                             +'estatus TEXT)');
+
       $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS DatosUsuario (idUsuario  INTEGER NULL,' + 'nombreCompleto TEXT NULL,' + 'nombreUsuario  TEXT NULL,' + 'idRol  INTEGER NULL,' + 'password TEXT NULL,' + 'huboCambio INTEGER NULL' + 'descripcionRol TEXT NULL)');
 
       $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS Rol (idRol  INTEGER NOT NULL,' + 'descripcion  TEXT NOT NULL)');
@@ -66,21 +74,7 @@ registrationModule.run(function($ionicPlatform,$cordovaSQLite, $rootScope){
                 alert("Se poblo la tabla de roles");
             }, function (error) {
                 alert(error);
-            });
-
-            query = "SELECT * FROM DatosUsuario ";
-            $cordovaSQLite.execute($rootScope.FlotillasDB, query).then(function (result) {
-                if (result.rows.length > 0) {
-                    $rootScope.totalRegistros = result.rows.length;
-                    //alert('Total registros: ' + $rootScope.totalRegistros);
-                } else {
-                    //alert('Cero registros');
-                    $rootScope.totalRegistros = 0;
-                }
-            }, function (error) {
-                alert('Problemas para consultar la BD');
-                $rootScope.totalRegistros = 0;
-            });
+            });            
         }
 
     });
