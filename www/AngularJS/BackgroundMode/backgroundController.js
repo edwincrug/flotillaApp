@@ -83,7 +83,7 @@ registrationModule.controller('backgroundController', function($scope, $cordovaS
                       
                    }
               }
-            location.href = '#/tab/sincronizacion';
+            //location.href = '#/tab/sincronizacion';
         });        
       }       
     };
