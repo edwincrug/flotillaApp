@@ -4,7 +4,7 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-registrationModule.controller("expedienteController",function($scope,$ionicPopup, $ionicModal,$cordovaCamera,expedienteRepository){
+registrationModule.controller("expedienteController",function($scope,$rootScope,$ionicPopup, $ionicModal,$cordovaCamera,expedienteRepository){
 
     //Propiedades
     $scope.document = [];
@@ -21,7 +21,8 @@ registrationModule.controller("expedienteController",function($scope,$ionicPopup
     }
 
     $scope.getLocalRolDocuments = function(){
-        expedienteRepository.getLocalRolDocuments("AA000013433",1).then(function(response){
+        alert($rootScope.vin);
+        expedienteRepository.getLocalRolDocuments($rootScope.vin,$rootScope.data.idRol).then(function(response){
             $scope.localDocuments = response;
             /*if($scope.localDocuments.length > 0 ){
                 alert("yea! I brought data"+"  "+$scope.localDocuments.length);
@@ -64,7 +65,7 @@ registrationModule.controller("expedienteController",function($scope,$ionicPopup
             saveToPhotoAlbum: false
         };
         $cordovaCamera.getPicture(options).then(function(imageData) {
-          var documentObj = {vin:"AA000013433", factura:"324234", idDocumento:idDocumentoo, valor:imageData, estatus:"Pendiente"};
+          var documentObj = {vin:$rootScope.vin, factura:$rootScope.factura, idDocumento:idDocumentoo, valor:imageData, estatus:"Pendiente"};
           $scope.getOneDocument(documentObj);
         }, function(err) {
             console.log('Ocurrió un problema al tomar la foto.')
@@ -108,7 +109,7 @@ registrationModule.controller("expedienteController",function($scope,$ionicPopup
           }
         }
         else if(valDocumento !== ''){
-            var documentObj = {vin:"AA000013433", factura:"324234", idDocumento:idDocumento, valor:valDocumento, estatus:"Pendiente"};
+            var documentObj = {vin:$rootScope.vin, factura:$rootScope.factura, idDocumento:idDocumento, valor:valDocumento, estatus:"Pendiente"};
             $scope.getOneDocument(documentObj);
         }
      };
@@ -138,13 +139,17 @@ registrationModule.controller("expedienteController",function($scope,$ionicPopup
     $scope.deleteFile = function(){
         //alert($scope.document[0].valor);
          window.resolveLocalFileSystemURL($scope.document[0].valor, function(fileEntry){
-            alert(fileEntry.name);
+            //alert(fileEntry.name);
             fileEntry.remove();
          }, function(error){
             alert(error);
          });
     };
 
+    $scope.takeIdDoc = function(idDocumento){
+        $scope.idDoc = idDocumento;
+    }
+    
     var minDate = new Date();
     var maxDate = new Date(minDate.getFullYear() + 1, minDate.getMonth(), minDate.getDate());
     $scope.depOptions = {
@@ -153,6 +158,7 @@ registrationModule.controller("expedienteController",function($scope,$ionicPopup
       max: maxDate,
       onClose: function(e){
         console.log($scope.valor);
+        $scope.altaDocumento($scope.idDoc, $scope.valor, 'dat');
       }
     }
 })

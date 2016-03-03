@@ -6,7 +6,7 @@ registrationModule.controller("perfilController", function ($scope, $rootScope, 
 
 
     $scope.init = function () {
-        alert('Setea Valores');
+        //alert('Setea Valores');
         $scope.nombreCompleto = $rootScope.data.nombreCompleto;
         $scope.nombreUsuario = $rootScope.data.usuario;
         $scope.rol = $rootScope.data.rol;

@@ -14,17 +14,16 @@ registrationModule.controller('historialSincronizacionController', function($sco
     };
 
     $scope.sincronizar = function(){
+    	var date = new Date();
 		networkRepository.verficaRed();
 	    if($rootScope.network == true){
-	    	//alert('entra si es wifi');
 	      $scope.obtenerTotales();
 	      historialSincronizacionRepository.getDistinctDocuments().then(function(file){
 	        $scope.document = file;	        
 	          for (var i = 0; i < $scope.document.length; i++) {
-	          	$scope.getTotalLocal($scope.document[i].vin); 
-	          		alert($scope.totalDocs == $scope.totalLocal.length);                             
+	          	$scope.getTotalLocal($scope.document[i].vin);                            
 	                 if($scope.totalDocs == $scope.totalLocal.length){
-	                 	var unidad = {vin:$scope.document[i].vin, idDocumento:$scope.document[i].idDocumento, 
+	                 	var unidad = {fecha:date,vin:$scope.document[i].vin, idDocumento:$scope.document[i].idDocumento, 
 	                 	valor:$scope.document[i].valor, idUsuario:$rootScope.data.idUsuario, idLicitacion: $rootScope.idLicitacion,
 	                 	numDocumentos: $scope.totalLocal.length};	                 	
 	                    //inserta en BD servidor de UP
@@ -89,7 +88,7 @@ registrationModule.controller('historialSincronizacionController', function($sco
 
     //Elimina un archivo con ruta específica
     $scope.deleteFile = function(document){
-    	 alert(document[0].valor);
+    	 //alert(document[0].valor);
          window.resolveLocalFileSystemURL(document[0].valor, function(fileEntry){
             alert(fileEntry.name);
             fileEntry.remove();

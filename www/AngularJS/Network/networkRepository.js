@@ -22,7 +22,7 @@ registrationModule.factory('networkRepository', function($rootScope) {
           states[Connection.NONE]     = 'No network connection';
 
           if(states[networkState] === states[Connection.WIFI] ){
-            alert('Connection type: ' + states[networkState]);
+            //alert('Connection type: ' + states[networkState]);
             $rootScope.network = true;
           }
     }

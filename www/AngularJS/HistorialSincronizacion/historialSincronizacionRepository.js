@@ -20,9 +20,8 @@ registrationModule.factory('historialSincronizacionRepository', function($cordov
 	}
 
 	self.insertHistorial = function(document){
-	    var parameters = [document.numDocumentos];
+	    var parameters = [document.fecha,document.numDocumentos];
 	    return DBA.query("INSERT INTO HistorialSincronizacion(fecha,numDocumentos) VALUES(?,?)",parameters)
-	    alert('entra');
   	}
 
 	self.getDistinctDocuments = function(){

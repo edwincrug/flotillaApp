@@ -49,8 +49,7 @@ registrationModule.factory('busquedaRepository', function ($http,$rootScope, $co
 		},
         updateLicitacionUnidad: function(usuarioAsignado, vin){
             var update = "UPDATE LicitacionUnidad SET usuarioAsignado = ? WHERE vin = ?";
-            $cordovaSQLite.execute($rootScope.FlotillasDB,update,[usuarioAsignado, vin]).then(function (result) {
-                alert('update');                
+            $cordovaSQLite.execute($rootScope.FlotillasDB,update,[usuarioAsignado, vin]).then(function (result) {               
             }, function (error) {
                alert('error en el update');
             });
@@ -66,7 +65,7 @@ registrationModule.factory('busquedaRepository', function ($http,$rootScope, $co
         },
         insertaLicitacion: function (licitacion) {   
             $cordovaSQLite.execute($rootScope.FlotillasDB, licitacion, []).then(function (result) {
-                alert("Se poblo la tabla LicitacionUnidad");
+                //alert("Se poblo la tabla LicitacionUnidad");
             }, function (error) {
                 alert('error en el insert LicitacionUnidad');
             });

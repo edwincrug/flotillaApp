@@ -29,7 +29,7 @@ registrationModule.run(function($ionicPlatform,$cordovaSQLite, $rootScope){
                                                                                           +'accion  TEXT)');
 
       $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS HistorialSincronizacion (idSincronizacion  INTEGER NOT NULL PRIMARY KEY,'
-                                                                                                        +'fecha TEXT NOT NULL,'
+                                                                                                        +'fecha DATETIME NOT NULL,'
                                                                                                         +'numDocumentos INTEGER NOT NULL)');
 
       $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS LicitacionUnidad (vin  TEXT NOT NULL PRIMARY KEY,'
@@ -61,7 +61,7 @@ registrationModule.run(function($ionicPlatform,$cordovaSQLite, $rootScope){
                                                                                              +'tipo TEXT,'
                                                                                              +'estatus TEXT)');
 
-      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS DatosUsuario (idUsuario  INTEGER NULL,' + 'nombreCompleto TEXT NULL,' + 'nombreUsuario  TEXT NULL,' + 'idRol  INTEGER NULL,' + 'password TEXT NULL,' + 'huboCambio INTEGER NULL' + 'descripcionRol TEXT NULL)');
+      $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS DatosUsuario (idUsuario  INTEGER NULL,' + 'nombreCompleto TEXT NULL,' + 'nombreUsuario  TEXT NULL,' + 'idRol  INTEGER NULL,' + 'password TEXT NULL,' + 'huboCambio INTEGER NULL,' + 'descripcionRol TEXT NULL)');
 
       $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS Rol (idRol  INTEGER NOT NULL,' + 'descripcion  TEXT NOT NULL)');
 
@@ -71,7 +71,7 @@ registrationModule.run(function($ionicPlatform,$cordovaSQLite, $rootScope){
 
             var query = "INSERT INTO Rol (idRol, descripcion) VALUES(1, 'Gestor'), (2, 'Apoyo'), (4, 'Transladista'), (5, 'Ejecutivo de Cuenta'), (6, 'Administrador'); "
             $cordovaSQLite.execute($rootScope.FlotillasDB, query, []).then(function (result) {
-                alert("Se poblo la tabla de roles");
+                //alert("Se poblo la tabla de roles");
             }, function (error) {
                 alert(error);
             });            

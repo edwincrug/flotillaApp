@@ -36,7 +36,7 @@ registrationModule.controller("loginController", function ($scope, $rootScope, $
                                 .success(getFlotillaSuccessCallback)
                                 .error(errorCallBack);
 
-                            alert('Login desde WebApi');
+                            //alert('Login desde WebApi');
                             location.href = '#/tab/busqueda';
                         }
                     }
@@ -69,13 +69,13 @@ registrationModule.controller("loginController", function ($scope, $rootScope, $
                     $rootScope.data.password = password;
                     $rootScope.data.rol = result.rows.item(0).descripcionRol;
 
-                    alert("Nombre Rol: " + $rootScope.data.rol);
+                    //alert("Nombre Rol: " + $rootScope.data.rol);
 
                     location.href = '#/tab/busqueda';
                 }
 
             } else {
-                alert("Redirige al Web API");
+                //alert("Redirige al Web API");
                 $scope.iniciarSesion(usuario, password);
             }
         }, function (error) {
@@ -103,7 +103,7 @@ registrationModule.controller("loginController", function ($scope, $rootScope, $
         }
         query = query.substring(0, query.length - 2);
         busquedaRepository.insertaLicitacion(query);
-        alert('primeros 450');
+        //alert('primeros 450');
 
         var query2 = "INSERT INTO LicitacionUnidad (vin, factura, idLicitacion, tipo, marca, modelo, numeroMotor, color, estatus, usuarioAsignado) VALUES ";
         $scope.licitacion = data;
@@ -122,7 +122,7 @@ registrationModule.controller("loginController", function ($scope, $rootScope, $
         query2 = query2.substring(0, query2.length - 2);
         console.log(query2);
         busquedaRepository.insertaLicitacion(query2);
-        alert('segundos 450');
+        //alert('segundos 450');
     };
 
     //Mensajes en caso de error

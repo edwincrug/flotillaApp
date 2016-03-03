@@ -122,7 +122,7 @@
                    </ion-item>
 
                 </ion-list>
-                <button ng-show="mostrar" class="button button-block button-balanced icon ion-checkmark-circled" ng-click="seleccionar(vin)">
+                <button ng-show="mostrar" class="button button-block button-balanced icon ion-checkmark-circled" ng-click="seleccionar(vin,numFactura)">
                    Seleccionar
                 </button>
             </div>   
@@ -135,6 +135,10 @@
     <script id="templates/Expediente.html" type="text/ng-template">
       <ion-view title="Expediente" ng-init="init()">
         <ion-content>
+        <!-- <div class="bar bar-header bar-positive">
+            <h1>VIN: {{vin}}</h1></br>
+            <h1>Factura: {{factura}}</h1></br>
+          </div> -->
           <ion-list>
             <ion-item ng-repeat="document in localDocuments">
               <div ng-if="document.tipo == 'img'">
@@ -150,7 +154,7 @@
                     <div class="item-text-wrap item">
                         <div class="item-icon-left">
                             <i class="icon ion-calendar"></i>
-                            <input type="text" class="dateClass" pick-a-date="valor" pick-a-date-options="depOptions" placeholder="dd/mm/yyyy" />
+                            <input type="text" class="dateClass" pick-a-date="valor" pick-a-date-options="depOptions" placeholder="dd/mm/yyyy" ng-click="takeIdDoc(document.idDocumento)"/>
                         </div>
                     </div>
                 </div>

@@ -19,8 +19,7 @@ registrationModule.controller('consultaController', function ($scope, consultaRe
     }
 
     $scope.Detalle = function (expediente) {
-        //alert(expediente.vin);
-        $rootScope.facturaVin = expediente.vin;
+        $rootScope.vin = expediente.vin;
         location.href = '#/tab/expediente';
     };
 
