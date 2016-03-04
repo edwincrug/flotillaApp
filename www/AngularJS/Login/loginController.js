@@ -8,35 +8,41 @@ registrationModule.controller("loginController", function ($scope, $rootScope, $
     };
 
     $scope.iniciarSesion = function (usuario, password) {
-        loginRepository.login(usuario, password)
-            .then(function successCallback(response) {
-                    $rootScope.data = response.data;
-                    if ($rootScope.data == null) {
-                        $scope.password = '';
-                        alert("El nombre de usuario o contraseña son incorrectos, verifique");
-                    } else {
-                        $rootScope.data.usuario = usuario;
-                        $rootScope.data.password = password;
-
-                        if ($rootScope.data.idRol == 5 || $rootScope.data.idRol == 6) {
-                            alert("Rol no permitido");
+        if (usuario == null || usuario == '') {
+            alert('El campo usuario es obligatorio, verifique');
+        } else if (password == null || password == '') {
+            alert('El campo contraseña es obligatorio, verifique');
+        } else {
+            loginRepository.login(usuario, password)
+                .then(function successCallback(response) {
+                        $rootScope.data = response.data;
+                        if ($rootScope.data == null) {
+                            $scope.password = '';
+                            alert("El nombre de usuario o contraseña son incorrectos, verifique");
                         } else {
+                            $rootScope.data.usuario = usuario;
+                            $rootScope.data.password = password;
 
-                            perfilRepository.insertDatosUsuario($rootScope.data.idUsuario, $rootScope.data.nombreCompleto, usuario, $rootScope.data.idRol, password, $rootScope.data.rol);
+                            if ($rootScope.data.idRol == 5 || $rootScope.data.idRol == 6) {
+                                alert("Rol no permitido");
+                            } else {
 
-                            busquedaRepository.getLicitacion()
-                                .success(getFlotillaSuccessCallback)
-                                .error(errorCallBack);
+                                perfilRepository.insertDatosUsuario($rootScope.data.idUsuario, $rootScope.data.nombreCompleto, usuario, $rootScope.data.idRol, password, $rootScope.data.rol);
 
-                            //alert('Login desde WebApi');
-                            location.href = '#/tab/busqueda';
+                                busquedaRepository.getLicitacion()
+                                    .success(getFlotillaSuccessCallback)
+                                    .error(errorCallBack);
+
+                                //alert('Login desde WebApi');
+                                location.href = '#/tab/busqueda';
+                            }
                         }
-                    }
-                },
-                function errorCallback(response) {
-                    alert("Ocurrio un problema, inténtelo más tarde");
-                });
-    };
+                    },
+                    function errorCallback(response) {
+                        alert("Ocurrio un problema, inténtelo más tarde");
+                    });
+        }
+    }
 
     $scope.irRegistro = function () {
         location.href = '#/registro';

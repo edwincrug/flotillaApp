@@ -5,7 +5,7 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-var registrationModule = angular.module('registrationModule', ['ionic', 'ngCordova', 'ui.router', 'angular-datepicker']);
+var registrationModule = angular.module('registrationModule', ['ionic', 'ngCordova', 'ui.router']);
 
 registrationModule.run(function ($ionicPlatform, $cordovaSQLite, $rootScope, $cordovaDatePicker) {
     $ionicPlatform.ready(function () {
