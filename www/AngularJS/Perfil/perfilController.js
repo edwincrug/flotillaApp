@@ -71,6 +71,7 @@ registrationModule.controller("perfilController", function ($scope, $rootScope, 
     $scope.logout = function () {
         $rootScope.showTabs = false;
         location.href = '#/login';
+        navigator.app.exitApp();
     }
 
     $scope.Modificar = function (nuevoNombre, nuevoUsuario, oldPass, nuevoPass, confirmNuevoPass) {
@@ -82,6 +83,8 @@ registrationModule.controller("perfilController", function ($scope, $rootScope, 
             alert("El nombre es un campo obligatorio, verifique");
         } else if (nuevoUsuario == null || nuevoUsuario == '') {
             alert("El nombre de usuario es un campo obligatorio, verifique");
+        } else if (!validaUsuario(nuevoUsuario)) {
+            alert("El nombre de usuario no tiene el formato esperado, verifique");
         } else if (oldPass == null || oldPass == '') {
             alert("El campo contraseña actual es un campo obligatorio, verifique");
         } else if (oldPass != $rootScope.data.password) {
@@ -107,5 +110,10 @@ registrationModule.controller("perfilController", function ($scope, $rootScope, 
                     alert("Ocurrio un problema, inténtelo más tarde");
                 });
         }
+    }
+
+    function validaUsuario(user) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(user);
     }
 });

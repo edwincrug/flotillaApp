@@ -1,175 +1,177 @@
 <!DOCTYPE html>
 <html ng-app="registrationModule" ng-controller="backgroundController" ng-init="init()">
- <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-        <title>FlotillasApp</title>
 
-        <!-- Incluir hojas de estilos CSS -->
-        <!-- Mobiscroll JS and CSS Includes -->
-        <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/login.css" />
-        <link rel="stylesheet" type="text/css" href="css/modal.css" />
-        <link rel="stylesheet" type="text/css" href="css/datetime-picker.css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>FlotillasApp</title>
 
-        <!-- Incluir scripts del template de Angular y JQuery -->
-        <!-- jQuery Include | MAKE SURE TO INCLUDE BEFORE ANGULAR -->
-        <!--<script src="js/jquery-2.2.0.min.js"></script>-->
-        <script src="lib/ionic/js/ionic.bundle.js"></script>
-        <script src="lib/ng-cordova/dist/ng-cordova.min.js"></script>
-        <script src="js/datetime-picker.js"></script>
-        <script src="cordova.js"></script>
-        <script src="confront.js"></script>
-        <!--<script src="js/mobiscroll.custom-2.17.1.min.js"></script>-->
-  </head>
-  <body>
+    <!-- Incluir hojas de estilos CSS -->
+    <!-- Mobiscroll JS and CSS Includes -->
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+    <link rel="stylesheet" type="text/css" href="css/modal.css" />
+    <link rel="stylesheet" type="text/css" href="css/datetime-picker.css">
+
+    <!-- Incluir scripts del template de Angular y JQuery -->
+    <!-- jQuery Include | MAKE SURE TO INCLUDE BEFORE ANGULAR -->
+    <!--<script src="js/jquery-2.2.0.min.js"></script>-->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ng-cordova/dist/ng-cordova.min.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/datetime-picker.js"></script>
+
+    <script src="confront.js"></script>
+    <!--<script src="js/mobiscroll.custom-2.17.1.min.js"></script>-->
+</head>
+
+<body>
     <ion-nav-bar class="bar-positive" ng-show="showTabs == true">
     </ion-nav-bar>
     <ion-nav-view class="slide-left-right"></ion-nav-view>
 
-    <script id="templates/tabs.html" type="text/ng-template" >
-      <ion-tabs class="tabs-icon-top tabs-positive">
+    <script id="templates/tabs.html" type="text/ng-template">
+        <ion-tabs class="tabs-icon-top tabs-positive">
 
-        <ion-tab title="Busqueda" icon="ion-search" ui-sref="tabs.busqueda">
-          <ion-nav-view name="busqueda-tab"></ion-nav-view>
-        </ion-tab>
+            <ion-tab title="Busqueda" icon="ion-search" ui-sref="tabs.busqueda">
+                <ion-nav-view name="busqueda-tab"></ion-nav-view>
+            </ion-tab>
 
-        <ion-tab title="Consulta" icon="ion-ios-folder" ui-sref="tabs.consultaExpediente">
-          <ion-nav-view name="consulta-tab"></ion-nav-view>
-        </ion-tab>
+            <ion-tab title="Consulta" icon="ion-ios-folder" ui-sref="tabs.consultaExpediente">
+                <ion-nav-view name="consulta-tab"></ion-nav-view>
+            </ion-tab>
 
-        <ion-tab title="Sincronización" icon="icon ion-load-a" ui-sref="tabs.sincronizacion">
-          <ion-nav-view name="sincronizacion-tab"></ion-nav-view>
-        </ion-tab>
+            <ion-tab title="Sincronización" icon="icon ion-load-a" ui-sref="tabs.sincronizacion">
+                <ion-nav-view name="sincronizacion-tab"></ion-nav-view>
+            </ion-tab>
 
-        <ion-tab title="Perfil" icon="icon ion-person" ui-sref="tabs.perfil">
-          <ion-nav-view name="perfil-tab"></ion-nav-view>
-        </ion-tab>
+            <ion-tab title="Perfil" icon="icon ion-person" ui-sref="tabs.perfil">
+                <ion-nav-view name="perfil-tab"></ion-nav-view>
+            </ion-tab>
 
-      </ion-tabs>
+        </ion-tabs>
     </script>
 
     <!--Template de Login.html-->
     <script id="templates/Login.html" type="text/ng-template">
-            <ion-view title="Login">
-                <ion-content class="padding">
-                    <div ng-init="init()">
-                        <div class="container">
-                            <header>
-                                <h1>Registro de <strong>Unidades</strong></h1>
-                            </header>
-                            <section id="imagen">
-                                <center>
-                                    <img id="logo" src="images/logo/integra.png"></img>
-                                </center>
-                            </section>
-                            <section class="main">
-                                <form class="form-1">
-                                    <p class="field">
-                                        <input type="text" name="login" placeholder="Usuario del sistema" ng-model="usuario">
-                                        <i class="icon-user icon-large"></i>
-                                    </p>
-                                    <p class="field">
-                                        <input type="password" name="password" placeholder="Contraseña" ng-model="password">
-                                        <i class="icon-lock icon-large"></i>
-                                    </p>
-                                    <p class="submit">
-                                        <button type="button" ng-click="validaCredencialesLocales(usuario, password)"><i class="icon-arrow-right icon-large"></i></button>
-                                    </p>
-                                </form>
-                            </section>
-                            <!--<button class="button button-clear button-block button-calm" ng-click="iniciarSesion(usuario, password)">
+        <ion-view title="Login">
+            <ion-content class="padding">
+                <div ng-init="init()">
+                    <div class="container">
+                        <header>
+                            <h1>Registro de <strong>Unidades</strong></h1>
+                        </header>
+                        <section id="imagen">
+                            <center>
+                                <img id="logo" src="images/logo/integra.png"></img>
+                            </center>
+                        </section>
+                        <section class="main">
+                            <form class="form-1">
+                                <p class="field">
+                                    <input type="text" name="login" placeholder="Usuario del sistema" ng-model="usuario">
+                                    <i class="icon-user icon-large"></i>
+                                </p>
+                                <p class="field">
+                                    <input type="password" name="password" placeholder="Contraseña" ng-model="password">
+                                    <i class="icon-lock icon-large"></i>
+                                </p>
+                                <p class="submit">
+                                    <button type="button" ng-click="validaCredencialesLocales(usuario, password)"><i class="icon-arrow-right icon-large"></i></button>
+                                </p>
+                            </form>
+                        </section>
+                        <!--<button class="button button-clear button-block button-calm" ng-click="iniciarSesion(usuario, password)">
                                 Ingresar Con Otra Cuenta
                             </button>-->
-                            <button class="button button-clear button-block button-calm" ng-click="irRegistro()">
-                                Registrarse
-                            </button>
-                        </div>
-                        <div>
-                </ion-content>
-            </ion-view>
+                        <button class="button button-clear button-block button-calm" ng-click="irRegistro()">
+                            Registrarse
+                        </button>
+                    </div>
+                    <div>
+            </ion-content>
+        </ion-view>
     </script>
 
     <!--Template Busqueda.html -->
     <script id="templates/Busqueda.html" type="text/ng-template">
-      <ion-view title="Búsqueda">
-        <ion-content class="padding">
-          <div ng-init="init()">
-            <div id="form">  
-                <div class="bar bar-header">
-                   <h1 class="title">Búsqueda de unidad</h1>
-                </div>
-                </br>
-                </br>
-                <div>
-                    <input id="facturavin" ng-model="factura" type="text" placeholder="Número de Factura o VIN" />
-                </div>
-                <button class="button button-block button-positive" ng-click="busqueda(factura)">
-                       Buscar
-                </button>
-                <ion-list ng-show="mostrarList" ng-controller="busquedaController">
-                   <ion-item>
-                      VIN: {{vin}}
-                   </ion-item>
-                  
-                   <ion-item>
-                      Factura: {{numFactura}} 
-                   </ion-item>
-                  
-                   <ion-item>
-                      Descripción: {{tipo}} {{marca}} {{modelo}} 
-                   </ion-item>
+        <ion-view title="Búsqueda">
+            <ion-content class="padding">
+                <div ng-init="init()">
+                    <div id="form">
+                        <div class="bar bar-header">
+                            <h1 class="title">Búsqueda de unidad</h1>
+                        </div>
+                        </br>
+                        </br>
+                        <div>
+                            <input id="facturavin" ng-model="factura" type="text" placeholder="Número de Factura o VIN" />
+                        </div>
+                        <button class="button button-block button-positive" ng-click="busqueda(factura)">
+                            Buscar
+                        </button>
+                        <ion-list ng-show="mostrarList" ng-controller="busquedaController">
+                            <ion-item>
+                                VIN: {{vin}}
+                            </ion-item>
 
-                </ion-list>
-                <button ng-show="mostrar" class="button button-block button-balanced icon ion-checkmark-circled" ng-click="seleccionar(vin,numFactura)">
-                   Seleccionar
-                </button>
-            </div>   
-        </div>
-        </ion-content>
-      </ion-view>
+                            <ion-item>
+                                Factura: {{numFactura}}
+                            </ion-item>
+
+                            <ion-item>
+                                Descripción: {{tipo}} {{marca}} {{modelo}}
+                            </ion-item>
+
+                        </ion-list>
+                        <button ng-show="mostrar" class="button button-block button-balanced icon ion-checkmark-circled" ng-click="seleccionar(vin,numFactura)">
+                            Seleccionar
+                        </button>
+                    </div>
+                </div>
+            </ion-content>
+        </ion-view>
     </script>
 
     <!-- Template Expediente.html -->
     <script id="templates/Expediente.html" type="text/ng-template">
-      <ion-view title="Expediente" ng-init="init()">
-        <ion-content>
-        <!-- <div class="bar bar-header bar-positive">
+        <ion-view title="Expediente" ng-init="init()">
+            <ion-content>
+                <!-- <div class="bar bar-header bar-positive">
             <h1>VIN: {{vin}}</h1></br>
             <h1>Factura: {{factura}}</h1></br>
           </div> -->
-          <ion-list>
-            <ion-item ng-repeat="document in localDocuments">
-              <div ng-if="document.tipo == 'img'">
-                <img class="carSize" ng-src="{{document.valor}}" ng-click="altaDocumento(document.idDocumento, document.valor,document.tipo)">
-                <p>{{document.tituloDoc}} {{document.estatus}}</p>
-              </div>
-              <div ng-if="document.tipo == 'txt'">
-                <p>{{document.tituloDoc}} {{document.estatus}}</p>
-                <input type="text" ng-model="document.valor" ng-blur="altaDocumento(document.idDocumento, document.valor,document.tipo)" placeholder="__________________________">
-              </div>
-              <div ng-if="document.tipo == 'dat'">
-                <div class="row">
-                    <div class="item-text-wrap item">
-                        <div class="item-icon-left">
-                            <i class="icon ion-calendar"></i>
-                            <input type="text" class="dateClass" pick-a-date="valor" pick-a-date-options="depOptions" placeholder="dd/mm/yyyy" ng-click="takeIdDoc(document.idDocumento)"/>
+                <ion-list>
+                    <ion-item ng-repeat="document in localDocuments">
+                        <div ng-if="document.tipo == 'img'">
+                            <img class="carSize" ng-src="{{document.valor}}" ng-click="altaDocumento(document.idDocumento, document.valor,document.tipo)">
+                            <p>{{document.tituloDoc}} {{document.estatus}}</p>
                         </div>
-                    </div>
-                </div>
-              </div>
-            </ion-item>
-          </ion-list
-        </ion-content>
-      </ion-view>
+                        <div ng-if="document.tipo == 'txt'">
+                            <p>{{document.tituloDoc}} {{document.estatus}}</p>
+                            <input type="text" ng-model="document.valor" ng-blur="altaDocumento(document.idDocumento, document.valor,document.tipo)" placeholder="__________________________">
+                        </div>
+                        <div ng-if="document.tipo == 'dat'">
+                            <div class="row">
+                                <div class="item-text-wrap item">
+                                    <div class="item-icon-left">
+                                        <i class="icon ion-calendar"></i>
+                                        <input type="text" class="dateClass" ng-model="fecha | date : 'dd/MM/yyyy'" placeholder="dd/mm/yyyy" ng-click="showDatePicker()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-item>
+                </ion-list </ion-content>
+        </ion-view>
     </script>
 
     <!-- Template Consulta Expediente.html -->
     <script id="templates/ConsultaExpediente.html" type="text/ng-template">
         <ion-view title="Consulta Expediente" ng-init="init()">
             <ion-content class="padding">
-                <div  class="list list-inset">
+                <div class="list list-inset">
                     <label class="item item-input">
                         <i class="icon ion-search placeholder-icon"></i>
                         <input type="text" placeholder="Buscar" ng-model="test">
@@ -189,20 +191,21 @@
 
     <!-- Template Historial Sincronizacion.html -->
     <script id="templates/HistorialSincronizacion.html" type="text/ng-template">
-      <ion-view title="Historial Sincronizacion">
-        <ion-content class="padding">
-            <div ng-init="init()">
-            <ion-list>
-              <ion-item ng-repeat="historial in historialSincronizacion" ng-src="images/clould-upload.png">
-                <h3>{{historial.fecha}}</h3><h3>{{historial.numDocumentos}}</h3>
-              </ion-item>
-            </ion-list>
-            <button class="button button-block button-balanced icon ion-checkmark-circled" ng-click="sincronizar()">
-                   Sincronizar
-            </button>
-            </div>
-        </ion-content>
-      </ion-view>
+        <ion-view title="Historial Sincronizacion">
+            <ion-content class="padding">
+                <div ng-init="init()">
+                    <ion-list>
+                        <ion-item ng-repeat="historial in historialSincronizacion" ng-src="images/clould-upload.png">
+                            <h3>{{historial.fecha}}</h3>
+                            <h3>{{historial.numDocumentos}}</h3>
+                        </ion-item>
+                    </ion-list>
+                    <button class="button button-block button-balanced icon ion-checkmark-circled" ng-click="sincronizar()">
+                        Sincronizar
+                    </button>
+                </div>
+            </ion-content>
+        </ion-view>
     </script>
 
     <!-- Template Registro.html -->
@@ -221,7 +224,7 @@
                         </label>
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Nombre de Usuario</span>
-                            <input type="text" placeholder="Nombre de Usuario" ng-model="user">
+                            <input type="text" placeholder="ejemplo@ejemplo.com" ng-model="user">
                         </label>
                         <label class="item item-input item-select">
                             <div class="input-label">
@@ -301,7 +304,7 @@
                             <div>
                                 <span class="item item-divider">Cambiar Nombre de Usuario</span>
                                 <label class="item item-input">
-                                    <input type="text" value="{{nuevoUsuario}}" ng-model="nuevoUsuario">
+                                    <input type="text" placeholder="ejemplo@ejemplo.com" value="{{nuevoUsuario}}" ng-model="nuevoUsuario">
                                 </label>
                             </div>
                             </br>
@@ -344,7 +347,7 @@
     <script id="image-modal.html" type="text/ng-template">
         <div class="modal image-modal transparent" ng-click="closeModal()">
             <ion-pane class="transparent">
-               <img ng-src="{{imageSrc}}" class="fullscreen-image"/>
+                <img ng-src="{{imageSrc}}" class="fullscreen-image" />
             </ion-pane>
         </div>
     </script>
@@ -357,7 +360,7 @@
 
     <!--Controllers-->
     <script src="AngularJS/Camera/cameraController.js"></script>
-    <script src="AngularJS/Camera/cameraController.js"></script>  
+    <script src="AngularJS/Camera/cameraController.js"></script>
     <script src="AngularJS/Main/mainRepository.js"></script>
     <script src="AngularJS/Main/mainController.js"></script>
     <script src="AngularJS/Busqueda/busquedaRepository.js"></script>
@@ -373,5 +376,6 @@
     <script src="AngularJS/Perfil/perfilController.js"></script>
     <script src="AngularJS/Perfil/perfilRepository.js"></script>
     <script src="AngularJS/Network/networkRepository.js"></script>
-  </body>
+</body>
+
 </html>

@@ -22,14 +22,6 @@ registrationModule.controller("loginController", function ($scope, $rootScope, $
                             alert("Rol no permitido");
                         } else {
 
-                            /*
-                            perfilRepository.getDescriptionRol($rootScope.data.idRol)
-                                .then(function successCallback(response) {
-                                    alert("Entra la descripcion");
-                                }, function errorCallback(response) {
-                                    alert("no entra la descripcion");
-                                });*/
-
                             perfilRepository.insertDatosUsuario($rootScope.data.idUsuario, $rootScope.data.nombreCompleto, usuario, $rootScope.data.idRol, password, $rootScope.data.rol);
 
                             busquedaRepository.getLicitacion()
@@ -51,37 +43,37 @@ registrationModule.controller("loginController", function ($scope, $rootScope, $
     };
 
     $scope.validaCredencialesLocales = function (usuario, password) {
-        //location.href = '#/tab/busqueda';
-        /*alert('Registros desde el root: ' + $rootScope.totalRegistros);
-        if ($rootScope.totalRegistros == 0) {
-            $scope.iniciarSesion(usuario, password);
-        } else {*/
-        var query = "SELECT * FROM DatosUsuario WHERE nombreUsuario = ? AND password = ?";
-        $cordovaSQLite.execute($rootScope.FlotillasDB, query, [usuario, password]).then(function (result) {
-            if (result.rows.length > 0) {
-                if (result.rows.item(0).idRol == 5 || result.rows.item(0).idRol == 6) {
-                    alert("Rol no permitido");
+        if (usuario == null || usuario == '') {
+            alert('El campo usuario es obligatorio, verifique');
+        } else if (password == null || password == '') {
+            alert('El campo contraseña es obligatorio, verifique');
+        } else {
+            var query = "SELECT * FROM DatosUsuario WHERE nombreUsuario = ? AND password = ?";
+            $cordovaSQLite.execute($rootScope.FlotillasDB, query, [usuario, password]).then(function (result) {
+                if (result.rows.length > 0) {
+                    if (result.rows.item(0).idRol == 5 || result.rows.item(0).idRol == 6) {
+                        alert("Rol no permitido");
+                    } else {
+                        $rootScope.data.idUsuario = result.rows.item(0).idUsuario;
+                        $rootScope.data.nombreCompleto = result.rows.item(0).nombreCompleto;
+                        $rootScope.data.usuario = usuario;
+                        $rootScope.data.idRol = result.rows.item(0).idRol;
+                        $rootScope.data.password = password;
+                        $rootScope.data.rol = result.rows.item(0).descripcionRol;
+
+                        //alert("Nombre Rol: " + $rootScope.data.rol);
+
+                        location.href = '#/tab/busqueda';
+                    }
+
                 } else {
-                    $rootScope.data.idUsuario = result.rows.item(0).idUsuario;
-                    $rootScope.data.nombreCompleto = result.rows.item(0).nombreCompleto;
-                    $rootScope.data.usuario = usuario;
-                    $rootScope.data.idRol = result.rows.item(0).idRol;
-                    $rootScope.data.password = password;
-                    $rootScope.data.rol = result.rows.item(0).descripcionRol;
-
-                    //alert("Nombre Rol: " + $rootScope.data.rol);
-
-                    location.href = '#/tab/busqueda';
+                    //alert("Redirige al Web API");
+                    $scope.iniciarSesion(usuario, password);
                 }
-
-            } else {
-                //alert("Redirige al Web API");
-                $scope.iniciarSesion(usuario, password);
-            }
-        }, function (error) {
-            alert('Problemas para consultar la BD');
-        });
-        //}
+            }, function (error) {
+                alert('Problemas para consultar la BD');
+            });
+        }
 
     };
 
@@ -138,6 +130,8 @@ registrationModule.controller("loginController", function ($scope, $rootScope, $
             alert("El nombre es un campo obligatorio, verifique");
         } else if (user == null || user == '') {
             alert("El nombre de usuario es un campo obligatorio, verifique");
+        } else if (!validaUsuario(user)) {
+            alert("El nombre de usuario no tiene el formato esperado, verifique");
         } else if (rol == 0) {
             alert("Elija un rol diferente");
         } else if (pass == null || pass == '') {
@@ -161,5 +155,10 @@ registrationModule.controller("loginController", function ($scope, $rootScope, $
                 });
         }
     };
+
+    function validaUsuario(user) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(user);
+    }
 
 });
