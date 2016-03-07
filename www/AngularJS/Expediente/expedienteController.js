@@ -170,19 +170,8 @@ registrationModule.controller("expedienteController", function ($scope, $rootSco
         $scope.idDoc = idDocumento;
     }
 
-    var minDate = new Date();
-    var maxDate = new Date(minDate.getFullYear() + 1, minDate.getMonth(), minDate.getDate());
-    $scope.depOptions = {
-        format: 'dd/mm/yyyy',
-        min: minDate,
-        max: maxDate,
-        onClose: function (e) {
-            console.log($scope.valor);
-            $scope.altaDocumento($scope.idDoc, $scope.valor, 'dat');
-        }
-    }
 
-    $scope.showDatePicker = function () {
+    $scope.showDatePicker = function (idDocumento, valor, tipo) {
         var options = {
             date: new Date(),
             mode: 'date',
@@ -191,8 +180,16 @@ registrationModule.controller("expedienteController", function ($scope, $rootSco
         };
         //var options = {date: new Date(), mode: 'time'}; for time
         $cordovaDatePicker.show(options).then(function (date) {
-            $scope.fecha = date;
-            $scope.altaDocumento($scope.idDoc, $scope.fecha, 'dat');
+            $scope.valor = convertDate(date);
+            $scope.altaDocumento(idDocumento, $scope.valor, tipo);
         });
     };
+
+    function convertDate(inputDate) {
+        function pad(s) {
+            return (s < 10) ? '0' + s : s;
+        }
+        var d = new Date(inputDate);
+        return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+    }
 })
