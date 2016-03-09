@@ -44,7 +44,7 @@ registrationModule.run(function ($ionicPlatform, $cordovaSQLite, $rootScope, $co
 
             $cordovaSQLite.execute($rootScope.FlotillasDB, 'CREATE TABLE IF NOT EXISTS RolDocumento (idRol INTEGER NOT NULL,' + 'idDocumento INTEGER NOT NULL,' + 'documento TEXT NOT NULL)');
 
-            var query = "INSERT INTO Rol (idRol, descripcion) VALUES(1, 'Gestor'), (2, 'Apoyo'), (4, 'Transladista'), (5, 'Ejecutivo de Cuenta'), (6, 'Administrador'); "
+            var query = "INSERT INTO Rol (idRol, descripcion) VALUES(1, 'Gestor'), (2, 'Apoyo'), (4, 'Transladista'); "
             $cordovaSQLite.execute($rootScope.FlotillasDB, query, []).then(function (result) {
                 //alert("Se poblo la tabla de roles");
             }, function (error) {
@@ -57,68 +57,88 @@ registrationModule.run(function ($ionicPlatform, $cordovaSQLite, $rootScope, $co
 
 
 registrationModule.config(function ($stateProvider, $urlRouterProvider) {
-    $stateProvider
-        .state('tabs', {
-            url: "/tab",
-            abstract: true,
-            templateUrl: "templates/tabs.html"
-        })
-        .state('login', {
-            url: "/login",
-            templateUrl: "templates/Login.html",
-            controller: 'loginController'
-        })
-        .state('registro', {
-            url: "/registro",
-            templateUrl: "templates/Registro.html",
-            controller: 'loginController'
-        })
-        .state('tabs.busqueda', {
-            url: "/busqueda",
-            views: {
-                'busqueda-tab': {
-                    templateUrl: "templates/Busqueda.html",
-                    controller: 'busquedaController'
+        $stateProvider
+            .state('tabs', {
+                url: "/tab",
+                abstract: true,
+                templateUrl: "templates/tabs.html"
+            })
+            .state('login', {
+                url: "/login",
+                templateUrl: "templates/Login.html",
+                controller: 'loginController'
+            })
+            .state('registro', {
+                url: "/registro",
+                templateUrl: "templates/Registro.html",
+                controller: 'loginController'
+            })
+            .state('tabs.busqueda', {
+                url: "/busqueda",
+                views: {
+                    'busqueda-tab': {
+                        templateUrl: "templates/Busqueda.html",
+                        controller: 'busquedaController'
+                    }
                 }
-            }
-        })
-        .state('tabs.expediente', {
-            url: "/expediente",
-            views: {
-                'busqueda-tab': {
-                    templateUrl: "templates/Expediente.html",
-                    controller: 'expedienteController'
+            })
+            .state('tabs.expediente', {
+                url: "/expediente",
+                views: {
+                    'busqueda-tab': {
+                        templateUrl: "templates/Expediente.html",
+                        controller: 'expedienteController'
+                    }
                 }
-            }
-        })
-        .state('tabs.consultaExpediente', {
-            url: "/consultaExpediente",
-            views: {
-                'consulta-tab': {
-                    templateUrl: "templates/ConsultaExpediente.html",
-                    controller: 'consultaController'
+            })
+            .state('tabs.consultaExpediente', {
+                url: "/consultaExpediente",
+                views: {
+                    'consulta-tab': {
+                        templateUrl: "templates/ConsultaExpediente.html",
+                        controller: 'consultaController'
+                    }
                 }
-            }
-        })
-        .state('tabs.sincronizacion', {
-            url: "/sincronizacion",
-            views: {
-                'sincronizacion-tab': {
-                    templateUrl: "templates/HistorialSincronizacion.html",
-                    controller: 'historialSincronizacionController'
+            })
+            .state('tabs.sincronizacion', {
+                url: "/sincronizacion",
+                views: {
+                    'sincronizacion-tab': {
+                        templateUrl: "templates/HistorialSincronizacion.html",
+                        controller: 'historialSincronizacionController'
+                    }
                 }
-            }
-        })
-        .state('tabs.perfil', {
-            url: "/perfil",
-            views: {
-                'perfil-tab': {
-                    templateUrl: "templates/Perfil.html",
-                    controller: 'perfilController'
+            })
+            .state('tabs.perfil', {
+                url: "/perfil",
+                views: {
+                    'perfil-tab': {
+                        templateUrl: "templates/Perfil.html",
+                        controller: 'perfilController'
+                    }
                 }
-            }
+            });
+
+
+        //$urlRouterProvider.otherwise("/login");
+        $urlRouterProvider.otherwise(function ($injector) {
+            var $state = $injector.get('$state');
+            $state.go('login');
         });
 
+    })
+    .run(function ($rootScope, $state, $ionicHistory) {
+        $rootScope.$on('$stateChangeSuccess',
+            function (event, toState, toParams, fromState, fromParams) {
+                var historial = $ionicHistory.viewHistory();
 
-    $urlRouterProvider.otherwise("/login");
-})
+                if ($state.current.name === 'login') {
+                    if (historial.backView !== null) {
+                        if (fromState.name !== 'registro') {
+                            $state.go(fromState.name);
+                        }
+                    }
+                }
+            }
+        );
+    });

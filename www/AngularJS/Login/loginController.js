@@ -1,6 +1,7 @@
-registrationModule.controller("loginController", function ($scope, $rootScope, $state, loginRepository, $cordovaSQLite, perfilRepository, busquedaRepository, DBA) {
+registrationModule.controller("loginController", function ($scope, $rootScope, $state, loginRepository, $cordovaSQLite, perfilRepository, busquedaRepository, $ionicLoading, $ionicPopup) {
     $rootScope.data = [];
     $scope.licitacion = [];
+
     //Grupo de funciones de inicio
     $scope.init = function () {
         $rootScope.logged = false;
@@ -16,10 +17,12 @@ registrationModule.controller("loginController", function ($scope, $rootScope, $
             loginRepository.login(usuario, password)
                 .then(function successCallback(response) {
                         $rootScope.data = response.data;
+                        $ionicLoading.hide();
                         if ($rootScope.data == null) {
                             $scope.password = '';
                             alert("El nombre de usuario o contraseña son incorrectos, verifique");
                         } else {
+                            $rootScope.logged == true;
                             $rootScope.data.usuario = usuario;
                             $rootScope.data.password = password;
 
@@ -33,8 +36,7 @@ registrationModule.controller("loginController", function ($scope, $rootScope, $
                                     .success(getFlotillaSuccessCallback)
                                     .error(errorCallBack);
 
-                                //alert('Login desde WebApi');
-                                location.href = '#/tab/busqueda';
+                                $state.go('tabs.busqueda');
                             }
                         }
                     },
@@ -54,22 +56,25 @@ registrationModule.controller("loginController", function ($scope, $rootScope, $
         } else if (password == null || password == '') {
             alert('El campo contraseña es obligatorio, verifique');
         } else {
+            $ionicLoading.show({
+                template: 'Validando ...'
+            });
             var query = "SELECT * FROM DatosUsuario WHERE nombreUsuario = ? AND password = ?";
             $cordovaSQLite.execute($rootScope.FlotillasDB, query, [usuario, password]).then(function (result) {
                 if (result.rows.length > 0) {
+                    $ionicLoading.hide();
                     if (result.rows.item(0).idRol == 5 || result.rows.item(0).idRol == 6) {
                         alert("Rol no permitido");
                     } else {
+                        $rootScope.logged == true;
                         $rootScope.data.idUsuario = result.rows.item(0).idUsuario;
                         $rootScope.data.nombreCompleto = result.rows.item(0).nombreCompleto;
                         $rootScope.data.usuario = usuario;
                         $rootScope.data.idRol = result.rows.item(0).idRol;
                         $rootScope.data.password = password;
                         $rootScope.data.rol = result.rows.item(0).descripcionRol;
-
-                        //alert("Nombre Rol: " + $rootScope.data.rol);
-
-                        location.href = '#/tab/busqueda';
+                        
+                        $state.go('tabs.busqueda');
                     }
 
                 } else {
@@ -77,6 +82,7 @@ registrationModule.controller("loginController", function ($scope, $rootScope, $
                     $scope.iniciarSesion(usuario, password);
                 }
             }, function (error) {
+                $ionicLoading.hide();
                 alert('Problemas para consultar la BD');
             });
         }
