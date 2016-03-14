@@ -62,3 +62,4 @@ registrationModule.factory('loginRepository', function ($http, $rootScope, $cord
         }
     };
 });
+

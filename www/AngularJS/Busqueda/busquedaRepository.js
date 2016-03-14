@@ -5,70 +5,53 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-registrationModule.factory('busquedaRepository', function ($http,$rootScope, $cordovaSQLite) {
-	var busqueda = [];
-    $rootScope.resultado = [];
-    return {
-        getUnidadFactura: function (facturaVin) {
-            var query = "SELECT * FROM LicitacionUnidad where factura = ?";
-            $cordovaSQLite.execute($rootScope.FlotillasDB, query, [facturaVin]).then(function(result){
-            	if(result.rows.length > 0){
-                    $rootScope.resultado = result.rows.item(0);
-            	} 
-                else if(result.rows.length == 0){
-                    var query = "SELECT * FROM LicitacionUnidad where vin = ?";
-                    $cordovaSQLite.execute($rootScope.FlotillasDB, query, [facturaVin]).then(function(result){
-                        if(result.rows.length > 0){
-                            $rootScope.resultado = result.rows.item(0);
-                        }
-                        else{
-                            alert("No se encuentran unidades con el criterio de búsqueda");
-                            $rootScope.resultado = '';
+registrationModule.factory('busquedaRepository', function($http, $rootScope,$cordovaSQLite,DBA) {
+  var self = this;
 
-                        }
-                    }, function(error){
-                        console.log(error);
-                    });
-                    return busqueda;   
-                }
-            	else{
-            		alert("No se encuentran unidades con el criterio de búsqueda");
-                    $rootScope.resultado = '';
-            	}
-            }, function(error){
-            	console.log(error);
-            });
-            return busqueda;       	
-        },
-		insert: function(vin, factura,tipo, marca, modelo, numeroMotor, color, estatus){
-		    var query = "INSERT INTO LicitacionUnidad (vin,factura,tipo, marca, modelo, numeroMotor, color, estatus) VALUES(?,?,?,?,?,?,?,?)";
-		    $cordovaSQLite.execute($rootScope.FlotillasDB, query, [vin, factura, tipo, marca, modelo, numeroMotor, color, estatus]).then(function(result){
-            }, function(error){
-		      	alert('error en el insert');
-		    });
-		},
-        updateLicitacionUnidad: function(usuarioAsignado, vin){
-            var update = "UPDATE LicitacionUnidad SET usuarioAsignado = ? WHERE vin = ?";
-            $cordovaSQLite.execute($rootScope.FlotillasDB,update,[usuarioAsignado, vin]).then(function (result) {               
-            }, function (error) {
-               alert('error en el update');
-            });
-        },
-        getLicitacion: function () {
-            return $http({
-                url: searchUrl,
-                method: "GET",
-                params: {
-                    id: '2|'
-                }
-            });
-        },
-        insertaLicitacion: function (licitacion) {   
-            $cordovaSQLite.execute($rootScope.FlotillasDB, licitacion, []).then(function (result) {
-                //alert("Se poblo la tabla LicitacionUnidad");
-            }, function (error) {
-                alert('error en el insert LicitacionUnidad');
-            });
-        },
-    };
-});
+    self.getUnidadFactura = function(facturaVin){
+      var parameters = [facturaVin, facturaVin];
+      return DBA.query("SELECT * FROM LicitacionUnidad WHERE vin=(?) OR factura= (?)", parameters)
+        .then(function(result){
+          return DBA.getAll(result);
+        });
+    }
+
+    self.getServerLicitaciones = function () {
+        return $http({
+            url: searchUrl,
+            method: "GET",
+            params: {
+                id: '2|'
+            }
+        });
+    }
+
+    self.insertaLicitacion = function (licitacion) {   
+        var parameters = [licitacion.vin, licitacion.factura, licitacion.idLicitacion, licitacion.tipo, licitacion.marca, licitacion.modelo,licitacion.estatus,licitacion.usuarioAsignado];
+    return DBA.query("INSERT INTO LicitacionUnidad(vin, factura, idLicitacion, tipo, marca, modelo, estatus, usuarioAsignado) VALUES(?,?,?,?,?,?,?,?)",parameters)
+    }
+
+     self.existsLicitaciones = function(){
+        return DBA.query("SELECT COUNT(*)NumRows FROM LicitacionUnidad", [])
+          .then(function(result){
+            return DBA.getAll(result);
+          },function(err){
+            alert('error :(');
+          });
+    }
+
+    self.updateLicitacionUnidad = function(usuarioAsignado, vin) {
+        var parameters = [usuarioAsignado,vin];
+        return DBA.query("UPDATE LicitacionUnidad SET usuarioAsignado = (?) WHERE vin = (?)", parameters);
+    }
+
+    self.validateLicitacionAssignment = function(usuarioAsignado, vin){
+        var parameters = [usuarioAsignado, vin];
+        return DBA.query("SELECT COUNT(*)NumRows FROM LicitacionUnidad WHERE usuarioAsignado= (?) AND vin = (?)", parameters)
+          .then(function(result){
+            return DBA.getAll(result);
+          });
+    }
+
+    return self;
+})

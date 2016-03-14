@@ -7,78 +7,120 @@
 // -- =============================================
 var documentoUrl = global_settings.urlCORS + '/api/documentoApi/';
 var unidadUrl = global_settings.urlCORS + '/api/unidadApi/';
-var ruta = global_settings.uploadPath;
 
-registrationModule.factory('historialSincronizacionRepository', function($cordovaSQLite,DBA,$http){
-	var self = this;
+registrationModule.factory('historialSincronizacionRepository', function($cordovaSQLite,DBA,$http,$cordovaFileTransfer,networkRepository,$rootScope){
+ var self = this;
 
-	self.getHistorialSincronizacion = function(){
-		 return DBA.query("SELECT fecha, numDocumentos FROM HistorialSincronizacion")
-		 .then(function(result){
-		 return DBA.getAll(result);
-		 });
-	}
+ self.getHistorialSincronizacion = function(){
+   return DBA.query("SELECT fecha, numDocumentos FROM HistorialSincronizacion")
+   .then(function(result){
+   return DBA.getAll(result);
+   });
+ }
 
-	self.insertHistorial = function(document){
-	    var parameters = [document.fecha,document.numDocumentos];
-	    return DBA.query("INSERT INTO HistorialSincronizacion(fecha,numDocumentos) VALUES(?,?)",parameters)
-  	}
+ self.insertHistorial = function(fecha, numDoc){
+   var parameters = [fecha,numDoc];
+   return DBA.query("INSERT INTO HistorialSincronizacion(fecha,numDocumentos) VALUES(?,?)",parameters)
+ }
 
-	self.getDistinctDocuments = function(){
-    return DBA.query("SELECT * FROM UnidadPropiedad")
+ self.getDistinctDocuments = function(){
+  return DBA.query("SELECT DISTINCT vin FROM UnidadPropiedad")
+    .then(function(result){
+      return DBA.getAll(result);
+    });
+ }
+
+ self.countDocuments = function(idRol, vin){
+  var parameters = [idRol, vin];
+      return DBA.query("SELECT (SELECT COUNT(*) FROM RolDocumento WHERE idRol = (?)) AS totalRol,(SELECT COUNT(*) FROM UnidadPropiedad WHERE vin = (?)) AS totalUnidad", parameters)
       .then(function(result){
         return DBA.getAll(result);
-      });
-  	}
+    });
+ } 
 
-	self.getTotalPerfil = function(){
-	    return DBA.query("SELECT * FROM UnidadPropiedad")
-	    .then(function(result){
-	      return DBA.getAll(result);
-	    });
-	}
+ self.deleteUPLocal = function(vin){
+     var parameters = [vin];
+     return DBA.query("DELETE FROM UnidadPropiedad WHERE vin = (?)", parameters)
+ }
 
-	self.getTotalLocal = function(vin){
-	    var parameters = [vin];
-	    return DBA.query("SELECT count(*) FROM UnidadPropiedad WHERE vin = (?)", parameters)
-	    .then(function(result){
-	      return DBA.getAll(result);
-	  });
-	}
+ self.updateEstatus = function(vin){
+     var parameters = [vin];
+     return DBA.query("UPDATE LicitacionUnidad SET estatus = 'Sincronizado' WHERE vin = (?)", parameters)
+ }
 
-	self.deleteUPLocal = function(unidad){
-	    var parameters = [unidad.vin];
-	    return DBA.query("DELETE FROM UnidadPropiedad WHERE vin = (?)", parameters)
-	}
+ self.updateEstatusServer = function(vin, idLicitacion){
+  var estatus = 'Sincronizado';
+     return $http({
+       url: unidadUrl,
+       method: "POST",
+       params: { id: '2|' + vin + '|' + idLicitacion + '|' + estatus }
+  });
+ }
 
-	self.updateEstatus = function(unidad){
-	    var parameters = [unidad.vin];
-	    return DBA.query("UPDATE LicitacionUnidad SET estatus = 'Sincronizado' WHERE vin = (?)", parameters)
-	}
+self.updateUnidad = function(vin,idDocumento,valor,idUsuario){
+ return $http({
+   url: unidadUrl,
+   method: "POST",
+   params: { id: '1|' + vin + '|' + idDocumento + '|' + valor + '|' + idUsuario}
+  });
+ }
 
-	self.updateEstatusServer = function(unidad){
-		var estatus = 'Sincronizado';
-	    return $http({
-	      url: unidadUrl,
-	      method: "POST",
-	      params: { id: '2|' + unidad.vin + '|' + unidad.idLicitacion + '|' + estatus }
-		});
-	}
+ self.obtenerDatos = function(vin){
+  var parameters = [vin];
+  return DBA.query("SELECT * FROM UnidadPropiedad WHERE vin = (?)", parameters)
+  .then(function(result){
+      return DBA.getAll(result);
+  }); 
+ }
 
-	self.saveFile = function(unidad){
-	    return $http({
-          url: documentoUrl,
-          method: "POST",
-          params: { id: '1|' + unidad.vin + '|' + unidad.idDocumento + '|' + ruta + unidad.valor }
-	    });
+ self.obtenerLicitacion = function(vin){
+  var parameters = [vin];
+  return DBA.query("SELECT idLicitacion FROM LicitacionUnidad WHERE vin = (?)", parameters)
+    .then(function(result){
+        return DBA.getAll(result);
+    });
+ }
+
+ self.testFileUpload = function (vin,imgUrl,idDocumento) {
+  var url = imgUrl.substring(imgUrl.length, imgUrl.length -4);
+    if(url == '.jpg'){
+      // Destination URL 
+       var url = "http://192.168.20.9/myPhp/hola.php";
+
+       var filename = vin+'-'+idDocumento+'.jpg';
+       var options = {
+            fileKey: "file",
+            fileName: filename,
+            chunkedMode: false,
+            mimeType: "image/jpg",
+            params : {'directory':'upload', 'fileName':filename}
+        };
+             
+        $cordovaFileTransfer.upload(url, imgUrl, options).then(function (result) {
+            console.log("SUCCESS: " + JSON.stringify(result.response));
+        }, function (err) {
+            console.log("ERROR: " + JSON.stringify(err));
+        }, function (progress) {
+            // PROGRESS HANDLING GOES HERE
+        });
     }
+  }
 
-    self.updateUnidad = function(unidad){
-	    return $http({
-	      url: unidadUrl,
-	      method: "POST",
-	      params: { id: '1|' + unidad.vin + '|' + unidad.idDocumento + '|' + unidad.valor + '|' + unidad.idUsuario}
-		});
-	}
- 	return self;
+  self.deleteImageURL = function(imgURL){
+    var url = imgURL.substring(imgURL.length, imgURL.length -4);
+    if(url == '.jpg'){
+      window.resolveLocalFileSystemURL(imgURL, function (fileEntry) {
+          fileEntry.remove();
+      }, function (error) {
+          alert("Error al eliminar el archivo.");
+      });
+    }    
+  }
+
+  self.deleteImage = function(arrayImg){
+    for (var i = 0; i < arrayImg.length; i++) {
+      deleteImageURL(arrayImg[i]);
+    }
+  }
+  return self;
 })

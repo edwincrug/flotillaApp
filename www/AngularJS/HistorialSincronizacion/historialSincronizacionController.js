@@ -5,7 +5,8 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-registrationModule.controller('historialSincronizacionController', function($scope, $rootScope, networkRepository, historialSincronizacionRepository,expedienteRepository){
+registrationModule.controller('historialSincronizacionController', function($scope, $rootScope, networkRepository, historialSincronizacionRepository,$cordovaFileTransfer){
+	var numDoc = 0;
     //Grupo de funciones de inicio
     $scope.init = function () {
        historialSincronizacionRepository.getHistorialSincronizacion().then(function(result){
@@ -14,98 +15,57 @@ registrationModule.controller('historialSincronizacionController', function($sco
     };
 
     $scope.sincronizar = function(){
-    	var date = new Date();
-		networkRepository.verficaRed();
+	    var arrayImg = [];
+	    var date = new Date();
+	    networkRepository.verficaRed();
 	    if($rootScope.network == true){
-	      $scope.obtenerTotales();
-	      historialSincronizacionRepository.getDistinctDocuments().then(function(file){
-	        $scope.document = file;	        
-	          for (var i = 0; i < $scope.document.length; i++) {
-	          	$scope.getTotalLocal($scope.document[i].vin);                            
-	                 if($scope.totalDocs == $scope.totalLocal.length){
-	                 	var unidad = {fecha:date,vin:$scope.document[i].vin, idDocumento:$scope.document[i].idDocumento, 
-	                 	valor:$scope.document[i].valor, idUsuario:$rootScope.data.idUsuario, idLicitacion: $rootScope.idLicitacion,
-	                 	numDocumentos: $scope.totalLocal.length};	                 	
-	                    //inserta en BD servidor de UP
-	                    historialSincronizacionRepository.updateUnidad(unidad)
-	                    .then(function(success){
-	                    	//actualiza el estatus a sincronizado BD local
-	                    	historialSincronizacionRepository.updateEstatus(unidad)
-	                    	.then(function(success){
-	                    		//actualiza el estatus a sincronizado BD servidor
-	                    		historialSincronizacionRepository.updateEstatusServer(unidad)
-	                    		.then(function(success){
-	                    			//se cargan las fotos al servidor
-	                    			historialSincronizacionRepository.insertHistorial(unidad)
-	                    			.then(function(success){
-	                    				//se borran las fotos del telefono
-	                    				deleteFile(unidad)
-	                    				.then(function(success){
-	                    					//borra los datos de la base local de UP 
-	                    					historialSincronizacionRepository.deleteUPLocal(unidad)
-	                    					.then(function(success){
-	                    						//se cargan las fotos al servidor
-	                    						//historialSincronizacionRepository.saveFile(unidad)
-	                    						//.then(function(success){
-	                    						//},function(error){
-	                    							//alert('Error al guardar fotos');
-	                    						//})
-	                    					},function(error){
-	                    						alert('Error al borrar datos de UP');
-	                    					});
-	                    				},function(error){
-	                    					alert('Error al borrar fotos');
-	                    				});
-	                    			},function(error){
-	                    				alert('No se pudo actualizar el historial');
-	                    			});
-	                    		},function(error){
-	                    			alert('No se pudo actualizar el estatus server');
-	                    		});
-	                    	},function(error){
-	                    		alert('No se pudo actualizar el estatus');
-	                    	});	
-	                    },function(error){
-	                    	alert('No se pudo actualizar la unidad');	
-	                    });
-	                    
-	                    
-	                    //se cargan las fotos al servidor
-	                    //historialSincronizacionRepository.saveFile(unidad);
-	                    //Se inserta en tabla de sincronizacion
-	                    //historialSincronizacionRepository.insertHistorial(unidad);
-	                    //se borran las fotos del telefono
-	                    //deleteFile(unidad);
-	                    //borra los datos de la base local de UP 
-	                    //historialSincronizacionRepository.deleteUPLocal(unidad);
-	                    
-	                 }
-	          	}
+	      historialSincronizacionRepository.getDistinctDocuments().then(function(unidadVin){
+	        if(unidadVin.length > 0){
+	          angular.forEach(unidadVin, function(unidad, key){
+          			historialSincronizacionRepository.obtenerLicitacion(unidad.vin).then(function(licitacion){
+	                  	historialSincronizacionRepository.countDocuments($rootScope.data.idRol, unidad.vin).then(function(countDocument){
+	                  		if(countDocument[0].totalRol == countDocument[0].totalUnidad){
+		                  		numDoc += countDocument[0].totalUnidad;	                  		
+		                  		historialSincronizacionRepository.obtenerDatos(unidad.vin).then(function(documento){
+		                  			angular.forEach(documento, function(document, key2){
+		                  				arrayImg.push(document.valor);
+		                  				//inserta en la BD Unidad Propiedad Servidor
+			                            historialSincronizacionRepository.updateUnidad(document.vin,document.idDocumento,document.valor,$rootScope.data.idUsuario).then(function(updUnidad){
+		                            	//Se cargan las imagenes en servidor
+		                            	historialSincronizacionRepository.testFileUpload(document.vin,document.valor,document.idDocumento);
+		                            	//Se borran datos de BD Local
+		                            	historialSincronizacionRepository.deleteUPLocal(document.vin);
+		                            	//actualiza el estatus a sincronizado BD local
+		                            	historialSincronizacionRepository.updateEstatus(document.vin);
+		                            	//actualiza el estatus a sincronizado BD servidor
+		       	                    	historialSincronizacionRepository.updateEstatusServer(document.vin,licitacion[0].idLicitacion);
+			                            //Se borran las imagenes del telefono
+			                            deleteImage(arrayImg);				                                                      		                       
+			                            });
+			                  		});
+
+		                  			if(key == unidadVin.length-1){
+		                            	historialSincronizacionRepository.insertHistorial(date,numDoc).then(function(success){
+								       		historialSincronizacionRepository.getHistorialSincronizacion().then(function(result){
+										    	$scope.historialSincronizacion = result;
+										    	location.href = '#/tab/sincronizacion';
+										    });
+							            });
+			                        } 
+		                  		});	
+	                  		}
+	                  		
+	                  	});
+	                });
+	          });       
+	        }
 	      });
-	    }
-	    location.href = '#/tab/sincronizacion';
-    };
+		}
+	}
 
-    //Elimina un archivo con ruta específica
-    $scope.deleteFile = function(document){
-    	 //alert(document[0].valor);
-         window.resolveLocalFileSystemURL(document[0].valor, function(fileEntry){
-            alert(fileEntry.name);
-            fileEntry.remove();
-         }, function(error){
-            alert(error);
-         });
-    }
-
-    $scope.obtenerTotales = function(){
-    	//historialSincronizacionRepository.getTotalPerfil().then(function(total){
-	        $scope.totalDocs = 1;//total;
-	    //});
-    }
-
-    $scope.getTotalLocal = function(vin){
-    	historialSincronizacionRepository.getTotalLocal(vin).then(function(local){
-    		$scope.totalLocal = local;
-    	});
-    }
+	var deleteImage = function(arrayImg){
+		for (var i = 0; i < arrayImg.length; i++) {
+			historialSincronizacionRepository.deleteImageURL(arrayImg[i]);
+		}
+	}
 });

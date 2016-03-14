@@ -5,7 +5,7 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-registrationModule.controller("busquedaController", function($scope, $rootScope, busquedaRepository, historialSincronizacionRepository, consultaRepository,expedienteRepository) {
+registrationModule.controller("busquedaController", function($scope, $rootScope, $ionicLoading, $cordovaBarcodeScanner,busquedaRepository, historialSincronizacionRepository, consultaRepository,expedienteRepository) {
     
     //Grupo de funciones de inicio
     $scope.init = function () {
@@ -15,41 +15,55 @@ registrationModule.controller("busquedaController", function($scope, $rootScope,
     };
 
     $scope.message = function(){
-        historialSincronizacionRepository.getMessage();
+        shistorialSincronizacionRepository.getMessage();
     }
     //Botón obtener la unidad dependiendo de la factura o vin
     $scope.busqueda = function(facturaVin){
         if(facturaVin == null || facturaVin == ''){
             alert('Ingrese un número de Factura o VIN');
-            limpiar();
             ocultarView();         
         } 
         else {
-            busquedaRepository.getUnidadFactura(facturaVin);
-            $scope.vin = $rootScope.resultado.vin;
-            $scope.numFactura = $rootScope.resultado.factura;
-            $scope.tipo = $rootScope.resultado.tipo;
-            $scope.modelo = $rootScope.resultado.modelo;
-            $scope.marca = $rootScope.resultado.marca;
-            $rootScope.idLicitacion = $rootScope.resultado.idLicitacion;
-            if($rootScope.resultado == ''){
-                limpiar();
-                ocultarView();
-            } 
-            else{
-                $scope.mostrarList = true;
-                $scope.mostrar = true;  
-            }                
-        }        
+            $ionicLoading.show({
+                template: 'Buscando...'
+            });
+
+            busquedaRepository.getUnidadFactura(facturaVin).then(function(unidad){
+                $ionicLoading.hide();
+                if(unidad.length > 0){
+                    $scope.unidad = unidad;
+                    $scope.mostrarList = true;
+                    $scope.mostrar = true;
+                }
+                else{
+                    limpiar();
+                }
+            },function(error){
+                $ionicLoading.hide();
+                alert("error");
+            });            
+        } 
     };
 
-    $scope.seleccionar = function(vin, numFactura){
-        alert('La unidad se asignará a su usuario y no se podrá deshacer');        
-        $rootScope.vin = vin;
-        $rootScope.factura = numFactura;
-        busquedaRepository.updateLicitacionUnidad($rootScope.data.idUsuario, vin);
-        //$rootScope.expedientes = consultaRepository.getExpedientes($rootScope.data.idUsuario);
-        location.href = '#/tab/expediente';
+    $scope.seleccionar = function(){
+        busquedaRepository.validateLicitacionAssignment($rootScope.data.idUsuario, $scope.unidad[0].vin).then(function(unidadAsigando){
+            if(unidadAsigando[0].NumRows > 0){
+                alert("La unidad ya se encuentra asignada");
+                location.href = '#/tab/consultaExpediente';
+                limpiar();
+            }
+            else{
+                alert('La unidad se asignará a su usuario y no se podrá deshacer');        
+                busquedaRepository.updateLicitacionUnidad($rootScope.data.idUsuario, $scope.unidad[0].vin).then(function(unidad){
+                    location.href = '#/tab/consultaExpediente';
+                    limpiar();
+                },function(error){
+                    alert("Error al asignar unidad. ");
+                });
+            }
+        },function(error){
+            alert("Error al obtener información en [LicitacionUnidad]");
+        });
     };
 
     var ocultarView = function(){
@@ -58,19 +72,14 @@ registrationModule.controller("busquedaController", function($scope, $rootScope,
     };
 
     var limpiar = function(){
-        $scope.vin = '';
-        $scope.numFactura = '';
-        $scope.tipo = '';
-        $scope.modelo = '';
-        $scope.marca = '';
+        $scope.unidad = null;
         ocultarView();
     };
 
     var getServerRolDocuments  = function(){
         expedienteRepository.existsRolDocuments().then(function(numDocuments){
-            //alert(numDocuments[0].NumRows);
             if(numDocuments[0].NumRows > 0){
-                alert("ya existen registros [RolDocumento]");
+                console.log("ya existen registros [RolDocumento]");
             }
             else
             {
@@ -94,4 +103,12 @@ registrationModule.controller("busquedaController", function($scope, $rootScope,
             alert("Error al recuperar información.");
         }); 
      };
+
+    $scope.scanBarcode = function() {
+        $cordovaBarcodeScanner.scan().then(function(imageData) {
+            alert(imageData.text);
+        }, function(error) {
+            alert("An error happened -> " + error);
+        });
+    };
 });

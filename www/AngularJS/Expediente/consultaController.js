@@ -1,7 +1,6 @@
 registrationModule.controller('consultaController', function ($scope, consultaRepository, $rootScope) {
 
     $scope.init = function () {
-        alert('Invoca init');
         $scope.showExpedientes();
         setInterval(function () {
             $scope.showExpedientes();
@@ -9,17 +8,17 @@ registrationModule.controller('consultaController', function ($scope, consultaRe
 
     };
 
-
     $scope.showExpedientes = function () {
-        consultaRepository.getExpedientes($rootScope.data.idUsuario).then(function successCallback(response) {
+        consultaRepository.getExpedientes($rootScope.data.idUsuario).then(function(response) {
             $scope.expedientes = response;
-        }, function errorCallback(response) {
+        }, function(error) {
             alert("No recupera expedientes");
         });
     }
 
-    $scope.Detalle = function (expediente) {
-        $rootScope.vin = expediente.vin;
+    $scope.Detalle = function (expediente) { 
+        $rootScope.expVin = expediente.vin;
+        $rootScope.expFactura = expediente.factura;
         location.href = '#/tab/expediente';
     };
 

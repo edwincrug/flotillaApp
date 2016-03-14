@@ -69,5 +69,36 @@ registrationModule.factory('expedienteRepository', function($http, $cordovaSQLit
       });
   }
 
+  self.imageUpload = function (imgUrl,idDocumento) {
+     // Destination URL 
+     var url = "http://192.168.20.9/myPhp/hola.php";
+
+     var filename = $rootScope.expVin+'-'+idDocumento+'.jpg';//imgUrl.split("/").pop();
+     var options = {
+          fileKey: "file",
+          fileName: filename,
+          chunkedMode: false,
+          mimeType: "image/jpg",
+          params : {'directory':'upload', 'fileName':filename}
+      };
+           
+      $cordovaFileTransfer.upload(url, imgUrl, options).then(function (result) {
+          console.log("SUCCESS: " + JSON.stringify(result.response));
+      }, function (err) {
+          console.log("ERROR: " + JSON.stringify(err));
+      }, function (progress) {
+          // PROGRESS HANDLING GOES HERE
+      });
+  }
+
+  //Elimina un archivo con ruta específica
+  self.deleteImageURL = function(imgURL){
+    window.resolveLocalFileSystemURL(imgURL, function (fileEntry) {
+      fileEntry.remove();
+    }, function (error) {
+      alert("Error al eliminar el archivo.");
+    });
+  }
+
   return self;
 })
