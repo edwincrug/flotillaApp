@@ -2,17 +2,6 @@
 "CodeKitInfo": "This is a CodeKit 2.x project configuration file. It is designed to sync project settings across multiple machines. MODIFYING THE CONTENTS OF THIS FILE IS A POOR LIFE DECISION. If you do so, you will likely cause CodeKit to crash. This file is not useful unless accompanied by the project that created it in CodeKit 2. This file is not backwards-compatible with CodeKit 1.x. For more information, see: http:\/\/incident57.com\/codekit",
 "creatorBuild": "19115",
 "files": {
-	"\/AngularJS\/alertFactory.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/AngularJS\/alertFactory.js",
-		"outputAbbreviatedPath": "\/AngularJS\/min\/alertFactory-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
 	"\/AngularJS\/BackgroundMode\/backgroundController.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -52,6 +41,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/AngularJS\/Camera\/cameraController.js",
 		"outputAbbreviatedPath": "\/AngularJS\/Camera\/min\/cameraController-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/AngularJS\/DBA\/dbaRepository.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/DBA\/dbaRepository.js",
+		"outputAbbreviatedPath": "\/AngularJS\/DBA\/min\/dbaRepository-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -167,6 +167,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/AngularJS\/Network\/networkRepository.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Network\/networkRepository.js",
+		"outputAbbreviatedPath": "\/AngularJS\/Network\/min\/networkRepository-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/AngularJS\/Perfil\/perfilController.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -221,6 +232,15 @@
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
+		},
+	"\/css\/datetime-picker.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/css\/datetime-picker.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
 		},
 	"\/css\/demo.css": {
 		"fileType": 16,
@@ -285,35 +305,24 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/images\/acuse_entrega.jpg": {
-		"fileType": 16384,
+	"\/images\/acuse_entrega.png": {
+		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 3443,
-		"inputAbbreviatedPath": "\/images\/acuse_entrega.jpg",
-		"outputAbbreviatedPath": "\/images\/acuse_entrega.jpg",
+		"initialSize": 8261,
+		"inputAbbreviatedPath": "\/images\/acuse_entrega.png",
+		"outputAbbreviatedPath": "\/images\/acuse_entrega.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/images\/acuse_recibo.jpg": {
-		"fileType": 16384,
+	"\/images\/acuse_recibo.png": {
+		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 3431,
-		"inputAbbreviatedPath": "\/images\/acuse_recibo.jpg",
-		"outputAbbreviatedPath": "\/images\/acuse_recibo.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/images\/auto_delantera.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 9576,
-		"inputAbbreviatedPath": "\/images\/auto_delantera.jpg",
-		"outputAbbreviatedPath": "\/images\/auto_delantera.jpg",
+		"initialSize": 9922,
+		"inputAbbreviatedPath": "\/images\/acuse_recibo.png",
+		"outputAbbreviatedPath": "\/images\/acuse_recibo.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -322,42 +331,42 @@
 		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 5351,
+		"initialSize": 6424,
 		"inputAbbreviatedPath": "\/images\/auto_delantera.png",
 		"outputAbbreviatedPath": "\/images\/auto_delantera.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/images\/auto_derecha.jpg": {
-		"fileType": 16384,
+	"\/images\/auto_derecha.png": {
+		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 10191,
-		"inputAbbreviatedPath": "\/images\/auto_derecha.jpg",
-		"outputAbbreviatedPath": "\/images\/auto_derecha.jpg",
+		"initialSize": 10827,
+		"inputAbbreviatedPath": "\/images\/auto_derecha.png",
+		"outputAbbreviatedPath": "\/images\/auto_derecha.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/images\/auto_izquierda.jpg": {
-		"fileType": 16384,
+	"\/images\/auto_izquierda.png": {
+		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 10213,
-		"inputAbbreviatedPath": "\/images\/auto_izquierda.jpg",
-		"outputAbbreviatedPath": "\/images\/auto_izquierda.jpg",
+		"initialSize": 9211,
+		"inputAbbreviatedPath": "\/images\/auto_izquierda.png",
+		"outputAbbreviatedPath": "\/images\/auto_izquierda.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/images\/auto_trasera.jpg": {
-		"fileType": 16384,
+	"\/images\/auto_trasera.png": {
+		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 9282,
-		"inputAbbreviatedPath": "\/images\/auto_trasera.jpg",
-		"outputAbbreviatedPath": "\/images\/auto_trasera.jpg",
+		"initialSize": 6418,
+		"inputAbbreviatedPath": "\/images\/auto_trasera.png",
+		"outputAbbreviatedPath": "\/images\/auto_trasera.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -391,6 +400,17 @@
 		"initialSize": 3926,
 		"inputAbbreviatedPath": "\/images\/Dacia_logo.png",
 		"outputAbbreviatedPath": "\/images\/Dacia_logo.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/images\/equipamiento_vehicular.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 16384,
+		"inputAbbreviatedPath": "\/images\/equipamiento_vehicular.png",
+		"outputAbbreviatedPath": "\/images\/equipamiento_vehicular.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -582,13 +602,35 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/images\/placa.jpg": {
-		"fileType": 16384,
+	"\/images\/pago.png": {
+		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 14749,
-		"inputAbbreviatedPath": "\/images\/placa.jpg",
-		"outputAbbreviatedPath": "\/images\/placa.jpg",
+		"initialSize": 9343,
+		"inputAbbreviatedPath": "\/images\/pago.png",
+		"outputAbbreviatedPath": "\/images\/pago.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/images\/permiso_especial.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 14080,
+		"inputAbbreviatedPath": "\/images\/permiso_especial.png",
+		"outputAbbreviatedPath": "\/images\/permiso_especial.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/images\/placa.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 12159,
+		"inputAbbreviatedPath": "\/images\/placa.png",
+		"outputAbbreviatedPath": "\/images\/placa.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -670,13 +712,35 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/images\/tarjeta.jpg": {
-		"fileType": 16384,
+	"\/images\/seguro.png": {
+		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 9078,
-		"inputAbbreviatedPath": "\/images\/tarjeta.jpg",
-		"outputAbbreviatedPath": "\/images\/tarjeta.jpg",
+		"initialSize": 3759,
+		"inputAbbreviatedPath": "\/images\/seguro.png",
+		"outputAbbreviatedPath": "\/images\/seguro.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/images\/tarjeta_circulacion.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 15068,
+		"inputAbbreviatedPath": "\/images\/tarjeta_circulacion.png",
+		"outputAbbreviatedPath": "\/images\/tarjeta_circulacion.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/images\/verificacion.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 9155,
+		"inputAbbreviatedPath": "\/images\/verificacion.png",
+		"outputAbbreviatedPath": "\/images\/verificacion.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -734,23 +798,23 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/js\/datetime-picker.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/datetime-picker.js",
+		"outputAbbreviatedPath": "\/js\/min\/datetime-picker-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/js\/jquery-2.2.0.min.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/jquery-2.2.0.min.js",
 		"outputAbbreviatedPath": "\/js\/min\/jquery-2.2.0.min-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/js\/mobiscroll.custom-2.17.1.min.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/mobiscroll.custom-2.17.1.min.js",
-		"outputAbbreviatedPath": "\/js\/min\/mobiscroll.custom-2.17.1.min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
