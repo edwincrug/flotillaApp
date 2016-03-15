@@ -8,7 +8,7 @@
 var documentoUrl = global_settings.urlCORS + '/api/documentoApi/';
 var unidadUrl = global_settings.urlCORS + '/api/unidadApi/';
 
-registrationModule.factory('historialSincronizacionRepository', function($cordovaSQLite,DBA,$http,$cordovaFileTransfer,networkRepository,$rootScope){
+registrationModule.factory('historialSincronizacionRepository', function($cordovaSQLite, $cordovaFile,DBA,$http,$cordovaFileTransfer,networkRepository,$rootScope){
  var self = this;
 
  self.getHistorialSincronizacion = function(){
@@ -95,7 +95,9 @@ self.updateUnidad = function(vin,idDocumento,valor,idUsuario){
             mimeType: "image/jpg",
             params : {'directory':'upload', 'fileName':filename}
         };
-             
+        
+        alert(imgUrl);
+
         $cordovaFileTransfer.upload(url, imgUrl, options).then(function (result) {
             console.log("SUCCESS: " + JSON.stringify(result.response));
         }, function (err) {
@@ -109,17 +111,20 @@ self.updateUnidad = function(vin,idDocumento,valor,idUsuario){
   self.deleteImageURL = function(imgURL){
     var url = imgURL.substring(imgURL.length, imgURL.length -4);
     if(url == '.jpg'){
-      window.resolveLocalFileSystemURL(imgURL, function (fileEntry) {
+      imgURL = imgURL.split('/').pop();
+      alert(cordova.file.externalCacheDirectory+imgURL);
+      $cordovaFile.removeFile(cordova.file.externalCacheDirectory, imgURL);
+      /*window.resolveLocalFileSystemURL(imgURL, function (fileEntry) {
           fileEntry.remove();
       }, function (error) {
           alert("Error al eliminar el archivo.");
-      });
+      });*/
     }    
   }
 
   self.deleteImage = function(arrayImg){
     for (var i = 0; i < arrayImg.length; i++) {
-      deleteImageURL(arrayImg[i]);
+      self.deleteImageURL(arrayImg[i]);
     }
   }
   return self;

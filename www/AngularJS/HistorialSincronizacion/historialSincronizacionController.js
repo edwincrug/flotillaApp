@@ -9,10 +9,14 @@ registrationModule.controller('historialSincronizacionController', function($sco
 	var numDoc = 0;
     //Grupo de funciones de inicio
     $scope.init = function () {
-       historialSincronizacionRepository.getHistorialSincronizacion().then(function(result){
+      loadHistorialSincronizacion();
+    };
+
+    var loadHistorialSincronizacion = function(){
+    	historialSincronizacionRepository.getHistorialSincronizacion().then(function(result){
        		$scope.historialSincronizacion = result;
        })
-    };
+    }
 
     $scope.sincronizar = function(){
 	    var arrayImg = [];
@@ -28,29 +32,36 @@ registrationModule.controller('historialSincronizacionController', function($sco
 		                  		numDoc += countDocument[0].totalUnidad;	                  		
 		                  		historialSincronizacionRepository.obtenerDatos(unidad.vin).then(function(documento){
 		                  			angular.forEach(documento, function(document, key2){
+		                  				alert(document.valor);
 		                  				arrayImg.push(document.valor);
 		                  				//inserta en la BD Unidad Propiedad Servidor
 			                            historialSincronizacionRepository.updateUnidad(document.vin,document.idDocumento,document.valor,$rootScope.data.idUsuario).then(function(updUnidad){
 		                            	//Se cargan las imagenes en servidor
 		                            	historialSincronizacionRepository.testFileUpload(document.vin,document.valor,document.idDocumento);
+		                            	
 		                            	//Se borran datos de BD Local
 		                            	historialSincronizacionRepository.deleteUPLocal(document.vin);
+		                        
 		                            	//actualiza el estatus a sincronizado BD local
 		                            	historialSincronizacionRepository.updateEstatus(document.vin);
 		                            	//actualiza el estatus a sincronizado BD servidor
 		       	                    	historialSincronizacionRepository.updateEstatusServer(document.vin,licitacion[0].idLicitacion);
 			                            //Se borran las imagenes del telefono
-			                            deleteImage(arrayImg);				                                                      		                       
+
+			                            				                                                      		                       
 			                            });
 			                  		});
 
 		                  			if(key == unidadVin.length-1){
 		                            	historialSincronizacionRepository.insertHistorial(date,numDoc).then(function(success){
 								       		historialSincronizacionRepository.getHistorialSincronizacion().then(function(result){
-										    	$scope.historialSincronizacion = result;
-										    	location.href = '#/tab/sincronizacion';
+								       			//Se borran las imagenes del telefono
+                                    			//deleteImage(arrayImg);   
+								       			deleteImage(arrayImg);
+										    	$scope.historialSincronizacion = result;					
+										    	loadHistorialSincronizacion();
 										    });
-							            });
+							            });							            
 			                        } 
 		                  		});	
 	                  		}
