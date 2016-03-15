@@ -126,7 +126,6 @@
     <button ng-show="mostrar" class="button button-block button-balanced icon ion-checkmark-circled" ng-click="seleccionar()">
         Seleccionar
     </button>
-    <button ng-click="scanBarcode()">scanBarcode</button>
     </div>
     </div>
     </ion-content>
@@ -151,7 +150,6 @@
     <div ng-if="document.tipo == 'img'">
         <img class="carSize" ng-model="document.valor" ng-src="{{document.valor}}" ng-click="altaDocumento(document.idDocumento, document.valor,document.tipo)">
         <p>{{document.tituloDoc}} {{document.estatus}}</p>
-        <button ng-click="testFileUpload(document.valor, document.idDocumento)">uploadImg</button>
     </div>
     <div ng-if="document.tipo == 'txt'">
         <p>{{document.tituloDoc}} {{document.estatus}}</p>
@@ -244,11 +242,11 @@
                         </label>
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Contraseña</span>
-                            <input type="password" placeholder="Conraseña" ng-model="pass">
+                            <input type="password" placeholder="Contraseña" ng-model="pass">
                         </label>
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Confirmar Contraseña</span>
-                            <input type="password" placeholder="Conraseña" ng-model="confirmPass">
+                            <input type="password" placeholder="Contraseña" ng-model="confirmPass">
                         </label>
                     </div>
                     <button class="button button-block button-positive" ng-click="registro(name, user, pass, confirmPass)">

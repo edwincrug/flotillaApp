@@ -12,7 +12,7 @@ $scope.init = function () {
 }
 
 $scope.getLocalRolDocuments = function () {
-    alert($rootScope.expVin +" "+$rootScope.expFactura);
+    //alert($rootScope.expVin +" "+$rootScope.expFactura);
     expedienteRepository.getLocalRolDocuments($rootScope.expVin, $rootScope.data.idRol).then(function (response) {
         $scope.localDocuments = response;
 
@@ -157,11 +157,10 @@ $cordovaDatePicker.show(options).then(function (date) {
 };
 
 $scope.testFileUpload = function (imgUrl,idDocumento) {
-    alert(imgUrl);
 // Destination URL
 var url = "http://192.168.20.9/myPhp/hola.php";
 
-var filename = $rootScope.expVin+'-'+idDocumento+'.jpg';//imgUrl.split("/").pop();
+var filename = $rootScope.expVin+'-'+idDocumento+'.jpg';//imgUrls.split("/").pop();
 var options = {
     fileKey: "file",
 fileName: filename,//filename,

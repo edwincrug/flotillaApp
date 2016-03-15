@@ -52,11 +52,10 @@ registrationModule.controller('historialSincronizacionController', function($sco
 			                            });
 			                  		});
 
-		                  			if(key == unidadVin.length-1){
+		                  			if(key == unidadVin.length-1){	
 		                            	historialSincronizacionRepository.insertHistorial(date,numDoc).then(function(success){
 								       		historialSincronizacionRepository.getHistorialSincronizacion().then(function(result){
-								       			//Se borran las imagenes del telefono
-                                    			//deleteImage(arrayImg);   
+								       			//Se borran las imagenes del telefono 
 								       			deleteImage(arrayImg);
 										    	$scope.historialSincronizacion = result;					
 										    	loadHistorialSincronizacion();

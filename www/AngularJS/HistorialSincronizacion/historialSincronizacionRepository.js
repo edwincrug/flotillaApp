@@ -96,7 +96,7 @@ self.updateUnidad = function(vin,idDocumento,valor,idUsuario){
             params : {'directory':'upload', 'fileName':filename}
         };
         
-        alert(imgUrl);
+        //alert(imgUrl);
 
         $cordovaFileTransfer.upload(url, imgUrl, options).then(function (result) {
             console.log("SUCCESS: " + JSON.stringify(result.response));
