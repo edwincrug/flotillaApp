@@ -19,7 +19,11 @@ registrationModule.controller('consultaController', function ($scope, consultaRe
     $scope.Detalle = function (expediente) { 
         $rootScope.expVin = expediente.vin;
         $rootScope.expFactura = expediente.factura;
-        location.href = '#/tab/expediente';
+        if(expediente.estatus == 'Sincronizado'){
+            alert("Unidad sincronizada");
+        } else{
+            location.href = '#/tab/expediente';
+        }       
     };
 
 });

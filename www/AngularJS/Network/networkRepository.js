@@ -24,6 +24,8 @@ registrationModule.factory('networkRepository', function($rootScope) {
           if(states[networkState] === states[Connection.WIFI] ){
             //alert('Connection type: ' + states[networkState]);
             $rootScope.network = true;
+          } else{
+            $rootScope.network = false;
           }
     }
  };
