@@ -1,3 +1,11 @@
+// -- =====================================================================
+// -- Author:      Uriel Godínez Martínez
+// -- Create date: 01/03/2016
+// -- Description: Repositorio con la funcionalidad para editar el perfil
+// -- Modificó: 
+// -- Fecha: 
+// -- =====================================================================
+
 registrationModule.factory('perfilRepository', function ($rootScope, $cordovaSQLite, DBA) {
     var self = this;
     var tablaRoles = [];

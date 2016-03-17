@@ -1,3 +1,11 @@
+// -- =====================================================================
+// -- Author:      Uriel Godínez Martínez
+// -- Create date: 01/03/2016
+// -- Description: Controlador que devuelve todos los expedientes asignados al usuario
+// -- Modificó: 
+// -- Fecha: 
+// -- =====================================================================
+
 registrationModule.controller('consultaController', function ($scope, consultaRepository, $rootScope) {
 
     $scope.init = function () {

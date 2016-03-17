@@ -1,3 +1,11 @@
+// -- =====================================================================
+// -- Author:      Uriel Godínez Martínez
+// -- Create date: 01/03/2016
+// -- Description: Controlador con la funcionalidad para editar el perfil
+// -- Modificó: 
+// -- Fecha: 
+// -- =====================================================================
+
 registrationModule.controller("perfilController", function ($scope, $rootScope, perfilRepository, $ionicHistory) {
 
     $scope.Inicializar = function () {

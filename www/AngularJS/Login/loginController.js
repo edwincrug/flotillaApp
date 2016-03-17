@@ -1,3 +1,11 @@
+// -- =====================================================================
+// -- Author:      Uriel Godínez Martínez
+// -- Create date: 01/03/2016
+// -- Description: Controlador con la funcionalidad para autenticarse a la App
+// -- Modificó: 
+// -- Fecha: 
+// -- =====================================================================
+
 registrationModule.controller("loginController", function ($scope, $rootScope, $state, loginRepository, $cordovaSQLite, perfilRepository, busquedaRepository, DBA,$ionicLoading) {
     $rootScope.data = [];
     $scope.licitacion = [];

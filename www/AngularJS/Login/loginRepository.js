@@ -1,3 +1,11 @@
+// -- =====================================================================
+// -- Author:      Uriel Godínez Martínez
+// -- Create date: 01/03/2016
+// -- Description: Repositorio con la funcionalidad para autenticarse a la App
+// -- Modificó: 
+// -- Fecha: 
+// -- =====================================================================
+
 var loginUrl = global_settings.urlCORS + '/api/usuarioapi/';
 var searchUrl = global_settings.urlCORS + '/api/flotillaApi/';
 
