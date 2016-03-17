@@ -56,6 +56,7 @@ registrationModule.controller('historialSincronizacionController', function($sco
 										    	loadHistorialSincronizacion();
 										    });
 							            });							            
+			        
 			                        } 
 		                  		});	
 	                  		}
@@ -63,6 +64,8 @@ registrationModule.controller('historialSincronizacionController', function($sco
 	                  	});
 	                });
 	          });       
+	        }else{
+	        	alert('No hay unidad para sincronizar');
 	        }
 	      });
 		}

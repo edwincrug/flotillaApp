@@ -27,7 +27,6 @@ registrationModule.controller('backgroundController', function($scope, $cordovaS
                                 numDoc += countDocument[0].totalUnidad;                       
                                 historialSincronizacionRepository.obtenerDatos(unidad.vin).then(function(documento){
                                   angular.forEach(documento, function(document, key2){
-                                    alert(document.valor);
                                     arrayImg.push(document.valor);
                                         //inserta en la BD Unidad Propiedad Servidor
                                         historialSincronizacionRepository.updateUnidad(document.vin,document.idDocumento,document.valor,$rootScope.data.idUsuario).then(function(updUnidad){
