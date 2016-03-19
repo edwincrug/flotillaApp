@@ -12,6 +12,7 @@
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/login.css" />
     <link rel="stylesheet" type="text/css" href="css/modal.css" />
+    <link rel="stylesheet" type="text/css" href="css/unidadList.css">
 
     <!-- Incluir scripts del template de Angular y JQuery -->
     <!-- jQuery Include | MAKE SURE TO INCLUDE BEFORE ANGULAR -->
@@ -132,42 +133,45 @@
     </ion-view>
     </script>
 
-     <!-- Template Expediente.html -->
-         <script id="templates/Expediente.html" type="text/ng-template">
-            <ion-view title="Expediente" ng-init="init()">
+    <!-- Template Expediente.html -->
+    <script id="templates/Expediente.html" type="text/ng-template">
+        <ion-view title="Expediente" ng-init="init()">
             <ion-content>
-            <ion-list>
-            <ion-item>
-            VIN: {{expVin}}
-        </ion-item>
-
-        <ion-item>
-        Factura: {{expFactura}}
-    </ion-item>
-    </ion-list>
-    <ion-list>
-    <ion-item ng-repeat="document in localDocuments">
-    <div ng-if="document.tipo == 'img'">
-        <img class="carSize" ng-model="document.valor" ng-src="{{document.valor}}" ng-click="altaDocumento(document.idDocumento, document.valor,document.tipo)">
-        <p>{{document.tituloDoc}} {{document.estatus}}</p>
-    </div>
-    <div ng-if="document.tipo == 'txt'">
-        <p>{{document.tituloDoc}} {{document.estatus}}</p>
-        <input type="text" ng-model="document.valor" ng-blur="altaDocumento(document.idDocumento, document.valor,document.tipo)" placeholder="__________________________">
-    </div>
-    <div ng-if="document.tipo == 'dat'">
-        <div class="row">
-            <div class="item-text-wrap item">
-                <div class="item-icon-left">
-                    <i class="icon ion-calendar"></i>
-                    <input type="text" class="dateClass" ng-model="document.valor | date : 'dd/MM/yyyy'" placeholder="dd/mm/yyyy" ng-click="showDatePicker()" />
-                </div>
-            </div>
-        </div>
-    </div>
-    </ion-item>
-    </ion-list </ion-content>
-    </ion-view>
+                <ion-list>
+                    <ion-item>
+                        VIN: {{expVin}}
+                    </ion-item>
+                    <ion-item>
+                        Factura: {{expFactura}}
+                    </ion-item>
+                </ion-list>
+                <ion-list>
+                    <ion-item ng-repeat="document in localDocuments">
+                        <div ng-if="document.tipo == 'img'">
+                            <img class="alignImg" ng-model="document.valor" ng-src="{{document.valor}}" ng-click="altaDocumento(document.idDocumento, document.valor,document.tipo)">
+                            <div class="alignText">
+                                <p>{{document.tituloDoc}} </p>
+                                <p>{{document.estatus}}</p>
+                            </div>                            
+                        </div>
+                        <div ng-if="document.tipo == 'txt'">
+                            <p>{{document.tituloDoc}} {{document.estatus}}</p>
+                            <input type="text" ng-model="document.valor" ng-blur="altaDocumento(document.idDocumento, document.valor,document.tipo)" placeholder="__________________________">
+                        </div>
+                        <div ng-if="document.tipo == 'dat'">
+                            <div class="row">
+                                <div class="item-text-wrap item">
+                                    <div class="item-icon-left">
+                                        <i class="icon ion-calendar"></i>
+                                        <input type="text" class="dateClass" ng-model="document.valor | date : 'dd/MM/yyyy'" placeholder="dd/mm/yyyy" ng-click="showDatePicker()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-item>
+                </ion-list> 
+            </ion-content>
+        </ion-view>
     </script>
 
     <!-- Template Consulta Expediente.html -->
